@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 101 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-41,-47)">
+        <g transform="matrix(1,0,0,1,0,9.23338)">
+            <g id="clockIcon" transform="matrix(1.00513,0,0,1.00513,-285.793,-2408.78)">
+                <path d="M374.971,2434.89C402.426,2434.89 424.716,2457.18 424.716,2484.63C424.716,2512.09 402.426,2534.38 374.971,2534.38C347.516,2534.38 325.226,2512.09 325.226,2484.63C325.226,2457.18 347.516,2434.89 374.971,2434.89ZM370.244,2485.03C370.225,2486.19 370.659,2487.36 371.545,2488.25L392.9,2509.6C394.636,2511.34 397.45,2511.34 399.185,2509.6L399.186,2509.6C400.922,2507.87 400.922,2505.05 399.186,2503.32L378.898,2483.03L378.898,2454.6C378.898,2452.21 376.961,2450.27 374.572,2450.27L374.569,2450.27C372.18,2450.27 370.243,2452.21 370.243,2454.6L370.244,2485.03Z"/>
+            </g>
+        </g>
+    </g>
+</svg>

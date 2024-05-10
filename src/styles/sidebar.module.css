@@ -1,0 +1,29 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 280px;
+    height: 100vh;
+    padding: 50px 20px 30px 20px;
+    background-color: var(--surface);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebarMenuItem {
+    display: flex;
+    align-items: center;
+    gap: 12.5px;
+    padding: 15px 15px;
+    border-radius: 15px;
+    margin: 5px 0px;
+    cursor: pointer;
+    color: var(--secondary-text);
+    transition: var(--normal-transition);
+}
+
+.sidebarMenuItem:hover {
+    background-color: var(--surface-light);
+    color: var(--primary-text);
+}
