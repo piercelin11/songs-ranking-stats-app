@@ -1,10 +1,10 @@
 import styles from "@/styles/icon.module.css"
 
-export function HomeIcon(props) {
+export function HomeIcon({ width }) {
     return (
         <svg 
             className={styles.sidebarIcon} 
-            width={props.width || "auto"} 
+            width={width} 
             viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg"
         >
             <path d="M8.99 43.152H3.73c-1.55 0-2.927-.966-3.43-2.406a3.525 3.525 0 011.204-3.967L47.877 1.365a3.678 3.678 0 014.45 0L98.702 36.78a3.525 3.525 0 011.204 3.967c-.502 1.44-1.88 2.406-3.43 2.406h-5.262l-6.44 46.537c-.246 1.765-1.78 3.08-3.595 3.08H19.025c-1.814 0-3.348-1.315-3.594-3.08l-6.44-46.537zM67.341 79.92a3.27 3.27 0 00-3.272-3.273H36.136a3.27 3.27 0 00-3.273 3.273v.006c0 .868.347 1.7.959 2.314a3.28 3.28 0 002.314.959H64.07a3.27 3.27 0 003.273-3.273v-.006z"/>
@@ -12,11 +12,11 @@ export function HomeIcon(props) {
     );
 }
 
-export function ClockIcon(props) {
+export function ClockIcon({ width }) {
     return (
         <svg 
             className={styles.sidebarIcon} 
-            width={props.width || "auto"} 
+            width={width} 
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
         >
@@ -25,11 +25,11 @@ export function ClockIcon(props) {
     );
 }
 
-export function StairIcon(props) {
+export function StairIcon({ width }) {
     return (
         <svg 
             className={styles.sidebarIcon} 
-            width={props.width || "auto"} 
+            width={width} 
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
         >
@@ -38,11 +38,11 @@ export function StairIcon(props) {
     );
 }
 
-export function VinylIcon(props) {
+export function VinylIcon({ width }) {
     return (
         <svg 
             className={styles.sidebarIcon} 
-            width={props.width || "auto"} 
+            width={width} 
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
         >
@@ -51,11 +51,11 @@ export function VinylIcon(props) {
     );
 }
 
-export function ArchiveIcon(props) {
+export function ArchiveIcon({ width }) {
     return (
         <svg 
             className={styles.sidebarIcon} 
-            width={props.width || "auto"} 
+            width={width} 
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
         >
@@ -64,12 +64,12 @@ export function ArchiveIcon(props) {
     );
 }
 
-export function SidebarMenuIcon(props) {
-    if(props.variant === "HomeIcon") return HomeIcon(props);
-    if(props.variant === "ClockIcon") return ClockIcon(props);
-    if(props.variant === "StairIcon") return StairIcon(props);
-    if(props.variant === "VinylIcon") return VinylIcon(props);
-    if(props.variant === "ArchiveIcon") return ArchiveIcon(props);
+export function SidebarMenuIcon({ variant, width }) {
+    if(variant === "HomeIcon") return HomeIcon({width});
+    if(variant === "ClockIcon") return ClockIcon({width});
+    if(variant === "StairIcon") return StairIcon({width});
+    if(variant === "VinylIcon") return VinylIcon({width});
+    if(variant === "ArchiveIcon") return ArchiveIcon({width});
 }
 
 
