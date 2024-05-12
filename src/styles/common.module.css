@@ -1,0 +1,37 @@
+.flexContainer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.roundImg {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header {
+    margin-bottom: var(--medium-gap);
+}
+
+/* #region button */
+
+.iconButton {
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-small);
+    width: 40px;
+    height: 40px;
+    transition: var(--normal-transition);
+}
+
+.iconButton:hover {
+    background-color: var(--surface-light-color);
+}
+
+/* #endregion */

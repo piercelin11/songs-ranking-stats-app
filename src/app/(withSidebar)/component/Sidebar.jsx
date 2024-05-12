@@ -1,5 +1,6 @@
 import styles from "@/styles/sidebar.module.css"
-import SidebarMenuItem from "@/components/sidebar/SidebarMenuItem";
+import SidebarMenuItem from "@/app/(withSidebar)/component/SidebarMenuItem";
+import SidebarProfile from "./SidebarProfile";
 
 export const sidebarMenu = [
     {
@@ -18,19 +19,23 @@ export const sidebarMenu = [
         title: "Discography",
         icon: "ArchiveIcon"
     },
-]
+] 
 
 export default function Sidebar() {
     return (
         <aside className={styles.sidebar}>
 
             <div>
+                <SidebarProfile />
+                
                 {
-                    sidebarMenu.map( (item, index) =>  
-                        <SidebarMenuItem key={index} title={item.title} icon={item.icon}/>
+                    sidebarMenu.map( item =>  
+                        <SidebarMenuItem key={item.title} title={item.title} icon={item.icon}/>
                     )
                 }
             </div>
+
+            <SidebarMenuItem title="Log Out" icon="LogoutIcon" />
 
         </aside>
     );

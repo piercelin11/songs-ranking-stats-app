@@ -1,3 +1,19 @@
-.sidebarIcon {
-    fill: var(--secondary-text);
+.primaryIcon {
+    fill: var(--primary-text-color)
+}
+
+.grayIcon {
+    fill: var(--secondary-text-color);
+}
+
+.increaseIcon {
+    fill: var(--positive-color);
+}
+
+.decreaseIcon {
+    fill: var(--negative-color);
+}
+
+.neutralIcon {
+    fill: var(--neutral-color);
 }

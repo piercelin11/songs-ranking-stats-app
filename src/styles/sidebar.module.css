@@ -5,7 +5,7 @@
     width: 280px;
     height: 100vh;
     padding: 50px 20px 30px 20px;
-    background-color: var(--surface);
+    background-color: var(--surface-color);
     position: fixed;
     top: 0;
     left: 0;
@@ -19,11 +19,28 @@
     border-radius: 15px;
     margin: 5px 0px;
     cursor: pointer;
-    color: var(--secondary-text);
+    color: var(--secondary-text-color);
     transition: var(--normal-transition);
 }
 
 .sidebarMenuItem:hover {
-    background-color: var(--surface-light);
+    background-color: var(--surface-light-color);
     color: var(--primary-text);
+}
+
+.profileContainer {
+    display: flex;
+    align-items: center;
+    gap: var(--mini-gap);
+    margin-bottom: var(--medium-gap);
+}
+
+.mainText {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.description {
+    color: var(--secondary-text-color);
+    font-size: var(--small-text);
 }

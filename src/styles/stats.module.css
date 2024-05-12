@@ -1,0 +1,104 @@
+.chartBox {
+    padding: var(--mini-gap);
+    border-radius: var(--border-radius);
+    background-color: var(--surface-color);
+}
+
+.chartBox h2 {
+    text-transform: uppercase;
+    font-size: var(--medium-text);
+    font-weight: 400;
+    letter-spacing: 2.5px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--small-gap) var(--mini-gap);
+}
+
+.divider {
+    margin: 0px;
+}
+
+.increase {
+    color: var(--positive-color);
+}
+
+.decrease {
+    color: var(--negative-color)
+}
+
+.mainText {
+    font-weight: 600;
+}
+
+.subText {
+    font-weight: 300;
+}
+
+.description {
+    font-size: var(--small-text);
+}
+
+
+/* #region ranking-related */
+
+.rankingContainer {
+    padding: var(--mini-gap);
+    border-radius: var(--border-radius);
+    background-color: var(--surface-dark-color);
+}
+
+.rankingRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+}
+
+.rankingRow * {
+    align-items: center;
+    gap: 5px;
+}
+
+.rankingRow > div{ 
+    display: flex;
+    gap: 5px;
+}
+
+.rankingRow > div:last-child div{
+    display: flex;
+    justify-content: flex-end;
+    min-width: 130px;
+}
+
+.rankingRow img{
+    margin-right: 10px;
+}
+
+.rankingNumber {
+    min-width: 40px;
+    font-size: var(--medium-text);
+    font-weight: 600;
+}
+
+.rankingChange {
+    display: flex;
+    min-width: 50px;
+    gap: 3px;
+}
+
+.rankingHeader {
+    padding: var(--small-gap) 0px;
+}
+
+.rankingHeader .description {
+    color: var(--secondary-text-color);
+}
+
+/* #endregion */
+

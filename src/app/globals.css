@@ -1,21 +1,37 @@
 :root {
-  --primary: #FEF27A;
-  --background: #000;
-  --surface: #151515;
-  --surface-light: #1f1f1f;
-  --surface-dark: #0c0c0c;
-  --on-primary: #000;
-  --primary-text: #FFF; 
-  --secondary-text: #6e6e6e;
-  --tertiary-text: #393939;
+  --primary-color: #FEF27A;
+  --background-color: #000;
+  --surface-color: #151515;
+  --surface-light-color: #1f1f1f;
+  --surface-dark-color: #0c0c0c;
+  --on-primary-text-color: #000;
+  --primary-text-color: #FFF; 
+  --secondary-text-color: #6e6e6e;
+  --tertiary-text-color: #393939;
+
+  --positive-color: #559F44;
+  --negative-color: #D04119;
+  --neutral-color: #265990;
 
   --max-width: 1280px;
   --border-radius: 15px;
+  --border-radius-small: 5px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --normal-transition: all 0.3s;
+
+  --mini-gap: 10px;
+  --small-gap: 30px;
+  --medium-gap: 60px;
+  --large-gap: 90px;
+
+  --extra-large-text: 34px;
+  --large-text: 22px;
+  --medium-text: 18px;
+  --normal-text: 16px;
+  --small-text: 14px;
   
 }
 
@@ -26,14 +42,15 @@
 }
 
 body {
-  background-color: var(--background);
-  color: var(--primary-text);
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
   font-family: var(--font-mono);
+  font-size: var(--normal-text);
 }
 
 a {
   text-decoration: none;
-color: unset;
+  color: unset;
 }
 
 body::-webkit-scrollbar {
@@ -41,19 +58,36 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: var(--tertiary-text);
+  background: var(--tertiary-text-color);
   border-radius: 3px;
 }
 
 h1 {
-  font-size: 34px;
+  font-size: var(--extra-large-text);
 }
 
 h2 {
-  font-size: 26px; 
+  font-size: var(--large-text);
 }
 
-h3  {
-  font-size: 20px;   
+h3 {
+  font-size: var(--medium-text);   
 }
+
+hr {
+  border-width: 1px;
+  border-color: #2d2d2d3a;
+  margin: 10px 0px;
+}
+
+/* button {
+  appearance: none;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  margin: 0;
+  padding: var(--mini-gap) var(--small-gap);
+  cursor: pointer;
+  color: var(--primary-text);
+} */
 
