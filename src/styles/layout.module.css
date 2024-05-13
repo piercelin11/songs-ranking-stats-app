@@ -1,5 +1,6 @@
 .mainContent {
-    padding: 50px 60px 50px 340px;  
-    max-width: var(--max-width);
+    padding: 50px 60px 50px 60px;
+    margin-left: var(--sidebar-width);  
+    max-width: var(--max-width); 
 }
 

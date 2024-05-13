@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--small-gap) var(--mini-gap);
+    padding: var(--small-gap);
 }
 
 .divider {

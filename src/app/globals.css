@@ -14,6 +14,7 @@
   --neutral-color: #265990;
 
   --max-width: 1280px;
+  --sidebar-width: 280px;
   --border-radius: 15px;
   --border-radius-small: 5px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",

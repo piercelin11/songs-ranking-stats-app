@@ -4,23 +4,25 @@ import RankingHeader from "./RankingHeader";
 import { ArrowUpRightIcon } from "@/lib/icon";
 import IconButton from "../ui/IconButton";
 
-export default function RankingBox() {
+export default function RankingBox({ data }) {
+  const showedData = data.slice(0, 5);
+  
   return (
     <div className={styles.chartBox}>
         <div className={styles.header}>
             <h2>ALL-TIME SONGS RANKING</h2>
-            <IconButton>
+            <IconButton> 
                 <ArrowUpRightIcon size={15}/>
             </IconButton>
         </div>
         
         <div className={styles.rankingContainer}>
             <RankingHeader />
-            <RankingRow />
-            <RankingRow />
-            <RankingRow />
-            <RankingRow />
-            <RankingRow />
+            {
+              showedData.map( item => 
+                <RankingRow key={item.song_id} data={item} /> 
+              )
+            }
         </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import { RankChangeIcon } from "@/lib/icon"
+import { getCover } from "@/lib/pic";
 import styles from "@/styles/stats.module.css"
 import Image from "next/image"
 
-export default function RankingRow () {
+export default function RankingRow ({ data }) {
+    const {ranking, peak, song_name, albums } = data;
 
     return(  
         <div>
@@ -11,7 +13,7 @@ export default function RankingRow () {
 
                 <div>
                     <p className={styles.rankingNumber}>
-                        01
+                        {ranking}
                     </p>
 
                     <div className={styles.rankingChange}>
@@ -23,21 +25,21 @@ export default function RankingRow () {
                     </div>
 
                     <Image 
-                        src="https://i.pinimg.com/736x/67/0a/3e/670a3e554cb9f1e61d218c8cf35b41d0.jpg"
+                        src={getCover(albums.album_name, song_name)}
                         alt="album cover"
                         width={70}
                         height={70}
                     />
 
                     <div>
-                        <p className={styles.mainText}>this is me trying</p>
-                        <p className={styles.subText}>folklore</p>
+                        <p className={styles.mainText}>{song_name}</p>
+                        <p className={styles.subText}>{albums.album_name}</p>
                     </div>
                 </div>
 
                 <div>
                     <div>
-                        <p className={styles.description}>1</p>
+                        <p className={styles.description}>{peak}</p>
                     </div>
                     <div>
                         <p className={styles.description}>1</p>

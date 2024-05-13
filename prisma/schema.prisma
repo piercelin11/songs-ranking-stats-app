@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model albums {
+  id          Int     @id
+  album_name  String  @unique
+  album_color String? @db.Char(7)
+  songs       songs[]
+}
+
+model songs {
+  id           Int        @id
+  song_name    String
+  album_id     Int
+  track_number Int?
+  rankings     rankings[]
+  albums       albums     @relation(fields: [album_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([album_id, track_number])
+  @@unique([album_id, song_name])
+}
+
+model rankings {
+  id      String @id @default(uuid())
+  date_id String
+  song_id Int
+  ranking Int
+  dates   dates  @relation(fields: [date_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  songs   songs  @relation(fields: [song_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user    users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id String
+}
+
+model dates {
+  id       String      @id(map: "date_pkey") @unique @default(uuid())
+  date     DateTime    @default(now())
+  info     String?
+  user_id  String
+  type     rankingType
+  users    users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rankings rankings[]
+
+  @@index([date])
+}
+
+model users {
+  id       String     @id @default(uuid())
+  username String     @unique @db.VarChar(50)
+  email    String     @unique
+  password String     @db.VarChar(100)
+  dates    dates[]
+  rankings rankings[]
+}
+
+enum rankingType {
+  OVERALL
+  ALBUM
+}

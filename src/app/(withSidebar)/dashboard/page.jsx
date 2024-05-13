@@ -1,8 +1,11 @@
 import PageHeader from "@/components/common/PageHeader";
 import RankingBox from "@/components/common/RankingBox";
-import styles from "@/styles/stats.module.css"
+import { getAvgSongsRanking } from "@/lib/prisma";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const result = await getAvgSongsRanking();
+  console.log(result[4]);
+
   return (
     <div>
       <PageHeader>
@@ -10,7 +13,7 @@ export default function Dashboard() {
       </PageHeader>
 
 
-      <RankingBox />
+      <RankingBox data={result} />
 
     </div>
   );
