@@ -1,6 +1,125 @@
-.mainContent {
-    padding: 50px 60px 50px 60px;
+.main {
     margin-left: var(--sidebar-width);  
     max-width: var(--max-width); 
 }
+
+.content {
+    padding: 50px 60px;
+     
+}
+
+.bannerPageContent {
+    padding: 20px 60px 50px 60px;
+    background-size: 100% 700px;
+    background-position: top;
+    background-repeat: no-repeat;
+
+    background-color: var(--background-color);
+}
+
+/* #region banner */
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: var(--small-gap) var(--medium-gap);
+    height: var(--banner-height);
+} 
+
+.banner > div:first-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.banner h1 {
+    font-size: var(--huge-text);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+
+.coverBanner {
+    display: flex;
+    align-items: center;
+    padding: 0px var(--medium-gap);
+    position: relative;
+    gap: var(--small-gap);
+    height: var(--banner-height);
+    z-index: 1;
+}
+
+.blurBanner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface);
+    height: var(--banner-height);
+    margin-bottom: -330px;
+    width: 100%;
+    overflow-y: hidden;
+    top: 0;  
+}
+
+.blurBanner > div {
+    /* position: fixed; */
+    background-color: var(--surface-color);
+    height: 500%;
+    min-width: 100vw;
+    background-size: 150%;
+    /* background-attachment: fixed; */
+    background-position: center center;
+    /* background-repeat: no-repeat; */
+    filter: blur(15px);
+    opacity: 0.8;
+
+    z-index: -1;
+}
+
+.bannerAlbumCover {
+    min-width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.coverBannerInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.coverBannerInfo > p {
+    color: var(--primary-text-hover-color);
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.coverBannerInfo h1 {
+    font-size: 48px;
+    line-height: 48px;
+    font-weight: 700;
+    margin-bottom: 12.5px;
+}
+
+.projectInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dot {
+    padding-bottom: 8px;
+}
+
+.coverBannerInfo .subText {
+    font-size: var(--medium-text);
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+/* #endregion */
+
 

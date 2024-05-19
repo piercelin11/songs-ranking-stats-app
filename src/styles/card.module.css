@@ -1,0 +1,142 @@
+/* #region card */
+
+.card {
+    background-size: 400px;
+    background-repeat: no-repeat;
+    background-position: center -150px;
+    background-color: var(--surface-color);
+    border-radius: 15px;
+    min-width: 35%;
+}
+
+.cardButton {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+    font-size: 16px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 60px;
+    transition: all 0.3s;
+}
+
+.cardCover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px;
+    padding: 20px;
+}
+
+.cardCover > div:first-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cardCover > div:first-child > p {
+    background-color: var(--primary-color);
+    color: var(--on-primary-text-color);
+    font-size: var(--small-text);
+    padding: 5px 20px;
+    border-radius: 100px;
+}
+
+.cardCover .mainText {
+    font-size: var(--medium-text);
+    font-weight: 600;
+}
+
+.cardCover .subText {
+    font-weight: 300;
+}
+
+.cardRanking {
+    padding: 20px 20px 0px 20px;
+    background-color: var(--surface-color);
+}
+
+.cardRankingRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardRankingNumber {
+    margin-right: 5px;
+}
+
+.cardRankingRow > img {
+    height: 60px;
+}
+
+.cardRankingRow .mainText {
+    font-size: var(--small-text);
+    font-weight: 600;
+}
+
+.cardRankingRow .subText {
+    font-size: var(--small-text);
+    font-weight: 300;
+}
+
+.showAll {
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+    margin-top: -11px;
+    border-radius: 0 0 15px 15px;
+    
+    transition: all 0.3s;
+}
+
+.showAll p{
+    transition: all 0.3s;
+}
+
+.showAll:hover {
+    background-color: var(--surface-light-color);
+}
+
+.showAll:hover p{
+    color: var(--primary-text-color);
+}
+
+/* #endregion */
+
+
+
+/* #region carousel */
+
+.carouselTopContainer {
+    max-width: 100%;
+}
+
+.carouselContainer {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+.carouselChange {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    transition: all 0.5s ease-in-out;
+}
+
+.carouselChange > div {
+    width: 35%;
+}
+
+.carouselNavContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.carouselNav {
+    display: flex;
+    gap: 5px;
+}
+
+/* #endregion  */

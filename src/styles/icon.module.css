@@ -6,6 +6,10 @@
     fill: var(--secondary-text-color);
 }
 
+.darkGrayIcon {
+    fill: var(--surface-light-color);
+}
+
 .increaseIcon {
     fill: var(--positive-color);
 }
@@ -16,4 +20,13 @@
 
 .neutralIcon {
     fill: var(--neutral-color);
+}
+
+.hoverableGrayIcon {
+    fill: var(--secondary-text-color);
+    transition: var(--normal-transition);
+}
+
+.hoverableGrayIcon:hover {
+    fill: var(--primary-text-color);
 }

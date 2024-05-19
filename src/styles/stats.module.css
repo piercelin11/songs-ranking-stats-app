@@ -1,9 +1,12 @@
 .chartBox {
+    display: flex;
+    flex-direction: column;
     padding: var(--mini-gap);
     border-radius: var(--border-radius);
     background-color: var(--surface-color);
+    height: 100%;
 }
-
+ 
 .chartBox h2 {
     text-transform: uppercase;
     font-size: var(--medium-text);
@@ -15,7 +18,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--small-gap);
+    padding: 20px;
+}
+
+.chartBox .header {
+    padding: 30px;
 }
 
 .divider {
@@ -42,42 +49,151 @@
     font-size: var(--small-text);
 }
 
+/* #region infobox */
 
-/* #region ranking-related */
+.infoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    background-size: 100%;
+    background-position: center center;
+    transition: var(--slow-transition)
+}
+
+.infoBox:hover {
+    background-size: 108%;
+}
+
+.infoBoxFirstChild {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.infoBoxIconContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.infoBoxIconContainer p {
+    font-size: var(--extra-large-text);
+    font-weight: 700;
+}
+
+.infoBox .mainText {
+    font-size: var(--large-text);
+}
+
+.infoBoxSmallContainer {
+    display: flex;
+    gap: var(--small-gap);
+    width: 100%;
+    height: 220px;
+    margin-bottom: var(--small-gap);
+}
+
+.infoBoxSmallContainer > div {
+    flex: 1;
+}
+
+.infoBoxBigContainer {
+    display: flex;
+    gap: var(--small-gap);
+    width: 100%;
+    height: 300px;
+    margin-bottom: var(--small-gap);
+}
+
+.infoBoxBigContainer > div {
+    flex: 1;
+}
+
+.infoBoxColContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
+} 
+
+.infoBoxColContainer > div {
+    flex: 1;
+}
+
+/* #endregion */
+
+
+
+/* #region ranking */
 
 .rankingContainer {
     padding: var(--mini-gap);
     border-radius: var(--border-radius);
     background-color: var(--surface-dark-color);
+    min-height: 580px;
 }
 
-.rankingRow {
+.row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    padding: 10px 20px;
+    padding: 10px 30px 10px 20px;
+    z-index: 1;
 }
 
-.rankingRow * {
+.row * {
     align-items: center;
     gap: 5px;
 }
 
-.rankingRow > div{ 
+.row > div{ 
     display: flex;
     gap: 5px;
 }
 
-.rankingRow > div:last-child div{
+.row > div:last-child div{
     display: flex;
     justify-content: flex-end;
     min-width: 130px;
 }
 
-.rankingRow img{
+.row img{
     margin-right: 10px;
+}
+
+/* .rankingRow .row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-image: linear-gradient( to bottom ,var(--surface-light-color) -10%, rgba(255, 255, 255, 0) 80%); 
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.rankingRow .row:hover::before {
+    height: 100%;
+} */
+
+.rankingRow .row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: var(--fast-transition)
+}
+
+.rankingRow .row:hover::before {
+    background-color: var(--translucent-gray-color); 
 }
 
 .rankingNumber {
@@ -97,6 +213,50 @@
 }
 
 .rankingHeader .description {
+    color: var(--primary-text-color);
+    font-weight: 200;
+}
+
+.rankingHeader .rankingTitle {
+    margin-left: -20px;
+}
+
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--small-gap) 0px;
+}
+
+/* #endregion */
+
+
+
+/* #region infobox */
+
+.statsBoxContainer {
+    display: flex;
+    gap: var(--small-gap);
+    width: 100%;
+}
+
+.statsBoxContainer > div {
+    flex: 1;
+}
+
+.statsBox {
+    background-color: var(--surface-color);
+    padding: var(--small-gap);
+    border-radius: var(--border-radius);
+}
+
+.statsBox .mainText {
+    font-size: var(--extra-large-text);
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.statsBox .subText {
     color: var(--secondary-text-color);
 }
 

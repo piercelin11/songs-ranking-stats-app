@@ -7,11 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model artists {
+  id          Int      @id
+  artist_name String   @unique
+  albums      albums[]
+  songs       songs[]
+}
+
 model albums {
   id          Int     @id
   album_name  String  @unique
   album_color String? @db.Char(7)
+  artist_id   Int
   songs       songs[]
+  artist      artists @relation(fields: [artist_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([album_name, artist_id])
 }
 
 model songs {
@@ -21,6 +32,8 @@ model songs {
   track_number Int?
   rankings     rankings[]
   albums       albums     @relation(fields: [album_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  artist       artists    @relation(fields: [artist_id], references: [id])
+  artist_id    Int
 
   @@unique([album_id, track_number])
   @@unique([album_id, song_name])
@@ -28,7 +41,7 @@ model songs {
 
 model rankings {
   id      String @id @default(uuid())
-  date_id String
+  date_id Int
   song_id Int
   ranking Int
   dates   dates  @relation(fields: [date_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -38,7 +51,7 @@ model rankings {
 }
 
 model dates {
-  id       String      @id(map: "date_pkey") @unique @default(uuid())
+  id       Int         @id(map: "date_pkey") @unique @default(autoincrement())
   date     DateTime    @default(now())
   info     String?
   user_id  String

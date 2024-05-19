@@ -6,9 +6,9 @@ export default function SidebarLayout({ children }) {
       <main>
         <Sidebar />
 
-        <section className={styles.mainContent}>
+        <section className={styles.main}>
           { children }
-        </section>
+        </section> 
         
       </main>
     );

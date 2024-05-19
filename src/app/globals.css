@@ -1,13 +1,17 @@
 :root {
   --primary-color: #FEF27A;
   --background-color: #000;
-  --surface-color: #151515;
-  --surface-light-color: #1f1f1f;
-  --surface-dark-color: #0c0c0c;
+  --surface-color: #131313;
+  --surface-light-color: #212121;
+  --surface-dark-color: #0f0f0f;
   --on-primary-text-color: #000;
-  --primary-text-color: #FFF; 
+  --primary-text-color: #FFF;
+  --primary-text-hover-color: #dadada; 
   --secondary-text-color: #6e6e6e;
   --tertiary-text-color: #393939;
+
+  --translucent-black-color: #00000044;
+  --translucent-gray-color: #47474733;
 
   --positive-color: #559F44;
   --negative-color: #D04119;
@@ -15,24 +19,28 @@
 
   --max-width: 1280px;
   --sidebar-width: 280px;
+  --banner-height: 330px;
   --border-radius: 15px;
   --border-radius-small: 5px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
+  --fast-transition: all 0.2s;
   --normal-transition: all 0.3s;
+  --slow-transition: all 0.5s;
 
   --mini-gap: 10px;
   --small-gap: 30px;
   --medium-gap: 60px;
   --large-gap: 90px;
 
-  --extra-large-text: 34px;
+  --huge-text: 46px;
+  --extra-large-text: 30px;
   --large-text: 22px;
   --medium-text: 18px;
   --normal-text: 16px;
-  --small-text: 14px;
+  --small-text: 15px;
   
 }
 
@@ -63,12 +71,22 @@ body::-webkit-scrollbar-thumb {
   border-radius: 3px;
 }
 
+h1,
+h2,
+h3,
+p {
+  padding: 2px 0px;
+}
+
 h1 {
   font-size: var(--extra-large-text);
 }
 
 h2 {
-  font-size: var(--large-text);
+  text-transform: uppercase;
+  font-size: var(--medium-text);
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 h3 {
@@ -79,6 +97,10 @@ hr {
   border-width: 1px;
   border-color: #2d2d2d3a;
   margin: 10px 0px;
+}
+
+canvas {
+  padding: 20px;
 }
 
 /* button {
