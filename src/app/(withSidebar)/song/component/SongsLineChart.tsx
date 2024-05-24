@@ -8,29 +8,29 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 type SongsData = {
-    song_id: number,
+    song_id: string,
     song_name: string,
     artist_name: string,
-    artist_id: number,
+    artist_id: string,
     ranking: number,
     previous_ranking: number | null,
     average_ranking: number,
     peak: number,
-    album_id: number,
-    album_name: string,
+    album_id?: string | null,
+    album_name?: string | null,
     album_color: string | null,
     track_number: number | null,
     times_in_top_100: number,
     times_in_top_10: number,
     times_in_top_1: number,
     total_chart_run: number | null,
-    all_rankings: {ranking: number, date: Date, date_id: number}[],
+    all_rankings: {ranking: number, date: Date, date_id: string}[],
     difference: number | null
 }
 
-export default function SongsLineChart({ defaultSongId, data }: { defaultSongId: number, data: SongsData[] }) {
+export default function SongsLineChart({ defaultSongId, data }: { defaultSongId: string, data: SongsData[] }) {
     const searchParams = useSearchParams();
-    const compareId: number[] = searchParams.getAll("compare").map( item => parseInt(item) );
+    const compareId: string[] = searchParams.getAll("compare");
 
     const defaultSong = data.find( item => item.song_id === defaultSongId )!;
     const compareSong = data.filter( item => compareId.includes(item.song_id) );
@@ -49,6 +49,7 @@ export default function SongsLineChart({ defaultSongId, data }: { defaultSongId:
             return ranking;
         })
     }));
+    
 
     return (
         <div className={styles.chartBox} >

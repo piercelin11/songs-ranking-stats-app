@@ -2,14 +2,14 @@ import Card from "./Card";
 import CarouselNavParent from "./CarouselNavParent";
 
 type Data = {
-    date_id: number,
+    date_id: string,
     date: Date,
     info: string | null,
     type: "OVERALL" | "ALBUM",
     artist_name: string,
     rankings: {
         song_name: string,
-        album_name: string,
+        album_name: string | null,
         ranking: number,
     }[]
 }

@@ -1,0 +1,174 @@
+.sorterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sorterContainer > * {
+    user-select: none;
+}
+
+.sorterField {
+    width: 90%;
+}
+
+
+.sorterButtonContainer {
+    display: flex;
+    
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.sorterButtonContainer > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 15px;
+}
+
+.sorterButtonContainer > div:nth-child(2) > button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.sorterButton {
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    position: relative;
+    background-color: var(--surface-color);
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex: 1;
+    transition: var(--fast-transition);
+}
+
+.sorterButton:hover {
+    background-color: var(--surface-color-dark);
+    color: var(--primary-text-color);
+}
+
+.sorterButton > div{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60px;
+    gap: 0px;
+}
+
+.sorterButton .mainText {
+    font-weight: 500;
+    text-align: center;
+}
+
+.sorterButton .subText {
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+    text-align: center;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+
+
+.sorterTextButton {
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--surface-color);
+    color: var(--secondary-text-color);
+    font-size: 16px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: var(--small-text);
+    transition: var(--fast-transition);
+}
+
+.sorterTextButton:hover {
+    background-color: var(--surface-color-dark);
+    color: var(--primary-text-color);
+    
+}
+
+.sorterCover {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    margin-bottom: 20px;
+}
+
+.sorterProgress {
+    width: 100%;
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+  
+.sorterBar {
+    width: 0%;
+    height: 10px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.sorterResultContainer {
+    width: 100%;
+}
+
+.resultFormContainer {
+    padding: 35px 0px;
+    border-radius: 10px;
+    margin-bottom: var(--medium-gap);
+}
+
+.resultFormContainer > p {
+    color: var(--secondary-text-color);
+    font-size: var(--small-text);
+    margin-bottom: 15px;
+}
+
+.resultForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    margin: 0 auto;
+}
+
+.resultForm textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    font-size: 15px;
+    border: var(--surface-color-light) solid 1px;
+    background-color: var(--surface-color-dark);
+    caret-color: var(--primary-text-color);
+    font-family: "Inter", sans-serif;
+}
+
+.resultForm textarea:focus {
+    outline:none;
+    border-color: var(--primary-color);
+}

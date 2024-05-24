@@ -3,7 +3,7 @@ import styles from "@/styles/tabs-dropdown.module.css"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 
-export default function Tab({ latestDateId }: { latestDateId: number | null }) {
+export default function Tab({ latestDateId }: { latestDateId: string | null }) {
     const params = useParams(); 
 
     return(

@@ -9,8 +9,8 @@
 }
 
 .bannerPageContent {
-    padding: 20px 60px 50px 60px;
-    background-size: 100% 700px;
+    padding: 30px 60px 50px 60px;
+    background-size: 100% 600px;
     background-position: top;
     background-repeat: no-repeat;
 
@@ -20,6 +20,7 @@
 /* #region banner */
 
 .banner {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,6 +29,7 @@
     background-attachment: fixed;
     padding: var(--small-gap) var(--medium-gap);
     height: var(--banner-height);
+    background-color: var(--surface-color-dark);
 } 
 
 .banner > div:first-child {
@@ -92,7 +94,7 @@
 }
 
 .coverBannerInfo > p {
-    color: var(--primary-text-hover-color);
+    color: var(--primary-text-color-variant);
     font-weight: 300;
     font-size: 14px;
 }
@@ -120,6 +122,100 @@
     margin-bottom: 5px;
 }
 
+.bannerHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: var(--banner-small-height);
+    padding: var(--small-gap) var(--medium-gap);
+}
+
+.bannerHeader > p {
+    font-size: var(--extra-large-text);
+    font-weight: 600;
+}
+
+.sorterBanner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: var(--banner-small-height);
+    padding: var(--small-gap) var(--medium-gap);
+}
+
 /* #endregion */
 
+
+/* #region Gallery */
+
+.galleryContainer {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr)); 
+    margin: 20px -10px 0px -10px  /* -var(--mini-gap) */;
+    gap: 10px 0px;
+}
+
+.galleryItem {
+    flex: 1;
+    padding: var(--mini-gap);
+    border-radius: var(--border-radius-small);
+    transition: var(--normal-transition);
+}
+
+.galleryItem:hover {
+    background-color: var(--surface-color);
+}
+
+.galleryContainer .imgContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: var(--mini-gap);
+}
+
+.galleryContainer img {
+    object-fit: contain;
+    position: relative !important;
+    height: unset !important;
+}
+
+.galleryContainer .mainText {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+}
+
+.galleryContainer .subText {
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+}
+
+/* #endregion */
+
+
+/* #region Flex */
+
+.flexContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.flexContainer.fullWidth {
+    width: 100%;
+}
+
+.flexContainer.flex > *:not(img) {
+    flex: 1;
+}
+
+/* #endregion */
 

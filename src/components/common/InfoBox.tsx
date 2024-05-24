@@ -4,7 +4,7 @@ import { gradientDarkOverlay } from "@/lib/gradient";
 import NoData from "./NoData";
 
 type PropsType = {
-    title: string, 
+    title: string | undefined | null, 
     description: string, 
     img: string, 
     icon: any,

@@ -3,10 +3,10 @@ import FlexContainer from "@/components/common/FlexContainer";
 import InfoBoxColContainer from "../../component/InfoBoxColContainer";
 import { LargeGap, MediumGap } from "@/components/common/Gap";
 import SongsPolarAreaChart from "../../component/SongsPolarAreaChart";
-import { getAlbumsByDates, getSongsByDates } from "@/lib/fetchData/getDataByDate";
+import { getAlbumsByDates, getSongsByDates } from "@/lib/userDataProcessing/getDataByDate";
 import PointsBarChart from "../../component/PointsBarChart";
 import DropSelect from "@/components/common/DropSelect";
-import { fetchAllDates } from "@/lib/prisma";
+import { fetchAllDates } from "@/lib/userDataProcessing/prismaFetching";
 import { alterDateFormatToLong } from "@/utils/alterDateFormat";
 
 export default async function Artist({ params: { artistId, dateId } }: { params: { artistId: string, dateId: string } }) {
@@ -30,7 +30,7 @@ export default async function Artist({ params: { artistId, dateId } }: { params:
 
       <LargeGap />
 
-      <FlexContainer >
+      <FlexContainer isFullWidth={true} isChilfrenFlex={true}>
         <InfoBoxColContainer data={albumsRanking} />
         <SongsPolarAreaChart data={albumsRanking} />
       </FlexContainer>

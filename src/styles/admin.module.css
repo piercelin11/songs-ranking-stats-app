@@ -1,0 +1,179 @@
+/* #region edit banner */
+
+.banner {
+    display: flex;
+    gap: var(--small-gap);
+    align-items: stretch;
+    background-color: var(--surface-color-dark);
+    padding: 120px 60px 60px 60px;
+    width: 100%
+}
+
+.albumInfoBox {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.albumInfoBox > div:first-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.albumInfoBox .subtext {
+    margin-bottom: 3px;
+}
+
+.albumInfoBox .title {
+    font-size: var(--extra-large-text);
+    margin-bottom: var(--small-gap);
+}
+
+.albumInfoBox .description {
+    color: var(--secondary-text-color);
+}
+
+.flexButtonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+/* #endregion */
+
+
+/* #region Color Selector */
+
+.colorSelectContainer {
+    display: flex;
+    gap: 5px;
+}
+
+.colorInput{
+    display: none;
+}
+
+.colorLabel {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    padding: 0px;
+    border-radius: 50%;
+    margin-top: 10px;
+    border: 1px solid var(--on-surface-color);
+}
+
+.colorLabel > span {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.colorInput:hover + label > span {
+    border: 1px solid var(--secondary-text-color);
+}
+
+.colorInput:active + label > span {
+    background-image: linear-gradient(#00000044, #00000044);
+}
+
+.colorInput:checked + label .colorSelected  {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    height: 40%;
+    width: 40%;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background-color: #FFF;
+}
+
+/* #endregion */
+
+
+/* #region draggable/editable row */
+.editableRowContainer {
+    margin-bottom: 30px;
+}
+
+.draggableRowContainer:hover {
+    border-radius: var(--border-radius-small);
+    background-color: var(--surface-color-dark);
+}
+
+.draggableRowContainer.hilightTop {
+    border-top: 1px solid var(--primary-color)
+}
+
+.draggableRowContainer.hilightBottom {
+    border-bottom: 1px solid var(--primary-color)
+}
+
+.editableRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 18px 10px;
+}
+
+.editableRowNumber {
+    margin-right: 5px;
+    font-size: var(--medium-text);
+    color: var(--secondary-text-color);
+    margin-right: 15px;
+}
+
+.editableRow .mainText {
+    font-size: var(--medium-text);
+    font-weight: 600;
+}
+
+.editableRow .subText {
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+    font-weight: 300;
+    white-space: nowrap ;
+}
+
+.editableRow hr {
+    margin: 0px;
+}
+
+.editablePart {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.editButtonContainer, .editableSongInfoBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.editableSongInfoBox, .editableSongInfoBox > div {
+    width: 100%;
+} 
+
+
+.editableSongInfoBox input {
+    all: unset;
+    cursor: text;
+    margin: 2px 0px;
+    width: 100%;
+    color: var(--primary-text-color) !important;
+}
+
+.dot {
+    height: 3px;
+    width: 3px;
+    background-color: var(--secondary-text-color);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+/* #endregion */
+

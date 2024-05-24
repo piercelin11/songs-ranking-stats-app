@@ -6,14 +6,14 @@ import { alterDateFormat } from "@/utils/alterDateFormat";
 import { gradientDarkOverlay } from "@/lib/gradient";
 
 type DataType = {
-    date_id: number,
+    date_id: string,
     date: Date,
     info: string | null,
     type: "OVERALL" | "ALBUM",
     artist_name: string,
     rankings: {
         song_name: string,
-        album_name: string,
+        album_name: string | null,
         ranking: number,
     }[]
 }

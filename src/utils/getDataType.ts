@@ -1,25 +1,35 @@
 
 export default function getDataType(data: Record<string, unknown> = {}) { 
-    const { song_id, song_name, album_id, album_name } = data as {
-        song_id: number,
+    const { song_id, song_name, album_id, album_name, artist_id, artist_name, release_date } = data as {
+        song_id: string,
         song_name: string,
-        album_id: number,
+        album_id: string,
         album_name: string,
+        artist_id: string,
+        artist_name: string,
+        release_date: Date
     }
 
-    if (song_id) {
+    if (song_name) {
         return {
             type: "song", 
             id: song_id,  
-            name: song_name, 
-            subname: album_name
+            title: song_name, 
+            subtitle: album_name
         }
-    } else {
+    } else if (album_name) {
         return {
             type: "album", 
             id: album_id, 
-            name: album_name, 
-            subname: null
+            title: album_name, 
+            subtitle: release_date ? release_date.getFullYear() : ""
+        }
+    } else {
+        return {
+            type: "artist", 
+            id: artist_id, 
+            title: artist_name, 
+            subtitle: release_date ? release_date.getFullYear() : ""
         }
     }
 }

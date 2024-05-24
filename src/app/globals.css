@@ -1,27 +1,41 @@
 :root {
   --primary-color: #FEF27A;
-  --background-color: #000;
-  --surface-color: #131313;
-  --surface-light-color: #212121;
-  --surface-dark-color: #0f0f0f;
-  --on-primary-text-color: #000;
-  --primary-text-color: #FFF;
-  --primary-text-hover-color: #dadada; 
-  --secondary-text-color: #6e6e6e;
-  --tertiary-text-color: #393939;
+  --primary-color-dark: #b7ae47;
+  --primary-color-light: #fff8a9;
 
-  --translucent-black-color: #00000044;
+  --background-color: #070707;
+  --background-color-inverse: #FFF;
+
+  --surface-color: #151515;
+  --surface-color-light: #222222;
+  --surface-color-dark: #0c0c0c;
+
+  --on-primary-color: #000;
+
+  --on-surface-color: #303030;
+  --on-surface-color-dark: #252525;
+  --on-surface-color-light: #3f3f3f;
+  
+  --primary-text-color: #FFF;
+  --primary-text-color-variant: #dedede; 
+
+  --secondary-text-color: #767676;
+  --tertiary-text-color: #4d4d4d;
+
+  --translucent-black-color: #000000c2;
   --translucent-gray-color: #47474733;
+  --translucent-primary-color: #fef37acd;
 
   --positive-color: #559F44;
   --negative-color: #D04119;
   --neutral-color: #265990;
 
   --max-width: 1280px;
-  --sidebar-width: 280px;
+  --sidebar-width: 300px;
   --banner-height: 330px;
-  --border-radius: 15px;
-  --border-radius-small: 5px;
+  --banner-small-height: 125px;
+  --border-radius: 13px;
+  --border-radius-small: 8px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
@@ -36,7 +50,7 @@
   --large-gap: 90px;
 
   --huge-text: 46px;
-  --extra-large-text: 30px;
+  --extra-large-text: 32px;
   --large-text: 22px;
   --medium-text: 18px;
   --normal-text: 16px;
@@ -48,6 +62,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  /* cursor: default; */
 }
 
 body {
@@ -95,13 +110,34 @@ h3 {
 
 hr {
   border-width: 1px;
-  border-color: #2d2d2d3a;
+  border-color: #2d2d2d1d;
   margin: 10px 0px;
 }
 
 canvas {
   padding: 20px;
 }
+
+input::selection {
+  background: var(--translucent-primary-color);
+}
+
+
+::placeholder {
+  color: var(--tertiary-text-color);
+  font-size: var(--small-text);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* img {
+  border-radius: 5px;
+  overflow: hidden;
+} */
 
 /* button {
   appearance: none;

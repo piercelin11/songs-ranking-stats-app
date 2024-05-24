@@ -29,7 +29,7 @@ export default function Banner({ children, artistName }: { children?: ReactNode,
                 </div>
             </div>
 
-            <StickyHeader opacity={stickyOpacity} title={artistName} />
+            {/* <StickyHeader opacity={stickyOpacity} title={artistName} /> */}
         </div>
     );
 }

@@ -8,50 +8,51 @@ datasource db {
 }
 
 model artists {
-  id          Int      @id
+  id          String   @id @default(uuid())
   artist_name String   @unique
   albums      albums[]
   songs       songs[]
 }
 
 model albums {
-  id          Int     @id
-  album_name  String  @unique
-  album_color String? @db.Char(7)
-  artist_id   Int
-  songs       songs[]
-  artist      artists @relation(fields: [artist_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id           String    @id @default(uuid())
+  album_name   String    @unique
+  album_color  String?   @db.Char(7)
+  artist_id    String
+  release_date DateTime? @db.Date
+  songs        songs[]
+  artists      artists   @relation(fields: [artist_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@unique([album_name, artist_id])
 }
 
 model songs {
-  id           Int        @id
+  id           String     @id @default(uuid())
   song_name    String
-  album_id     Int
+  album_id     String?
   track_number Int?
   rankings     rankings[]
-  albums       albums     @relation(fields: [album_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  artist       artists    @relation(fields: [artist_id], references: [id])
-  artist_id    Int
+  albums       albums?    @relation(fields: [album_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  artists      artists    @relation(fields: [artist_id], references: [id])
+  artist_id    String
+  release_date DateTime?  @db.Date
 
-  @@unique([album_id, track_number])
   @@unique([album_id, song_name])
 }
 
 model rankings {
   id      String @id @default(uuid())
-  date_id Int
-  song_id Int
+  date_id String
+  song_id String
   ranking Int
-  dates   dates  @relation(fields: [date_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  songs   songs  @relation(fields: [song_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  dates   dates  @relation(fields: [date_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  songs   songs  @relation(fields: [song_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
   user    users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id String
 }
 
 model dates {
-  id       Int         @id(map: "date_pkey") @unique @default(autoincrement())
+  id       String      @id(map: "date_pkey") @unique @default(uuid())
   date     DateTime    @default(now())
   info     String?
   user_id  String

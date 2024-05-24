@@ -8,34 +8,37 @@ import { createOptions, createUniqueOptions, sortSongsOrder } from "@/utils/help
 import useDropdown from "@/hooks/useDropdown";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import rgbToHex from "@/utils/rgbToHex";
+import useDominantColor from "@/hooks/useDominantColor";
+import { getCover } from "@/utils/getPic";
 
 type SongsData = {
-  song_id: number,
+  song_id: string,
   song_name: string,
   artist_name: string,
-  artist_id: number,
+  artist_id: string,
   ranking: number,
   previous_ranking: number | null,
   average_ranking: number,
   peak: number,
-  album_id: number,
-  album_name: string,
+  album_id?: string | null,
+  album_name?: string | null,
   album_color: string | null,
   track_number: number | null,
   times_in_top_100: number,
   times_in_top_10: number,
   times_in_top_1: number,
   total_chart_run: number | null,
-  all_rankings: {ranking: number, date: Date, date_id: number}[],
+  all_rankings: {ranking: number, date: Date, date_id: string}[],
   difference: number | null
 }
 
 type Options = {
-  id: number,
+  id: string,
   name: string,
   color?: string | null,
-  album_id?: number | null
-};
+  album_id?: string | null
+}; 
  
 export default function MultiSelect({ data, defaultData }: { data: SongsData[], defaultData: SongsData }) {
     
@@ -59,7 +62,7 @@ export default function MultiSelect({ data, defaultData }: { data: SongsData[], 
         setOptions(songsMenuOptions);
         setMenuFilter("all");
       } else {
-        setOptions(songsMenuOptions.filter( item => item.album_id === parseInt(value) ));
+        setOptions(songsMenuOptions.filter( item => item.album_id === value ));
         setMenuFilter(value);
       } 
     }

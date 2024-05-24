@@ -1,9 +1,8 @@
 import { NavigateLeftIcon, NavigateRightIcon } from "@/lib/icon"
 import styles from "@/styles/common.module.css"
-import IconButton from "../ui/IconButton";
-import RoundButton from "../ui/RoundButton";
 import { useState } from "react";
 import createPageNumber from "@/utils/createPageNumber";
+import { IconButtonRound } from "../ui/button/IconButton";
 
 type PropsType = { 
     totalPage: number, 
@@ -38,31 +37,36 @@ export default function Pagination({ totalPage, onPageChange } : PropsType) {
 
     return (
         <div className={styles.paginationContainer} >
-            <IconButton
+
+
+            <IconButtonRound
                 value={"prev"}
                 onClick={handlePage}
+                variant="onSurface"
             >
                 <NavigateLeftIcon size={15} />
-            </IconButton>
+            </IconButtonRound>
             
             <div>
                 {navPage.map( navPageItem => 
-                    <RoundButton
+                    <IconButtonRound
                         key={navPageItem}
-                        label={navPageItem}
                         value={navPageItem}
-                        currentSelected={currentPage}
                         onClick={handlePage}
-                    /> 
+                    >
+                        {navPageItem}
+                    </IconButtonRound>
                 )}
             </div>
 
-            <IconButton
+
+            <IconButtonRound
                 value={"next"}
                 onClick={handlePage}
+                variant="onSurface"
             >
                 <NavigateRightIcon size={15} />
-            </IconButton>
+            </IconButtonRound>
         </div>
     );
 }

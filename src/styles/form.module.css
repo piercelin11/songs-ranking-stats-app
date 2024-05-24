@@ -1,0 +1,92 @@
+.alignCenterForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.underlineInput {
+    all: unset;
+    border-bottom: 1.5px solid var(--surface-color-light);
+    text-align: center;
+    font-size: var(--medium-text);
+    font-weight: 300;
+    color: var(--tertiary-text-color);
+    padding: 15px 0px;
+    width: 100%;
+}
+
+.underlineInput:focus {
+    border-bottom: 1.5px solid var(--primary-text-color-variant);
+    color: var(--primary-text-color);
+}
+
+.BasicInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.BasicInputContainer label {
+    color: var(--secondary-text-color);
+    font-size: var(--small-text);
+}
+
+.BasicInput {
+    all: unset;
+    border: 1px solid var(--surface-color-light);
+    background-color: var(--surface-color);
+    padding: 10px;
+    border-radius: var(--border-radius-small);
+}
+
+.BasicInput:focus {
+    border: 1px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+.addSongsForm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.addSongsForm textarea {
+    all: unset;
+
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    background-color: var(--surface-color-dark);
+    border: 1px solid var(--surface-color-light);
+    margin: 0px 0px 15px 0px;
+}
+
+.addSongsForm textarea:focus {
+    border: 1px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+.editAlbumForm {
+    display: flex;
+    flex-direction: column;
+    gap:5px
+}
+
+.editAlbumForm > input {
+    all: unset;
+    color: var(--primary-text-color);
+    border-bottom: 1px solid var(--surface-color-light);
+}
+
+
+.editAlbumForm > .editAlbumInput {
+    font-size: var(--extra-large-text);
+    font-weight: 700;
+    margin-bottom: 29px;
+}   
+
+

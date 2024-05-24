@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { fetchArtist, fetchLatestDates, fetchSong } from "@/lib/prisma";
 import styles from "@/styles/layout.module.css"
 import SongBanner from "../component/SongBanner";
 import BlurBanner from "../component/BlurBanner";
-import { getAvgSongRanking } from "@/lib/fetchData/getDataByArtist";
+import { getAvgSongRanking } from "@/lib/userDataProcessing/getDataByArtist";
 import { getCover } from "@/utils/getPic";
  
 export default async function Layout({ children, params: { songId } }: { children: ReactNode, params: { songId: string } }) {

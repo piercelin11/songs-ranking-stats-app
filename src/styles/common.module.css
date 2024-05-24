@@ -19,6 +19,21 @@
     z-index: 5;
 }
 
+/* #region img */
+
+.roundImg {
+    border-radius: 50%;
+    object-fit: cover;
+} 
+
+.roundRecImg {
+    border-radius: var(--border-radius-small);
+    object-fit: cover;
+}
+
+/* #endregion */
+
+
 /* #region gap, text, nodata */
 
 .smallGap {
@@ -60,107 +75,6 @@
 /* #endregion */
 
 
-/* #region flex */
-
-.flexFullContainer {
-    display: flex;
-    align-items: stretch;
-    gap: var(--small-gap);
-    width: 100%;
-}
-
-.flexFullContainer > div {
-    flex: 1;
-}
-
-/* #endregion */
-
-
-/* #region button */
-
-.iconButton {
-    appearance: none;
-    background-color: transparent;
-    outline: none;
-    border: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--border-radius);
-    width: 40px;
-    height: 40px;
-    transition: var(--normal-transition);
-}
-
-.iconButton:hover {
-    background-color: var(--surface-light-color);
-}
-
-.iconRoundButton {
-    appearance: none;
-    background-color: transparent;
-    outline: none;
-    border: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: var(--surface-color);
-    transition: var(--normal-transition);
-}
-
-.iconRoundButton:hover {
-    background-color: var(--surface-light-color);
-}
-
-.switchButton {
-    display: flex;
-}
-
-.switchButton > div {
-    display: flex;
-    gap: 5px;
-    border: 1px solid var(--surface-light-color);
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.switchButton button {
-    appearance: none;
-    background-color: transparent;
-    outline: none;
-    border: none;
-
-    padding: 7.5px 30px;
-    color: var(--secondary-text-color);
-    font-size: var(--normal-text);
-    border-radius: 5px;
-
-    transition: var(--normal-transition);
-}
-
-.switchButton button:hover {
-    background-color: var(--primary-text-color);
-    color: var(--on-primary-text-color);
-}
-
-.switchButton .selected {
-    background-color: var(--primary-color);
-    color: var(--on-primary-text-color);
-}
-
-.switchButton .selected:hover {
-    background-color: var(--primary-color);
-    color: var(--on-primary-text-color);
-}
-
-/* #endregion */
-
-
 /* #region pagination */
 
 .paginationContainer {
@@ -175,27 +89,6 @@
     align-items: center;
     justify-content: center;
     gap: var(--mini-gap);
-}
-
-.roundButton {
-    appearance: none;
-    background-color: transparent;
-    outline: none;
-    border: none;
-
-    font-size: var(--small-text);
-    color: var(--primary-text-color);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
-
-.roundButton:hover {
-    background-color: var(--surface-light-color);
-}
-
-.roundButton.selected {
-    background-color: var(--surface-light-color);
 }
 
 /* #endregion */

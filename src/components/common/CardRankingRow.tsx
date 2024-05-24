@@ -3,7 +3,7 @@ import styles from "@/styles/card.module.css"
 
 type DataType = {
     song_name: string,
-    album_name: string,
+    album_name: string | null,
     artist_name: string,
     ranking: number,
 }

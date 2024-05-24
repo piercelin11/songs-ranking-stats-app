@@ -2,7 +2,7 @@ import Carousel from "@/components/common/Carousel";
 import { MediumGap } from "@/components/common/Gap";
 import TopSongs from "../component/TopSongs";
 import PointsBarChart from "../component/PointsBarChart";
-import { getAllDates, getAvgSongsRanking, getAvgAlbumsRanking } from "@/lib/fetchData/getDataByArtist";
+import { getAllDates, getAvgSongsRanking, getAvgAlbumsRanking } from "@/lib/userDataProcessing/getDataByArtist";
 
 
 export default async function Artist({ params: { artistId } }: { params: { artistId: string } }) {
@@ -19,7 +19,7 @@ export default async function Artist({ params: { artistId } }: { params: { artis
 
       <PointsBarChart data={avgAlbumsRanking} />
 
-      <MediumGap />
+      <MediumGap /> 
 
       <Carousel data={data} />
     </div>

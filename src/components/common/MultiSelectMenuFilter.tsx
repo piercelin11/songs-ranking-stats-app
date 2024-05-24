@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import styles from "@/styles/tabs-dropdown.module.css"
 
 type Options = {
-    id: number,
+    id: string,
     name: string,
     color?: string | null,
-    album_id?: number | null
+    album_id?: string | null
 };
 
 type Props = {
@@ -28,7 +28,7 @@ export default function MultiSelectMenuFilter({ options, onFilter, selected }: P
                         className={styles.albumTag}
                         onClick={onFilter}
                         style={{
-                            backgroundColor: item.id === parseInt(selected) && item.color ? `${item.color}66` : undefined,
+                            backgroundColor: item.id === selected && item.color ? `${item.color}66` : undefined,
                         }}
                     >
                         {item.name}

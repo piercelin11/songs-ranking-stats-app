@@ -4,21 +4,13 @@ import SidebarProfile from "./SidebarProfile";
 
 export const sidebarMenu = [
     {
-        title: "Dashboard",
+        title: "Home",
         icon: "HomeIcon"
     },
     {
         title: "History",
-        icon: "ClockIcon"
-    },
-    {
-        title: "Sorter",
-        icon: "StairIcon"
-    },
-    {
-        title: "Discography",
-        icon: "ArchiveIcon"
-    },
+        icon: "SearchIcon"
+    }
 ] 
 
 export default function Sidebar() {

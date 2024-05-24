@@ -1,7 +1,8 @@
 import styles from "@/styles/icon.module.css"
 
 type IconProps = {
-    size: number
+    size: number | string,
+    color?: "backgroundInverse" | "onSurface" | "onBackground" | "hoverable" | "onPrimary",
 }
 
 type VariantProps = {
@@ -9,11 +10,19 @@ type VariantProps = {
     size: number
 }
 
-export function HomeIcon({ size }: IconProps) {
+const iconColor: Record<string, string> = {
+    backgroundInverse: "backgroundInverseIcon",
+    onSurface: "onSurfaceIcon",
+    onBackground: "onBackgroundIcon",
+    hoverable: "hoverableIcon",
+    onPrimary: "onPrimaryIcon",
+}
+
+export function HomeIcon({ size, color = "onSurface" }: IconProps) {
 
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`} 
             viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg"
         >
@@ -22,10 +31,10 @@ export function HomeIcon({ size }: IconProps) {
     );
 }
 
-export function ClockIcon({ size }: IconProps) {
+export function ClockIcon({ size, color = "onSurface" }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`} 
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +44,10 @@ export function ClockIcon({ size }: IconProps) {
     );
 }
 
-export function StairIcon({ size }: IconProps) {
+export function StairIcon({ size, color = "onSurface" }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -48,10 +57,10 @@ export function StairIcon({ size }: IconProps) {
     );
 }
 
-export function VinylIcon({ size }: IconProps) {
+export function VinylIcon({ size, color = "onSurface" }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -61,10 +70,10 @@ export function VinylIcon({ size }: IconProps) {
     );
 }
 
-export function ArchiveIcon({ size }: IconProps) {
+export function ArchiveIcon({ size, color = "onSurface" }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -74,10 +83,10 @@ export function ArchiveIcon({ size }: IconProps) {
     );
 }
 
-export function LogoutIcon({ size }: IconProps) {
+export function LogoutIcon({ size, color = "onSurface" }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +125,7 @@ export function RankDownIcon({ size }: IconProps) {
 export function RankUnchangeIcon({ size }: IconProps) {
     return (
         <svg 
-            className={styles.grayIcon} 
+            className={styles.onSurfaceIcon} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -139,10 +148,10 @@ export function CircleIcon({ size }: IconProps) {
     );
 }
 
-export function ArrowUpRightIcon({ size }: IconProps) {
+export function ArrowUpRightIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -152,10 +161,10 @@ export function ArrowUpRightIcon({ size }: IconProps) {
     );
 }
 
-export function NavigateRightIcon({ size }: IconProps) {
+export function NavigateRightIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             height={`${size}px`}
             viewBox="0 0 61 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -165,10 +174,10 @@ export function NavigateRightIcon({ size }: IconProps) {
     );
 }
 
-export function NavigateLeftIcon({ size }: IconProps) {
+export function NavigateLeftIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             height={`${size}px`}
             viewBox="0 0 61 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -178,10 +187,10 @@ export function NavigateLeftIcon({ size }: IconProps) {
     );
 }
 
-export function CrownIcon({ size }: IconProps) {
+export function CrownIcon({ size, color = "backgroundInverse" }: IconProps) {
     return ( 
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -191,10 +200,10 @@ export function CrownIcon({ size }: IconProps) {
     );
 }
 
-export function ThreeDotsIcon({ size }: IconProps) {
+export function ThreeDotsIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 24" 
             xmlns="http://www.w3.org/2000/svg"
@@ -204,10 +213,10 @@ export function ThreeDotsIcon({ size }: IconProps) {
     );
 }
 
-export function RoundArrowUpIcon({ size }: IconProps) {
+export function RoundArrowUpIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -217,10 +226,10 @@ export function RoundArrowUpIcon({ size }: IconProps) {
     );
 }
 
-export function RoundArrowDownIcon({ size }: IconProps) {
+export function RoundArrowDownIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 
-            className={styles.primaryIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -230,10 +239,10 @@ export function RoundArrowDownIcon({ size }: IconProps) {
     );
 }
 
-export function SpotifyIcon({ size }: IconProps) {
+export function SpotifyIcon({ size, color = "hoverable" }: IconProps) {
     return (
         <svg 
-            className={styles.hoverableGrayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -243,10 +252,10 @@ export function SpotifyIcon({ size }: IconProps) {
     );
 }
 
-export function CrownRoundedRecIcon({ size }: IconProps) {
+export function CrownRoundedRecIcon({ size, color = "onBackground" }: IconProps) {
     return (
         <svg 
-            className={styles.darkGrayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -257,10 +266,10 @@ export function CrownRoundedRecIcon({ size }: IconProps) {
     );
 }
 
-export function StarRoundedRecIcon({ size }: IconProps) {
+export function StarRoundedRecIcon({ size, color = "onBackground" }: IconProps) {
     return (
         <svg 
-            className={styles.darkGrayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -271,10 +280,10 @@ export function StarRoundedRecIcon({ size }: IconProps) {
     );
 }
 
-export function MountainRoundedRecIcon({ size }: IconProps) {
+export function MountainRoundedRecIcon({ size, color = "onBackground" }: IconProps) {
     return (
         <svg 
-            className={styles.darkGrayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -285,10 +294,10 @@ export function MountainRoundedRecIcon({ size }: IconProps) {
     );
 }
 
-export function TenRoundedRecIcon({ size }: IconProps) {
+export function TenRoundedRecIcon({ size, color = "onBackground" }: IconProps) {
     return (
         <svg 
-            className={styles.darkGrayIcon} 
+            className={styles[iconColor[color]]} 
             width={`${size}px`}
             viewBox="0 0 101 101" 
             xmlns="http://www.w3.org/2000/svg"
@@ -298,6 +307,113 @@ export function TenRoundedRecIcon({ size }: IconProps) {
         </svg>
     );
 }
+
+export function NextIcon({ size, color = "backgroundInverse" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={`${size}px`}
+            viewBox="0 0 61 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M9.995 100.542L.864 91.41l40.858-40.859L.845 9.669 9.97.544l50.04 49.983-50.015 50.015z"/>
+        </svg>
+    );
+}
+
+export function PreviousIcon({ size, color = "backgroundInverse" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={`${size}px`}
+            viewBox="0 0 61 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M50.907.536l9.131 9.131L19.18 50.526l40.878 40.883-9.125 9.125L.892 50.55 50.907.536z"/>
+        </svg>
+    );
+}
+
+export function CloseIcon({ size, color = "hoverable" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M50.53 44.496L94.82.196l5.71 5.71-44.3 44.29 44.3 44.3-5.71 5.7-44.29-44.29-44.297 44.29-5.705-5.7 44.292-44.3L.528 5.906 6.233.196l44.297 44.3z"/>
+        </svg>
+    );
+}
+
+export function PlusIcon({ size, color="onSurface" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={typeof size === "string" ? size :`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M57.205 43.941h43.392v13.216H57.205v43.392H43.99V57.157H.597V43.94H43.99V.55h13.215v43.39z"/>
+        </svg>
+    );
+}
+
+
+export function PencilIcon({ size, color="onSurface" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={typeof size === "string" ? size :`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M29.862 98.175L5.34 100.22a4.038 4.038 0 01-4.36-4.36l2.045-24.522a4.021 4.021 0 011.169-2.52l53.377-53.376L69.797 3.216c3.976-3.976 10.422-3.976 14.398 0l13.79 13.79c3.976 3.976 3.976 10.422 0 14.398L85.758 43.63 32.382 97.006a4.023 4.023 0 01-2.52 1.169zM10.35 80.685l-.925 11.09 11.09-.925L10.35 80.685zm50.076-56.677L12.76 71.674 29.527 88.44l47.665-47.666-16.766-16.766zm22.477 11.056l9.371-9.371a2.105 2.105 0 000-2.977l-13.79-13.79a2.105 2.105 0 00-2.976 0l-9.371 9.371 16.766 16.767z"/>
+        </svg>
+    );
+}
+
+export function CheckIcon({ size, color="onSurface" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={typeof size === "string" ? size :`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M39.865 67.418L90.15.465l10.323 7.753-59.22 78.847-40.78-40.78 9.128-9.13 30.263 30.263z"/>
+        </svg>
+    );
+}
+
+export function GarbageCanIcon({ size, color="onSurface" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={typeof size === "string" ? size :`${size}px`}
+            viewBox="0 0 88 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M16.123 13.425v-.72c0-6.888 6.74-12.472 15.053-12.472h25.868c8.314 0 15.054 5.584 15.054 12.471v.721h8.12c1.97 0 3.859.648 5.252 1.802 1.392 1.154 2.174 2.719 2.174 4.35v3.18H.576v-3.18c0-1.631.783-3.196 2.176-4.35 1.392-1.154 3.281-1.802 5.251-1.802h8.12zm48.577 0v-.72c0-3.504-3.428-6.343-7.656-6.343H31.176c-4.227 0-7.655 2.84-7.655 6.342v.721h41.18zM4.65 33.084c-.137-1.227.356-2.445 1.358-3.355 1.002-.91 2.42-1.43 3.907-1.43h68.391c1.487 0 2.905.52 3.907 1.43 1.002.91 1.494 2.128 1.357 3.355l-6.41 57.263c-.627 5.602-6.3 9.886-13.09 9.886H24.15c-6.79 0-12.464-4.284-13.09-9.886L4.65 33.084zM28.543 39.2c0-.744-.356-1.456-.99-1.981-.634-.526-1.495-.821-2.392-.821h-.002c-.897 0-1.757.295-2.392.82-.634.526-.99 1.238-.99 1.982v45.532c0 .743.356 1.456.99 1.982.635.525 1.495.82 2.392.82h.002c.897 0 1.758-.295 2.392-.82.634-.526.99-1.239.99-1.982V39.201zm37.903 0c0-.744-.357-1.456-.99-1.981-.635-.526-1.496-.821-2.392-.821h-.003c-.897 0-1.757.295-2.39.82-.635.526-.991 1.238-.991 1.982v45.532c0 .743.356 1.456.99 1.982.634.525 1.494.82 2.391.82h.003c.896 0 1.757-.295 2.391-.82.634-.526.99-1.239.99-1.982V39.201zm-18.952 0c0-.744-.356-1.456-.99-1.981-.634-.526-1.495-.821-2.391-.821h-.003c-.897 0-1.757.295-2.39.82-.635.526-.992 1.238-.992 1.982v45.532c0 .743.357 1.456.991 1.982.634.525 1.494.82 2.391.82h.003c.896 0 1.757-.295 2.391-.82.634-.526.99-1.239.99-1.982V39.201z"/>
+        </svg>
+    );
+}
+
+export function SearchIcon({ size, color="onSurface" }: IconProps) {
+    return (
+        <svg 
+            className={styles[iconColor[color]]} 
+            height={typeof size === "string" ? size :`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M75.486 83.215a46.125 46.125 0 01-28.736 9.996c-25.57 0-46.331-20.76-46.331-46.33C.419 21.31 21.179.548 46.75.548S93.08 21.31 93.08 46.88c0 9.66-2.962 18.635-8.028 26.062l13.314 13.314a7.018 7.018 0 010 9.92 7.018 7.018 0 01-9.92 0l-12.96-12.96zM46.75 14.578c-17.829 0-32.302 14.474-32.302 32.302 0 17.829 14.473 32.303 32.302 32.303 17.828 0 32.302-14.474 32.302-32.303 0-17.828-14.474-32.302-32.302-32.302z"/>
+        </svg>
+    );
+}
+
+
  
 export function SidebarMenuIcon({ variant, size }: VariantProps) {
     if(variant === "HomeIcon") return HomeIcon({size});
@@ -306,6 +422,7 @@ export function SidebarMenuIcon({ variant, size }: VariantProps) {
     if(variant === "VinylIcon") return VinylIcon({size});
     if(variant === "ArchiveIcon") return ArchiveIcon({size});
     if(variant === "LogoutIcon") return LogoutIcon({size});
+    if(variant === "SearchIcon") return SearchIcon({size});
     else return null;
 }
 

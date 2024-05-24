@@ -1,0 +1,211 @@
+
+.iconButtonRound {
+    all: unset;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: var(--normal-transition);
+}
+
+.iconButtonRec {
+    all: unset;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-small);
+    width: 50px;
+    height: 50px;
+    transition: var(--normal-transition);
+}
+
+.RecButton {
+    all: unset;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-small);
+    padding: 15px 30px;
+    transition: var(--normal-transition);
+}
+
+
+.switchButton {
+    display: flex;
+}
+
+.switchButton > div {
+    display: flex;
+    gap: 5px;
+    border: 1px solid var(--surface-color-light);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.switchButton button {
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    padding: 7.5px 30px;
+    color: var(--secondary-text-color);
+    font-size: var(--normal-text);
+    border-radius: 5px;
+
+    transition: var(--normal-transition);
+}
+
+.switchButton button:hover {
+    background-color: var(--primary-text-color);
+    color: var(--on-primary-color);
+}
+
+.switchButton .selected {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+
+.switchButton .selected:hover {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+
+.PaginationButtonWithName .next,.previous {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color);
+    gap: 30px;
+    border-radius: var(--border-radius);
+    padding: 40px var(--small-gap);
+    transition: var(--normal-transition);
+}
+
+.PaginationButtonWithName .next:hover,.previous:hover {
+    background-color: var(--surface-color-light);
+}
+
+.PaginationButtonWithName .next {
+    justify-content: flex-end;
+}
+
+
+.PaginationButtonWithName .mainText {
+    font-size: var(--normal-text);
+    font-weight: 400;
+    margin-bottom: -2px;
+    text-align: right;
+}
+
+.PaginationButtonWithName .next .subText {
+    text-align: right;
+}
+
+/* #region Color Variant */
+
+.primaryButton {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+.primaryButton:hover {
+    background-color: var(--background-color-inverse);
+}
+
+.secondaryButton {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+.secondaryButton:hover {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+
+.onBackgroundButton {
+    background-color: var(--surface-color);
+    color: var(--secondary-text-color);
+}
+.onBackgroundButton:hover {
+    background-color: var(--surface-color-light);
+    color: var(--primary-text-color);
+}
+
+.onSurfaceButton {
+    background-color: var(--on-surface-color);
+    color: var(--secondary-text-color);
+}
+.onSurfaceButton:hover {
+    background-color: var(--on-surface-color-light);
+    color: var(--primary-text-color);
+}
+
+.transparentButton {
+    background-color: transparent;
+    color: var(--secondary-text-color);
+}
+.transparentButton:hover {
+    background-color: var(--on-surface-color);
+    color: var(--primary-text-color);
+}
+
+/* #endregion */
+
+
+/* #region Smooth Switch Button */
+
+.switchBtnBox {
+    position: relative;
+    display: flex;
+    height: 45px;
+    background-color: var(--surface-color);
+    width: 250px;
+    border-radius: 50px;
+}
+
+.switchBtnBox > a {
+    flex: 1;
+}
+
+.toggleBtn {
+    all: unset;
+    width: 100%;
+    position: relative;
+    height: 100%;
+    text-align: center;
+    color: var(--primary-text-color-variant);
+    transition: var(--normal-transition);
+}
+
+.toggleBtn:hover {
+    color: var(--primary-text-color);
+}
+
+.toggleBtn.selected {
+    color: var(--on-primary-color);
+    font-weight: 500;
+}
+
+#btn {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 125px;
+    background-color: var(--background-color-inverse);
+    border-radius: 50px;
+    transition: var(--normal-transition);
+}
+
+.atLeft {
+    left: 0;
+}
+
+.atRight {
+    left: 125;
+}
+
+/* #endregion */

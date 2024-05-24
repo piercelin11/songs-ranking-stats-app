@@ -3,8 +3,8 @@
 import { ReactNode } from "react";
 import { useState } from "react";
 import styles from "@/styles/card.module.css"
-import IconRoundButton from "../ui/IconRoundButton";
 import { NavigateLeftIcon, NavigateRightIcon } from "@/lib/icon";
+import { IconButtonRound } from "../ui/button/IconButton";
 
 export default function CarouselNavParent({ children, length }: {children: ReactNode, length: number}) {
 
@@ -28,13 +28,13 @@ export default function CarouselNavParent({ children, length }: {children: React
                 <h2>Some Random Words For Title</h2>
 
                 <div className={styles.carouselNav}>
-                    <IconRoundButton onClick={handleCarouselPrev}>
+                    <IconButtonRound onClick={handleCarouselPrev} variant="onBackground">
                         <NavigateLeftIcon size={20}/>
-                    </IconRoundButton>
+                    </IconButtonRound>
 
-                    <IconRoundButton onClick={handleCarouselNext}>
+                    <IconButtonRound onClick={handleCarouselNext} variant="onBackground">
                         <NavigateRightIcon size={20}/>
-                    </IconRoundButton>
+                    </IconButtonRound>
                 </div>
             </div>
 

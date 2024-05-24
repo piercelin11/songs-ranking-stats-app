@@ -12,7 +12,7 @@ export default function BlurBanner({ data } : { data: Data }) {
     const {song_name, artist_name, album_name} = data;
 
     return(
-        <div className={styles.blurBanner}  >
+        <div className={styles.blurBanner}>
             <div 
                 style={{
                     backgroundImage: 

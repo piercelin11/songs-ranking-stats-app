@@ -5,7 +5,8 @@
     width: var(--sidebar-width);
     height: 100vh;
     padding: 50px 20px 30px 20px;
-    background-color: var(--surface-color);
+    background-color: var(--background-color);
+    border-right: 1px solid var(--surface-color-light);
     position: fixed;
     top: 0;
     left: 0;
@@ -24,7 +25,7 @@
 }
 
 .sidebarMenuItem:hover {
-    background-color: var(--surface-light-color);
+    background-color: var(--surface-color-light);
     color: var(--primary-text);
 }
 

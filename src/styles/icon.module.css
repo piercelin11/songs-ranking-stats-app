@@ -1,14 +1,18 @@
-.primaryIcon {
-    fill: var(--primary-text-color)
+.backgroundInverseIcon {
+    fill: var(--background-color-inverse)
 }
 
-.grayIcon {
+.onPrimaryIcon {
+    fill: var(--on-primary-color)
+}
+
+.onSurfaceIcon {
     fill: var(--secondary-text-color);
 }
 
-.darkGrayIcon {
-    fill: var(--surface-light-color);
-}
+.onBackgroundIcon {
+    fill: var(--on-surface-color);
+} 
 
 .increaseIcon {
     fill: var(--positive-color);
@@ -22,11 +26,11 @@
     fill: var(--neutral-color);
 }
 
-.hoverableGrayIcon {
+.hoverableIcon {
     fill: var(--secondary-text-color);
     transition: var(--normal-transition);
 }
 
-.hoverableGrayIcon:hover {
+.hoverableIcon:hover {
     fill: var(--primary-text-color);
 }

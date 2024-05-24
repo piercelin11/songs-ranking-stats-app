@@ -1,6 +1,7 @@
 
 import DoubleBarChart from "@/components/chart/DoubleBarChart"
 import { SmallGap } from "@/components/common/Gap";
+import toAcronym from "@/utils/toAcronym";
 
 type AlbumsStats = {
     album_id: number,
@@ -15,7 +16,7 @@ export default async function PointsBarChart({ data }: { data: AlbumsStats[] }) 
     const noSingleRanking = data.filter( item => item.album_name !== "Single" );
 
     const chartData = {
-        labels: noSingleRanking.map( item => item.album_name ),
+        labels: noSingleRanking.map( item => toAcronym(item.album_name) ),
         mainData: noSingleRanking.map( item => item.total_points ),
         subData: noSingleRanking.map( item => item.total_points_raw ),
         color: noSingleRanking.map( item => item.album_color ),

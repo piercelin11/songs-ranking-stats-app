@@ -42,11 +42,26 @@
 }
 
 .subText {
-    font-weight: 300;
+    font-weight: 400;
+    font-size: var(--small-text);
 }
 
 .description {
     font-size: var(--small-text);
+}
+
+.viewAll {
+    display: inline-block;
+    padding-left: 20px;
+    margin-top: 20px;
+    color: var(--secondary-text-color);
+    font-size: var(--small-text);
+    transition: var(--normal-transition);
+}
+
+
+.viewAll:hover{
+    color: var(--primary-text-color);
 }
 
 /* #region infobox */
@@ -131,7 +146,7 @@
 .rankingContainer {
     padding: var(--mini-gap);
     border-radius: var(--border-radius);
-    background-color: var(--surface-dark-color);
+    background-color: var(--surface-color-dark);
     min-height: 580px;
 }
 
@@ -165,6 +180,10 @@
     margin-right: 10px;
 }
 
+.row .subText {
+    color: var(--secondary-text-color);
+}
+
 /* .rankingRow .row::before {
     content: '';
     position: absolute;
@@ -172,7 +191,7 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background-image: linear-gradient( to bottom ,var(--surface-light-color) -10%, rgba(255, 255, 255, 0) 80%); 
+    background-image: linear-gradient( to bottom ,var(--surface-color-light) -10%, rgba(255, 255, 255, 0) 80%); 
     z-index: -1;
     transition: all 0.4s;
 }

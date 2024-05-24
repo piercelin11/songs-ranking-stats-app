@@ -34,7 +34,7 @@
 
 .cardCover > div:first-child > p {
     background-color: var(--primary-color);
-    color: var(--on-primary-text-color);
+    color: var(--on-primary-color);
     font-size: var(--small-text);
     padding: 5px 20px;
     border-radius: 100px;
@@ -93,7 +93,7 @@
 }
 
 .showAll:hover {
-    background-color: var(--surface-light-color);
+    background-color: var(--surface-color-light);
 }
 
 .showAll:hover p{

@@ -22,24 +22,25 @@ export default function InfoBoxColContainer({ data } : { data: AlbumsStatsType[]
         difference: item.previous_total_points ? item.total_points - item.previous_total_points : NaN,
     })).filter( item => !isNaN(item.difference) );
 
-    const sortedData = infoboxData.sort( (a, b) => b.difference - a.difference );
+    const max = Math.max(...infoboxData.map( item => item.difference ));
+    const min = Math.min(...infoboxData.map( item => item.difference ));
     
-    const biggestGainer = sortedData.filter( item => item.difference > 0 )?.[0] ?? null;
-    const biggestLoser = sortedData.filter( item => item.difference < 0 )?.[-1] ?? null;
+    const biggestGainer = max > 0 ? infoboxData.find( item => item.difference === max ) : null;
+    const biggestLoser = min < 0 ? infoboxData.find( item => item.difference === min ) : null;
  
     return (
         <div className={styles.infoBoxColContainer}>
             <InfoBox 
                 title={biggestGainer?.album_name}
                 description="is the biggest gainer in points"
-                img={getPhotoshoot(biggestGainer?.artist_name ,biggestGainer?.album_name)}
+                img={biggestGainer ? getPhotoshoot(biggestGainer.artist_name ,biggestGainer.album_name) : ""}
                 icon={<RoundArrowUpIcon size={45}/>}
                 stats={biggestGainer?.difference}
             />
             <InfoBox 
                 title={biggestLoser?.album_name}
-                description="is biggest loder in points"
-                img={getPhotoshoot(biggestLoser?.artist_name ,biggestLoser?.album_name)}
+                description="is biggest loser in points"
+                img={biggestLoser ? getPhotoshoot(biggestLoser.artist_name ,biggestLoser.album_name) : ""}
                 icon={<RoundArrowDownIcon size={45}/>}
                 stats={biggestLoser?.difference}
             />
