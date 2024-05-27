@@ -7,10 +7,6 @@ import styles from "@/styles/tabs-dropdown.module.css"
 import { createOptions, createUniqueOptions, sortSongsOrder } from "@/utils/helper";
 import useDropdown from "@/hooks/useDropdown";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import rgbToHex from "@/utils/rgbToHex";
-import useDominantColor from "@/hooks/useDominantColor";
-import { getCover } from "@/utils/getPic";
 
 type SongsData = {
   song_id: string,
@@ -38,7 +34,7 @@ type Options = {
   name: string,
   color?: string | null,
   album_id?: string | null
-}; 
+};  
  
 export default function MultiSelect({ data, defaultData }: { data: SongsData[], defaultData: SongsData }) {
     
@@ -79,7 +75,7 @@ export default function MultiSelect({ data, defaultData }: { data: SongsData[], 
         const newParamsArray = [...paramsArray, ["compare", id]];
         const newParams = new URLSearchParams(newParamsArray);
 
-        window.history.pushState(null, '', `?${newParams.toString()}`);
+        window.history.replaceState(null, '', `?${newParams.toString()}`);
       }
     }
     

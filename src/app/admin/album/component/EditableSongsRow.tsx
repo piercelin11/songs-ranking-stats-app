@@ -64,7 +64,7 @@ export default function EditableSongsRow({ data: { title, subtitle ,index, id },
                         </div>    
                     </div>
 
-
+ 
                     {isHover &&
                         <div className={styles.editButtonContainer}>
                             <IconButtonRound size={32} onClick={handleEditClick} variant="onSurface">

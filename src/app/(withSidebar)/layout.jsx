@@ -5,11 +5,10 @@ export default function SidebarLayout({ children }) {
     return (
       <main>
         <Sidebar />
-
+          
         <section className={styles.main}>
           { children }
         </section> 
-        
       </main>
     );
   }

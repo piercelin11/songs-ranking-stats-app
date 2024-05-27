@@ -3,7 +3,7 @@ import { PlusIcon } from "@/lib/icon";
 
 import { useState } from "react";
 import AddSinglesForm from "./AddSinglesForm";
-import ModalContainer from "@/components/common/ModalContainer";
+import ModalFromContainer from "@/components/common/ModalFromContainer";
 import { addSingles, addSongs } from "@/lib/adminDataProcessing/action";
 import { IconButtonRound } from "@/components/ui/button/IconButton";
 
@@ -32,18 +32,21 @@ export default function AddSingles({ data, artistId }: { data: SongsData[], arti
         const songs = text.split('\n').filter(songs => songs.trim() !== "").map( item => item.trim() );
 
         await addSingles(artistId, songs);
+        setIsModalOpen(false);
     }
 
 
     return (
         <div>
-            <ModalContainer
+            <ModalFromContainer
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 title="Add Songs"
+                description="add new songs for this artist"
+                action={(formData) => {handleSubmit(formData); closeModal();}}
             >
-                <AddSinglesForm onSubmit={(formData) => {handleSubmit(formData); closeModal();}}/>
-            </ModalContainer>
+                <AddSinglesForm />
+            </ModalFromContainer> 
             
             <IconButtonRound size={80} onClick={openModal} variant="onBackground">
                 <PlusIcon size={25} />

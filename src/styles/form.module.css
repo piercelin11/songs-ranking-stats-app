@@ -28,16 +28,26 @@
 }
 
 .BasicInputContainer label {
-    color: var(--secondary-text-color);
+    color: var(--tertiary-text-color);
     font-size: var(--small-text);
 }
 
 .BasicInput {
     all: unset;
-    border: 1px solid var(--surface-color-light);
-    background-color: var(--surface-color);
-    padding: 10px;
+    border: 1px solid var(--on-surface-color-light);
+    background-color: var(--surface-color-dark);
+    padding: 18px 10px;
     border-radius: var(--border-radius-small);
+    transition: var(--normal-transition);
+}
+
+.BasicInput:hover  {
+    border: 1px solid var(--background-color-inverse);
+    background-color: var(--surface-color-dark);
+}
+
+.BasicInput::placeholder {
+    color: var(--on-surface-color);
 }
 
 .BasicInput:focus {

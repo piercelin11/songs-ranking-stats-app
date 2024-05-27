@@ -8,13 +8,13 @@
 
   --surface-color: #151515;
   --surface-color-light: #222222;
-  --surface-color-dark: #0c0c0c;
+  --surface-color-dark: #0f0f0f;
 
   --on-primary-color: #000;
 
-  --on-surface-color: #303030;
-  --on-surface-color-dark: #252525;
-  --on-surface-color-light: #3f3f3f;
+  --on-surface-color: #2a2a2a;
+  --on-surface-color-dark: #1b1b1b;
+  --on-surface-color-light: #343434;
   
   --primary-text-color: #FFF;
   --primary-text-color-variant: #dedede; 
@@ -31,7 +31,7 @@
   --neutral-color: #265990;
 
   --max-width: 1280px;
-  --sidebar-width: 300px;
+  --sidebar-width: 350px;
   --banner-height: 330px;
   --banner-small-height: 125px;
   --border-radius: 13px;

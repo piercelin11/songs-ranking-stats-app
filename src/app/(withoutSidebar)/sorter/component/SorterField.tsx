@@ -1,9 +1,11 @@
 "use client"
-import { useState, useEffect, useRef, MutableRefObject } from "react";
+import React, { useState, useEffect, useRef, MutableRefObject } from "react";
 import { getCover } from "@/utils/getPic";
 import { CloseIcon, PreviousIcon } from "@/lib/icon";
 import styles from "@/styles/sorter.module.css"
 import Image from "next/image";
+import { RecButton } from "@/components/ui/button/Button";
+import FlexContainer from "@/components/common/FlexContainer";
 
 type SongsList = {
     song_id: string,
@@ -13,12 +15,13 @@ type SongsList = {
     track_numer: number | null,
     artist_id: string,
     artist_name: string,
+    imgUrl: string,
 }
 
 type HistoryState = {
     cmp1: number;
     cmp2: number;
-    head1: number;
+    head1: number; 
     head2: number;
     rec: number[];
     nrec: number;
@@ -30,31 +33,21 @@ type HistoryState = {
     totalSize: number;
 };
 
-export default function SorterField({ data: songsList, setResult }: { data: SongsList[], setResult: (result: any) => void }) {
+type Props = { 
+    data: SongsList[], 
+    setResult: (result: any) => void, 
+    setPercentage: (percentage: number) => void,
+    setIsStart: (isStart: boolean) => void,
+}
+
+export default function SorterField({ data: songsList, setResult, setPercentage, setIsStart }: Props) {
     
     const artist = songsList[0]?.artist_name;
 
-    let namMember = songsList.map( item => item.song_name );
-    /* let namMember = [
-        "peace",
-        "hoax",
-        "Stay Stay Stay",
-        "Blank Space",
-        "Red",
-        "closure",
-        "evermore",
-        "Enchanted"
-    ] */
-
-    const [percentage, setPercentage] = useState(0); 
-    const [leftFieldSong, setLeftFieldSong] = useState<string>("");
-    const [rightFieldSong, setRightFieldSong] = useState<string>("");
-
+    const namMember = useRef<string[]>(songsList.map( item => item.song_name ));
     
-
-    const leftFieldAlbum = songsList.find( item => item.song_name === leftFieldSong)?.album_name!;
-    const rightFieldAlbum = songsList.find( item => item.song_name === rightFieldSong)?.album_name!;
-    
+    const [leftField, setLeftField] = useState<any>("");
+    const [rightField, setRightField] = useState<any>("");
 
     const history = useRef<HistoryState[]>([]);
     const lstMember: MutableRefObject<number[][]> = useRef([]);
@@ -79,7 +72,7 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
         var i;
     
         lstMember.current[n] = [];
-        for (i = 0; i < namMember.length; i++) {
+        for (i = 0; i < namMember.current.length; i++) {
             lstMember.current[n][i] = i;
         }
         parent.current[n] = -1;
@@ -100,12 +93,12 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
             }
         }
     
-        for (i = 0; i < namMember.length; i++) {
+        for (i = 0; i < namMember.current.length; i++) {
             rec.current[i] = 0;
         }
         nrec.current = 0;
     
-        for (i = 0; i <= namMember.length; i++) {
+        for (i = 0; i <= namMember.current.length; i++) {
             equal.current[i] = -1;
         }
     
@@ -196,7 +189,7 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
             head2.current = 0;
     
             if (head1.current == 0 && head2.current == 0) {
-                for (i = 0; i < namMember.length; i++) {
+                for (i = 0; i < namMember.current.length; i++) {
                     rec.current[i] = 0;
                 }
                 nrec.current = 0;
@@ -212,6 +205,8 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
         } else {
             showImage();
         }
+
+        saveHistory();
     }
     
     //將歌名顯示於比較兩首歌曲的表格中
@@ -220,8 +215,10 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
         const leftField = "" + toNameFace(lstMember.current[cmp1.current][head1.current]);
         const rightField = "" + toNameFace(lstMember.current[cmp2.current][head2.current]);
 
-        setLeftFieldSong(leftField);
-        setRightFieldSong(rightField);
+        const leftFieldData = songsList.find( item => item.song_name === leftField);
+        const rightFieldData = songsList.find( item => item.song_name === rightField);
+        setLeftField(leftFieldData);
+        setRightField(rightFieldData);
         setPercentage(percentage);
     }
     
@@ -233,17 +230,17 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
         var i: number;
         let resultArray = [];
     
-        for (i = 0; i < namMember.length; i++) {            
+        for (i = 0; i < namMember.current.length; i++) {            
             resultArray.push({
                 ranking: rankingNum,
-                song_name: namMember[lstMember.current[0][i]],
-                song_id: songsList.find( item => item.song_name === namMember[lstMember.current[0][i]])?.song_id,
-                album_name: songsList.find( item => item.song_name === namMember[lstMember.current[0][i]])?.album_name,
-                artist_name: songsList.find( item => item.song_name === namMember[lstMember.current[0][i]])?.artist_name,
-                artist_id: songsList.find( item => item.song_name === namMember[lstMember.current[0][i]])?.artist_id,
+                song_name: namMember.current[lstMember.current[0][i]],
+                song_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.song_id,
+                album_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.album_name,
+                artist_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.artist_name,
+                artist_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.artist_id,
             })
             
-            if (i < namMember.length - 1) {
+            if (i < namMember.current.length - 1) {
                 if (equal.current[lstMember.current[0][i]] == lstMember.current[0][i + 1]) {
                     sameRank++;
                 } else {
@@ -253,8 +250,8 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
             }
         }
     
-        for (i = 0; i < namMember.length; i++) {
-            array.current[i] = namMember[lstMember.current[0][i]];
+        for (i = 0; i < namMember.current.length; i++) {
+            array.current[i] = namMember.current[lstMember.current[0][i]];
         }
 
         setResult(resultArray);
@@ -263,13 +260,13 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
     
     //將排序數字轉換成歌名
     function toNameFace(n: number) {
-        var str = namMember[n];
+        var str = namMember.current[n];
         return str;
     }
 
     //紀錄當前變數與陣列資料，用於 sortList 中
     function recordHistory() {
-        var currentState = {
+        var prevState = {
             cmp1: cmp1.current,
             cmp2: cmp2.current,
             head1: head1.current,
@@ -283,7 +280,28 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
             parent: parent.current.slice(), // Create a copy of parent array
             totalSize: totalSize.current,
         };
-        history.current.push(currentState);
+        history.current.push(prevState);
+        localStorage.setItem(artist, JSON.stringify(prevState));
+    }
+
+    //每次sort變儲存記錄到本地存儲
+    function saveHistory() {
+        var currentState = {
+            cmp1: cmp1.current,
+            cmp2: cmp2.current,
+            head1: head1.current,
+            head2: head2.current,
+            rec: rec.current.slice(), // Create a copy of rec array
+            nrec: nrec.current,
+            equal: equal.current.slice(), // Create a copy of equal array
+            finishSize: finishSize.current,
+            finishFlag: finishFlag.current,
+            lstMember: lstMember.current.slice(), // Create a copy of lstMember array
+            parent: parent.current.slice(), // Create a copy of parent array
+            totalSize: totalSize.current,
+            namMember: namMember.current,
+        };
+        localStorage.setItem(artist, JSON.stringify(currentState));
     }
 
     //將所有變數與陣列資料重回上一步驟的資料
@@ -309,24 +327,102 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
         }
     }
 
+    //刪除本地存儲資料
+    function handleClear() {
+        localStorage.removeItem(artist);
+        setIsStart(false);
+        setPercentage(0);
+    }
+
+
     useEffect(() => {
-        initList();
-        showImage();
+        const historyString = localStorage.getItem(artist);
+        const history = historyString ? JSON.parse(historyString) : null;
+
+
+        if (!history) {
+            initList();
+            showImage();
+        } else {
+            cmp1.current = history.cmp1;
+            cmp2.current = history.cmp2;
+            head1.current = history.head1;
+            head2.current = history.head2;
+            rec.current = history.rec;
+            nrec.current = history.nrec;
+            equal.current = history.equal;
+            finishSize.current = history.finishSize;
+            finishFlag.current = history.finishFlag;
+            lstMember.current = history.lstMember; 
+            parent.current = history.parent; 
+            totalSize.current = history.totalSize;
+            namMember.current = history.namMember;
+            showImage();
+        }
+
     }, []);
+
+
+
+    //用鍵盤選擇歌曲
+    const [pressedBtn, setPressedBtn] = useState<string>("");
+
+    function handleKeyUp(e: KeyboardEvent): void {
+        const key = e.key;
+        if (key === "ArrowLeft") {
+            if(finishFlag.current === 0 ) sortList(-1)
+            setPressedBtn("")
+        }
+        if (key === "ArrowRight") {
+            if(finishFlag.current === 0 ) sortList(1)
+            setPressedBtn("")
+        }
+        if (key === "ArrowUp" || key === "ArrowDown") {
+            if(finishFlag.current === 0 ) sortList(0)
+            setPressedBtn("")
+        }
+        
+    }
+
+    function handleKeyDown(e: KeyboardEvent): void {
+        const key = e.key;
+        if (key === "ArrowLeft") {
+            setPressedBtn("ArrowLeft")
+        }
+        if (key === "ArrowRight") {
+            setPressedBtn("ArrowRight")
+        }
+        if (key === "ArrowUp") {
+            setPressedBtn("ArrowUp")
+        }
+        if (key === "ArrowDown") {
+            setPressedBtn("ArrowDown")
+        }
+    }
+    
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', handleKeyUp);
+    
+        return function cleanup() {
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
+        };
+    }, [handleKeyUp]);
 
     return(
         <div className={styles.sorterField}>
-            <p className="light-gray-text align-right-text">{percentage}%</p>
-            <div className={styles.sorterProgress}>
-                <div className={styles.sorterBar} style={{width: `${percentage}%`}}></div>
-            </div>
             
             <div className={styles.sorterButtonContainer}>
                 <div>
-                <div className={styles.sorterButton} onClick={() => {if(finishFlag.current === 0 ) sortList(-1)}}>
+                <button 
+                    className={`${styles.sorterButton} ${pressedBtn==="ArrowLeft" ? styles.active : ""}`} 
+                    onClick={() => {if(finishFlag.current === 0 ) sortList(-1)}}
+                    onKeyDown={(e) => { console.log(e.key) }}
+                >
                     <div className={styles.sorterCover}>
                         <Image 
-                            src={getCover(artist, leftFieldAlbum, leftFieldSong)} 
+                            src={leftField.imgUrl || "/pic/placeholder.jpg"} 
                             fill
                             sizes="(max-width: 600px) 100vw, 50vw"
                             priority 
@@ -334,23 +430,26 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
                         />
                     </div>
                     <div>
-                        <p className={styles.mainText}>{leftFieldSong}</p>
-                        <p className={styles.subText}>{leftFieldAlbum}</p>
+                        <p className={styles.mainText}>{leftField.song_name}</p>
+                        <p className={styles.subText}>{leftField.album_name || "Non-album track"}</p>
                     </div> 
 
-                </div>
+                </button>
                 </div>
 
                 <div>
-                    <button className={styles.sorterButton} onClick={() => {if(finishFlag.current === 0 ) sortList(0)}}>i like both</button>
-                    <button className={styles.sorterButton} onClick={() => {if(finishFlag.current === 0 ) sortList(0)}}>no opinion</button>
+                    <button className={`${styles.sorterButton} ${pressedBtn==="ArrowUp" ? styles.active : ""}`}  onClick={() => {if(finishFlag.current === 0 ) sortList(0)}}>i like both</button>
+                    <button className={`${styles.sorterButton} ${pressedBtn==="ArrowDown" ? styles.active : ""}`}  onClick={() => {if(finishFlag.current === 0 ) sortList(0)}}>no opinion</button>
                 </div> 
 
                 <div> 
-                <div className={styles.sorterButton} onClick={() => {if(finishFlag.current === 0 ) sortList(1)}}>
+                <button 
+                    className={`${styles.sorterButton} ${pressedBtn==="ArrowRight" ? styles.active : ""}`} 
+                    onClick={() => {if(finishFlag.current === 0 ) sortList(1)}}
+                >
                     <div className={styles.sorterCover}>
                         <Image 
-                            src={getCover(artist, rightFieldAlbum, rightFieldSong)} 
+                            src={rightField.imgUrl || "/pic/placeholder.jpg"} 
                             fill
                             sizes="(max-width: 600px) 100vw, 50vw"
                             priority 
@@ -358,19 +457,35 @@ export default function SorterField({ data: songsList, setResult }: { data: Song
                         />
                     </div>
                     <div>
-                        <p className={styles.mainText}>{rightFieldSong}</p>
-                        <p className={styles.subText}>{rightFieldAlbum}</p>
+                        <p className={styles.mainText}>{rightField.song_name}</p>
+                        <p className={styles.subText}>{rightField.album_name || "Non-album track"}</p>
                     </div>
                     
 
-                </div>
+                </button>
                 </div>
             </div>
 
-            <button className={styles.sorterTextButton} onClick={restorePreviousState}>
-                <PreviousIcon size={15} />
-                Previous Step
-            </button>
+            <FlexContainer justify="space-between">
+                <RecButton 
+                    variant="onBackground"
+                    onClick={restorePreviousState}
+                    gap={20}
+                    padding="25 30"
+                >
+                    <PreviousIcon size={15} />
+                    Previous Step
+                </RecButton>
+
+                <RecButton 
+                    variant="onBackground"
+                    onClick={handleClear}
+                    padding="25 30"
+                >
+                    Clear and Restart
+                </RecButton>
+
+            </FlexContainer>
 
         </div>
     )

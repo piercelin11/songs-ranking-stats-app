@@ -1,8 +1,17 @@
 import styles from "@/styles/sidebar.module.css"
 import SidebarMenuItem from "@/app/(withSidebar)/component/SidebarMenuItem";
 import SidebarProfile from "./SidebarProfile";
+import FlexContainer from "@/components/common/FlexContainer";
+import RoundRecImg from "@/components/ui/RoundRecImg";
+import { SmallGap } from "@/components/common/Gap";
+import SidebarDisplay from "./SidebarLibrary";
 
-export const sidebarMenu = [
+type Menu = {
+    icon: "ClockIcon" | "StairIcon" | "VinylIcon" | "ArchiveIcon" | "LogoutIcon" | "SearchIcon" | "HomeIcon",
+    title: string
+}
+
+export const sidebarMenu : Menu[] = [
     {
         title: "Home",
         icon: "HomeIcon"
@@ -18,8 +27,6 @@ export default function Sidebar() {
         <aside className={styles.sidebar}>
 
             <div>
-                <SidebarProfile />
-                
                 {
                     sidebarMenu.map( item =>  
                         <SidebarMenuItem key={item.title} title={item.title} icon={item.icon}/>
@@ -27,7 +34,7 @@ export default function Sidebar() {
                 }
             </div>
 
-            <SidebarMenuItem title="Log Out" icon="LogoutIcon" />
+            <SidebarDisplay />
 
         </aside>
     );

@@ -1,11 +1,17 @@
 .main {
     margin-left: var(--sidebar-width);  
     max-width: var(--max-width); 
+    /* border: 1px solid var(--surface-color); */
+    overflow: hidden;
+}
+
+.main > div {
+    position: relative;
+    width: 100%;
 }
 
 .content {
     padding: 50px 60px;
-     
 }
 
 .bannerPageContent {

@@ -13,7 +13,7 @@
 
 .modalContent {
     background: var(--surface-color);
-    padding: 20px var(--small-gap);
+    padding: 25px;
     border-radius: 8px;
     max-width: 500px;
     width: 100%;
@@ -22,15 +22,20 @@
 }
 
 .modalContent.bigModal {
-    max-width: 650px;
+    max-width: 680px;
 }
 
 .modalHeader {
     position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--medium-gap);
+    align-items: flex-start;
+    margin-bottom: var(--small-gap);
+}
+
+.modalHeader p {
+    font-size: 14px;
+    color: var(--tertiary-text-color)
 }
 
 .closeButton {
@@ -41,10 +46,13 @@
     color: var(--primary-text-color);
 }
 
-/* #region create artist */
 
 .modalContent h2 {
     font-weight: 400;
 }
 
-/* #endregion */
+.modalFormButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}

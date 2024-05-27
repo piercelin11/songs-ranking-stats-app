@@ -17,9 +17,7 @@ export async function fetchAllDates (artist: number | string, take?: number , us
         rankings: {
             some: {
                 songs: {
-                    albums: {
-                      artist_id: artistId
-                    }
+                  artist_id: artistId
                 }
             }
         }
@@ -320,6 +318,34 @@ export async function fetchSong (song: number | string, user?: string) {
 }
 
 
+
+
+//get user's artist
+export async function fetchArtistByUser (user?: string) {
+  const data = await prisma.artists.findMany({
+    where: {
+      songs: {
+        some: {
+          rankings: {
+            some: {
+              user_id: user
+            }
+          }
+        }
+      }
+    },
+    orderBy: {
+      artist_name: "asc"
+    }
+  })
+
+  return data.map( item => ({
+    artist_id: item.id,
+    artist_name: item.artist_name
+  }));
+}
+
+
 //get artist
 export async function fetchArtist (artist: number | string ) {
   const artistId = toString(artist);
@@ -331,6 +357,44 @@ export async function fetchArtist (artist: number | string ) {
   });
 
   return data;
+}
+
+//get projexts for sorter filter
+export async function fetchArtistsAlbums (artist: number | string ) {
+  const artistId = toString(artist);
+
+  const albums = await prisma.albums.findMany({
+    where: {
+      artist_id: artistId
+    }, 
+    include: {
+      artists: true
+    },
+    orderBy: {
+      release_date: "desc"
+    }
+  });
+
+  return albums
+}
+
+export async function fetchArtistsSingles (artist: number | string ) {
+  const artistId = toString(artist);
+
+  const singles = await prisma.songs.findMany({
+    where: {
+      artist_id: artistId,
+      album_id: null
+    }, 
+    include: {
+      artists: true
+    },
+    orderBy: {
+      release_date: "desc"
+    }
+  });
+
+  return singles
 }
 
 //get all songs for sorter

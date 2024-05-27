@@ -2,9 +2,6 @@
 import styles from "@/styles/form.module.css"
 import { alterDateFormat, alterDateFormatDash } from "@/utils/alterDateFormat";
 import React, { useEffect, useRef, useState } from "react";
-import ColorSelector from "./ColorSelector";
-import useDominantColor from "@/hooks/useDominantColor";
-import { getCover } from "@/utils/getPic";
 
 type albumInfo = {
     album_name: string,

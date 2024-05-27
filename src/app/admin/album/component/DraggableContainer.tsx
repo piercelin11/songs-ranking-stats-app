@@ -1,7 +1,7 @@
 "use client"
 import styles from "@/styles/admin.module.css"
 import EditableSongsRow from "./EditableSongsRow";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { deleteSong, orderSongs } from "@/lib/adminDataProcessing/action";
 import { useParams } from "next/navigation";
 
@@ -77,10 +77,14 @@ export default function DraggableContainer({ data }: { data: DataProps[] }) {
 
         const _songsArray = songsArray.filter( item => item !== title );
 
-        try {
+        try { 
             await deleteSong(id);
             try {
-                await orderSongs(params.albumId, _songsArray, songsArray);
+                if (title !== songsArray[songsArray.length - 1]) {
+                    await orderSongs(params.albumId, _songsArray, songsArray);
+                } else {
+                    return;
+                }
             } catch (error) {
                 console.error("Failed to order songs:", error);
                 return;

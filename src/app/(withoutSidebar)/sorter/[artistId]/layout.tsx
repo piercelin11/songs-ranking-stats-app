@@ -13,8 +13,8 @@ export default async function Layout( { children, params: { artistId } }: { chil
     if (!artist) notFound();
     
     return (
-        <div className={styles.content}>
-            <RecButton variant="transparent">
+        <div /* className={styles.content} */>
+            {/* <RecButton variant="transparent">
                 <CloseIcon size={15}/>
                 QUIT
             </RecButton>
@@ -23,7 +23,8 @@ export default async function Layout( { children, params: { artistId } }: { chil
 
             <div className={styles.content}>
                 { children }
-            </div>
+            </div> */}
+            { children }
         </div>
     )
 }

@@ -1,19 +1,22 @@
 import { RankChangeIcon } from "@/lib/icon"
 import styles from "@/styles/stats.module.css"
 import Image from "next/image"
-import { getCover } from "@/utils/getPic";
 import Link from "next/link";
 import getDataType from "@/utils/getDataType";
-
-export default function RankingRow ({ data } : { data: any }) {
-    const { ranking, peak, song_name, album_name, difference, artist_name } = data as {
+import fetchSpotifyCover from "@/lib/spotify/fetchSpotifyCover";
+ 
+export default async function RankingRow ({ data } : { data: any }) {
+    const { ranking, peak, song_name, album_name, difference, artist_name, release_date } = data as {
         ranking: number,
         peak: number,
         song_name: string,
-        album_name: string,
+        album_name: string | null,
         difference: number | null,
         artist_name: string,
+        release_date: Date | null
     };
+
+    const imgUrl = await fetchSpotifyCover(artist_name, album_name || song_name, release_date );
 
     const {type, id} = getDataType(data);
 
@@ -47,7 +50,7 @@ export default function RankingRow ({ data } : { data: any }) {
                         </div>
 
                         <Image 
-                            src={getCover(artist_name, album_name, song_name)}
+                            src={imgUrl}
                             alt="album cover"
                             width={70}
                             height={70}

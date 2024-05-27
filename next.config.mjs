@@ -10,6 +10,10 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'images.genius.com'
             },
+            {
+                protocol: 'https',
+                hostname: 'i.scdn.co'
+            },
         ],
       },
 };

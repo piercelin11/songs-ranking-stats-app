@@ -60,7 +60,7 @@ export async function updateAlbum(albumId: string, formData: FormData) {
     const albumColor = formData.get("albumColor") as string ?? null;
 
     try {
-        if (!albumColor) {
+        if (albumColor) {
             const data = await prisma.albums.update({
                 where: {
                     id: albumId
@@ -146,7 +146,9 @@ export async function deleteSong(songId: string) {
     revalidatePath(`/admin/album`);
 }
 
-export async function addSongs(albumId: string, artistId: string, data: string[]) {
+export async function addSongs(albumId: string, artistId: string, data: string[] | undefined) {
+    if (!data) return;
+    
     const createSongsData = data.map( (item, index) => ({
         artist_id: artistId,
         song_name: item,
@@ -205,7 +207,7 @@ export async function orderSongs(albumId: string, newData: string[], originalDat
         const findSong = allSongsData.find( songs => songs.song_name ===  item);
         return ({id: findSong?.song_id, track_number: index + 1})
     });
-
+ 
     const newSongsOrder = newData.map( (item, index) => {
         const findSong = allSongsData.find( songs => songs.song_name ===  item);
         return ({id: findSong?.song_id, track_number: index + 1})

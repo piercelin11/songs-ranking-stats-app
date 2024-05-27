@@ -1,13 +1,13 @@
 "use client"
 import styles from "@/styles/admin.module.css"
 import { CheckIcon, GarbageCanIcon, PencilIcon } from "@/lib/icon";
-import React, { useEffect, useRef, useState } from "react";
-import { updateSong } from "@/lib/adminDataProcessing/action";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { deleteSong, updateSong } from "@/lib/adminDataProcessing/action";
 import { IconButtonRound } from "@/components/ui/button/IconButton";
 import FlexContainer from "@/components/common/FlexContainer";
 import { alterDateFormatDash } from "@/utils/alterDateFormat";
 import Image from "next/image";
-import { getCover } from "@/utils/getPic";
+import useSpotifyCover from "@/hooks/useSpotifyCover";
 
 
 type Data = { 
@@ -16,21 +16,18 @@ type Data = {
     index: number | null,
     id: string,
     releaseDate: Date | null,
-    artistName: string
+    artistName: string,
+    imgURL: string,
 }
 
 type Props = { 
     data: Data, 
-    onDelete: (id: string, title: string,) => void,
-}
-
-type Input = {
-    songName: string,
-    releaseDate: string | number,
 }
 
 
-export default function EditableSinglesRow({ data: { title, subtitle ,index, id, releaseDate, artistName }, onDelete } : Props) {
+
+export default function EditableSinglesRow({ data: { title, subtitle ,index, id, releaseDate, artistName, imgURL } } : Props) {
+
 
     const [isHover, setIsHover] = useState<boolean>(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -51,6 +48,16 @@ export default function EditableSinglesRow({ data: { title, subtitle ,index, id,
         if (formData.get("songName") === title && formData.get("releaseDate") === alterDateFormatDash(releaseDate) ) setIsEditing(false);
     }
 
+    async function handleDelete(id: string) {
+
+        try {
+            await deleteSong(id);
+        } catch (error) {
+            console.error("Failed to delete song:", error);
+            return;
+        }
+    }
+
     useEffect(() => {
         inputRef.current?.focus();
     }, [isEditing]);
@@ -59,12 +66,16 @@ export default function EditableSinglesRow({ data: { title, subtitle ,index, id,
         setIsEditing(false);
     }, [title, releaseDate]); 
 
+    const imgUrl = useSpotifyCover(artistName, title, releaseDate);
+
+
+
     return(
         <div className={styles.editableRow} onMouseOver={ () => setIsHover(true) } onMouseOut={ () => setIsHover(false) }>
             <FlexContainer align="center" gap={5}>
                 <p className={styles.editableRowNumber}>{index ? index.toString().padStart(2, "0") : null}</p>
                 <Image 
-                    src={getCover(artistName, null, title)}
+                    src={imgURL}
                     width={65}
                     height={65}
                     alt="cover"
@@ -90,7 +101,7 @@ export default function EditableSinglesRow({ data: { title, subtitle ,index, id,
                             <IconButtonRound size={32} onClick={handleEditClick} variant="onSurface">
                                 <PencilIcon size={14} />
                             </IconButtonRound>
-                            <IconButtonRound size={32} onClick={() => { onDelete(id, title) }} variant="onSurface">
+                            <IconButtonRound size={32} onClick={() => { handleDelete(id) }} variant="onSurface">
                                 <GarbageCanIcon size={14} />
                             </IconButtonRound>
                         </div>

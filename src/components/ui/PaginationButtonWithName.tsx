@@ -11,7 +11,7 @@ export default function PaginationButtonWithName({ data, direction }: { data: an
         return(
             
                 <div className={styles.PaginationButtonWithName}>
-                    <Link href={`/${type}/${id}`}>
+                    <Link href={`/${type}/${id}`} replace>
                     <div className={styles.next} >
                         <div>
                             <p className={styles.mainText}>{title}</p>
@@ -26,7 +26,7 @@ export default function PaginationButtonWithName({ data, direction }: { data: an
     if (direction === "previous")
         return(
                 <div className={styles.PaginationButtonWithName}>
-                    <Link href={`/${type}/${id}`}>
+                    <Link href={`/${type}/${id}`} replace>
                     <div className={styles.previous} >
                         <PreviousIcon size={27} />
                         <div>

@@ -4,7 +4,7 @@ export default function useBannerAnimation() {
     const coverRef = useRef(null);
 
     const [size, setSize] = useState(100);
-    const [opacity, setOpacity] = useState(0);
+    const [opacity, setOpacity] = useState(0.2);
     const [stickyOpacity, setStickyOpacity] = useState(0);
 
     const onScroll = () => {

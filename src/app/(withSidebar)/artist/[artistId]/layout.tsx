@@ -22,7 +22,6 @@ export default async function Layout({ children, params: { artistId } }: { child
 
     return (
       <div>
-        
         <Banner artistName={artist.artist_name}>
           <FlexContainer gap={20}>
 
@@ -35,7 +34,7 @@ export default async function Layout({ children, params: { artistId } }: { child
             </Link>
 
           </FlexContainer>
-        </Banner> 
+        </Banner>
         
         <GradientBackground data={dataForGradient}>
           { children }

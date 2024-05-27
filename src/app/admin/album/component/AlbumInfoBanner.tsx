@@ -3,7 +3,6 @@
 import { CheckIcon, PencilIcon } from "@/lib/icon";
 import styles from "@/styles/admin.module.css"
 import { alterDateFormatDash, alterDateFormatToLong } from "@/utils/alterDateFormat";
-import { getCover } from "@/utils/getPic";
 import Image from "next/image";
 import EditAlbumForm from "./EditAlbumForm";
 import { useEffect, useState } from "react";
@@ -22,9 +21,9 @@ type albumInfo = {
 }
 
 
-export default function AlbumInfoBanner({ data }: { data: albumInfo }) {
+export default function AlbumInfoBanner({ data, imgUrl }: { data: albumInfo, imgUrl: string }) {
 
-    const [ color ] = useDominantColor(getCover(data.artist_name, data.album_name));
+    const [ color ] = useDominantColor(imgUrl);
     const [ isEditing, setIsEditing ] = useState(false);
     const { artist_name, album_name, release_date, album_id, album_color } = data;
 
@@ -44,10 +43,11 @@ export default function AlbumInfoBanner({ data }: { data: albumInfo }) {
     return (
         <div className={styles.banner} >
             <Image 
-                src={getCover(artist_name, album_name)}
+                src={imgUrl}
                 height={220}
                 width={220}
                 alt="cover"
+                priority
             />
 
             {!isEditing ?

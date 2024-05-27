@@ -13,20 +13,24 @@ type SongsList = {
     track_numer: number | null,
     artist_id: string,
     artist_name: string,
+    imgUrl: string,
 }
 
-export default function SorterContainer( { data }: { data: SongsList[] } ) {
+type Props = { 
+    data: SongsList[], 
+    setPercentage: (percentage: number) => void,
+    setIsStart: (isStart: boolean) => void,
+}
+
+export default function SortingStage( { data, setPercentage, setIsStart }: Props ) {
     const [result, setResult] = useState<null | any[]>(null);
 
     return (
-        <div className={styles.sorterContainer}>
-            {!result ? <SorterField data={data} setResult={setResult} /> : 
-            
-                <SorterResult data={result} />
-            }
-            
-
+        <div className={styles.sortingStageContainer}>
+            {!result ? <SorterField data={data} setResult={setResult} setPercentage={setPercentage} setIsStart={setIsStart} /> : 
              
+                <SorterResult data={result} />
+            }            
         </div>
 
     )

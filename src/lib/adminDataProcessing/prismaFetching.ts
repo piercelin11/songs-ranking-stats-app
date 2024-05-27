@@ -69,7 +69,9 @@ export async function fetchArtistsSingles (artist: string, take?: number) {
         song_name: item.song_name,
         artist_id: item.artist_id,
         release_date: item.release_date,
-        artist_name: item.artists.artist_name
+        artist_name: item.artists.artist_name,
+        album_name: null,
+        album_id: null
     }));
 }
 

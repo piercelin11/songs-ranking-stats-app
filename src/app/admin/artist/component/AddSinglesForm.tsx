@@ -4,22 +4,11 @@ import styles from "@/styles/form.module.css"
 
 
 
-export default function AddSinglesForm({ onSubmit }: { onSubmit: (formData: FormData) => void }) {
+export default function AddSinglesForm() {
 
     return ( 
-        <div>
-            <form 
-                action={onSubmit}
-                className={styles.addSongsForm}
-            >
-                <textarea rows={6} name="song"/>
-
-                <div>
-                    <RecButton type="submit" variant="primary">
-                        Enter
-                    </RecButton>
-                </div>
-            </form>
+        <div className={styles.addSongsForm}>
+            <textarea rows={6} name="song"/>
         </div>
     );
 }

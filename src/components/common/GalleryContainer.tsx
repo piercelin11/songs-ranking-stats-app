@@ -10,17 +10,10 @@ import { IconButtonRound } from "../ui/button/IconButton";
 type DataForGallery = {
     data: any[], 
     addClick?: () => void, 
-    link?: string | {
-        pathname: string,
-        query: {
-            id: string
-        }
-    },
     title?: string
 }
 
-
-export default function GalleryContainer({ data, addClick, link, title }: DataForGallery) {
+export default function GalleryContainer({ data, addClick, title }: DataForGallery) {
 
     const pathname = usePathname();
     const isAdmin = pathname.startsWith("/admin") ? "/admin" : "/";
@@ -51,19 +44,6 @@ export default function GalleryContainer({ data, addClick, link, title }: DataFo
                         >
                             <PlusIcon size={"25%"}/>
                         </IconButtonRound>
-                    </div>
-                }
-
-                {link &&
-                    <div className={styles.plusButton}>
-                        <Link href={link}>
-                            <IconButtonRound 
-                                size="100%"
-                                variant="onBackground"
-                            >
-                                <PlusIcon size={"25%"}/>
-                            </IconButtonRound>
-                        </Link>
                     </div>
                 }
 

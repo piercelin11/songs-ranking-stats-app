@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
-import { fetchAllDates, fetchPeakAndAvg, fetchPrevAvg, fetchSongs, fetchSong, fetchSongsList } from "./prismaFetching"
+import { fetchAllDates, fetchPeakAndAvg, fetchPrevAvg, fetchSongs, fetchSong, fetchSongsList, fetchArtistsAlbums, fetchArtistsSingles } from "./prismaFetching"
 
 type AvgSongsData = {
     song_id: string,
     song_name: string,
     artist_name: string,
     artist_id: string,
+    release_date: Date | null,
     ranking: number,
     previous_ranking: number | null,
     average_ranking: number,
@@ -39,6 +40,7 @@ export async function getAvgSongsRanking(artistId: number | string, take?: numbe
             song_name: resultItem.song_name,
             artist_name: resultItem.artists.artist_name,
             artist_id: resultItem.artist_id,
+            release_date: resultItem.release_date,
             ranking: ranking + 1,
             previous_ranking:  prevRanking === -1 ? null : prevRanking + 1,
             average_ranking: findPeakAndAvg?.average_ranking ?? NaN,
@@ -168,7 +170,7 @@ type AllDatesData = {
 }
 
 export async function getAllDates (artistId: number | string, take?: number): Promise<AllDatesData[]> {
-     
+      
     const allDates = await fetchAllDates(artistId, take);
 
     const result = allDates.map( item => ({
@@ -177,9 +179,11 @@ export async function getAllDates (artistId: number | string, take?: number): Pr
         info: item.info,
         type: item.type,
         artist_name: item.rankings[0].songs.artists.artist_name,
+        artist_id: item.rankings[0].songs.artists.id,
         rankings: item.rankings.map( rankingsItem => ({
             song_name: rankingsItem.songs.song_name,
             album_name: rankingsItem.songs.albums?.album_name ?? null,
+            release_date: rankingsItem.songs.albums?.release_date || rankingsItem.songs.release_date,
             ranking: rankingsItem.ranking,
         }))
     }));
@@ -194,6 +198,7 @@ type AvgSongData = {
     song_name: string,
     artist_name: string,
     artist_id: string,
+    release_date: Date | null,
     ranking: number,
     previous_ranking: number | null,
     average_ranking: number,
@@ -233,6 +238,7 @@ type SongsList = {
     track_numer: number | null,
     artist_id: string,
     artist_name: string,
+    release_date: Date | null,
 }
 
 export async function getSongsList(artist: number | string): Promise<SongsList[]> {
@@ -246,8 +252,38 @@ export async function getSongsList(artist: number | string): Promise<SongsList[]
         album_name: item.albums?.album_name ?? null,
         track_numer: item.track_number,
         artist_id: item.artist_id,
-        artist_name: item.artists.artist_name
+        artist_name: item.artists.artist_name,
+        release_date: item.release_date,
     }))
 
     return result;
 }
+
+
+
+export async function getFilterList(artist: number | string) {
+    const albums = await fetchArtistsAlbums(artist);
+    const singles = await fetchArtistsSingles(artist);
+
+    const albumsResult = albums.map( item => ({
+        artist_id: item.artist_id,
+        artist_name: item.artists.artist_name,
+        album_id: item.id,
+        album_name: item.album_name,
+        release_date: item.release_date
+    }));
+
+    const singlesResult = singles.map( item => ({
+        artist_id: item.artist_id,
+        artist_name: item.artists.artist_name,
+        album_id: null,
+        album_name: null,
+        song_id: item.id,
+        song_name: item.song_name,
+        release_date: item.release_date
+    }));
+
+    return ([...albumsResult, ...singlesResult]);
+}
+
+

@@ -1,8 +1,9 @@
 "use client"
-import ModalContainer from "@/components/common/ModalContainer";
+import ModalFromContainer from "@/components/common/ModalFromContainer";
 import { useState } from "react";
 import CreateArtistModal from "@/app/admin/artist/component/CreateArtistModal";
 import GalleryContainer from "@/components/common/GalleryContainer";
+import { createArtist } from "@/lib/adminDataProcessing/action";
 
 type Gallery = { 
     artist_name: string,
@@ -23,10 +24,15 @@ export default function ArtistGallery({ data }: { data: Gallery[] }) {
   
     return (
         <div>
-            <ModalContainer isOpen={isModalOpen} onClose={closeModal}>
+            <ModalFromContainer 
+                isOpen={isModalOpen} 
+                onClose={closeModal}
+                action={createArtist}
+                title="Add new artist"
+            >
                 <CreateArtistModal />
-            </ModalContainer>
-
+            </ModalFromContainer>
+ 
             <GalleryContainer data={data} addClick={openModal} />
         </div>
     );

@@ -36,7 +36,7 @@ export default function RoundRecImg({ size, url, alt, fill = false, priority = f
 
         return (
             <Image
-                className={styles.roundImg}
+                className={styles.roundRecImg}
                 src={url}
                 alt={alt}
                 width={size}
