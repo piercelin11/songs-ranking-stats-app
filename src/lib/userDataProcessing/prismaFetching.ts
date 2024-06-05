@@ -2,20 +2,25 @@ import { prisma } from "../prisma";
 
 const userId = "c9485cbd-9d5a-4889-86b5-403db666b9d3"
 
-function toString(params: number | string) : string {
-  if (typeof params === "number") return params.toString() || ""
+const boygenius = ["56f75caa-407f-4032-86fd-e1341b9a5532", "eba8588b-6256-401e-9fec-0696a910ced1", "46f6c0a0-df49-4c28-897e-da4f23c817ea", "1cbc780e-c60d-410f-9e9e-fe835d13d493"];
+const boys = ["eba8588b-6256-401e-9fec-0696a910ced1", "46f6c0a0-df49-4c28-897e-da4f23c817ea", "1cbc780e-c60d-410f-9e9e-fe835d13d493"];
+
+function toGroup(params: string | {in: string[]}) : string | {in: string[]} {
+  if(boygenius.includes(params as string)) 
+    return ({in: boygenius})
   else return params
 }
 
-//get all dates
-export async function fetchAllDates (artist: number | string, take?: number , user?: string) {
-  const artistId = toString(artist);
+
+//get all dates from an artist
+export async function fetchAllDates (artist: string | {in: string[]}, take?: number , user?: string) {
+  const artistId = toGroup(artist);
 
   const data = await prisma.dates.findMany({
     where: {
         user_id: userId,
         rankings: {
-            some: {
+            every: {
                 songs: {
                   artist_id: artistId
                 }
@@ -46,19 +51,17 @@ export async function fetchAllDates (artist: number | string, take?: number , us
   return data
 }
 
-//get most recent dates
-export async function fetchLatestDates (artist: number | string, user?: string) {
-  const artistId = toString(artist);
+//get most recent dates from an artist
+export async function fetchLatestDates (artist: string | {in: string[]} , user?: string) {
+  const artistId = toGroup(artist);
 
   const data = await prisma.dates.findFirst({
     where: {
       user_id: userId,
       rankings: {
-        some: {
+        every: {
           songs: {
-            albums: {
-              artist_id: artistId,
-            }
+            artist_id: artistId,
           }
         }
       }
@@ -71,9 +74,12 @@ export async function fetchLatestDates (artist: number | string, user?: string) 
   return data
 }
 
-//get peak
-export async function fetchPeakAndAvg (artist: number | string, user?: string) {
-  const artistId = toString(artist);
+//get peak and average from an artist
+export async function fetchPeakAndAvg (artist?: string, user?: string) {
+  let artistId: string | {in: string[]} | undefined;
+  if(artist) 
+    artistId = toGroup(artist)
+  else artistId = undefined;
 
   const data = await prisma.rankings.groupBy({
     by: ['song_id'],
@@ -83,7 +89,7 @@ export async function fetchPeakAndAvg (artist: number | string, user?: string) {
         artist_id: artistId
       },
       dates: {
-        type: "OVERALL"
+        type: "ARTIST"
       }
     },
     _min: {
@@ -107,9 +113,9 @@ export async function fetchPeakAndAvg (artist: number | string, user?: string) {
   }));
 }
  
-//average ranking without latest date
-export async function fetchPrevAvg (artist: number | string, user?: string) {
-  const artistId = toString(artist);
+//average ranking without latest date from an artist
+export async function fetchPrevAvg (artist: string , user?: string) {
+  const artistId = toGroup(artist);
 
   const data = await prisma.rankings.groupBy({
     by: ['song_id'],
@@ -119,7 +125,7 @@ export async function fetchPrevAvg (artist: number | string, user?: string) {
         artist_id: artistId
       },
       dates: {
-        type: "OVERALL",
+        type: "ARTIST",
         id: {
           not: await fetchLatestDates(artistId).then( latest => latest?.id )
         }
@@ -144,9 +150,9 @@ export async function fetchPrevAvg (artist: number | string, user?: string) {
   }));
 }
 
-//all songs data & rankings by artist
-export async function fetchSongs (artist: number | string, take?: number, user?: string) {
-  const artistId = toString(artist);
+//all songs data & rankings by artist from an artist
+export async function fetchSongs (artist: string, take?: number, user?: string) {
+  const artistId = toGroup(artist);
   
   const data = await prisma.songs.findMany({
     where: {
@@ -162,7 +168,7 @@ export async function fetchSongs (artist: number | string, take?: number, user?:
         where: {
           user_id: userId,
           dates: {
-            type: "OVERALL"
+            type: "ARTIST"
           }
         },
         include: {
@@ -183,10 +189,10 @@ export async function fetchSongs (artist: number | string, take?: number, user?:
   return data;
 }
 
-//all songs data & rankings by dates
-export async function fetchSongsByDate (artist: number | string, date: number | string, user?: string) {
-  const artistId = toString(artist);
-  const dateId = toString(date);
+//all songs data & rankings by dates from an artist
+export async function fetchSongsByDate (artist: string | null, date: string, type?: "ARTIST" | "CHAMPIONSHIP" ,user?: string) {
+  const artistId = artist ? toGroup(artist) : undefined;
+  const dateId = toGroup(date);
 
   const data = await prisma.rankings.findMany({
     where: {
@@ -196,7 +202,7 @@ export async function fetchSongsByDate (artist: number | string, date: number | 
           artist_id: artistId
         },
         dates: {
-            type: "OVERALL"
+            type: type ? type : "ARTIST"
         }
     },
     include: {
@@ -217,10 +223,10 @@ export async function fetchSongsByDate (artist: number | string, date: number | 
   return data
 }
 
-//get previous dates
-export async function fetchPrevDates (artist: number | string, date: number | string, user?: string) {
-  const artistId = toString(artist);
-  const dateId = toString(date);
+//get previous dates from an artist
+export async function fetchPrevDates (artist: string | {in: string[]}, date: string, user?: string) {
+  const artistId = toGroup(artist);
+  const dateId = toGroup(date);
 
   const allDates = await fetchAllDates(artistId);
   const timeStamp = allDates.find( item => item.id === dateId )?.date;
@@ -247,12 +253,12 @@ export async function fetchPrevDates (artist: number | string, date: number | st
   return data[0];
 }
 
-//previous ranking
-export async function fetchPrevRanking (artist: number | string, date: number | string, user?: string) {
-  const artistId = toString(artist);
-  const dateId = toString(date);
+//previous ranking from an artist
+export async function fetchPrevRanking (artist: string, date: string, user?: string) {
+  const artistId = toGroup(artist);
+  const dateId = toGroup(date);
 
-  const prevDate = await fetchPrevDates(artistId, dateId);
+  const prevDate = await fetchPrevDates(artistId, dateId as string);
 
   const data = await prisma.rankings.findMany({
     where: {
@@ -262,7 +268,7 @@ export async function fetchPrevRanking (artist: number | string, date: number | 
             artist_id: artistId,
         },
         dates: {
-            type: "OVERALL"
+            type: "ARTIST"
         }
     },
     include: {
@@ -285,8 +291,8 @@ export async function fetchPrevRanking (artist: number | string, date: number | 
 }
 
 //get one song
-export async function fetchSong (song: number | string, user?: string) {
-  const songId = toString(song);
+export async function fetchSong (song: string, user?: string) {
+  const songId = toGroup(song);
  
   const data = await prisma.songs.findFirst({
     where: {
@@ -297,7 +303,7 @@ export async function fetchSong (song: number | string, user?: string) {
         where: {
           user_id: userId,
           dates: {
-            type: "OVERALL"
+            type: "ARTIST"
           }
         },
         include: {
@@ -317,38 +323,9 @@ export async function fetchSong (song: number | string, user?: string) {
   return data;
 }
 
-
-
-
-//get user's artist
-export async function fetchArtistByUser (user?: string) {
-  const data = await prisma.artists.findMany({
-    where: {
-      songs: {
-        some: {
-          rankings: {
-            some: {
-              user_id: user
-            }
-          }
-        }
-      }
-    },
-    orderBy: {
-      artist_name: "asc"
-    }
-  })
-
-  return data.map( item => ({
-    artist_id: item.id,
-    artist_name: item.artist_name
-  }));
-}
-
-
 //get artist
-export async function fetchArtist (artist: number | string ) {
-  const artistId = toString(artist);
+export async function fetchArtist (artist: string ) {
+  const artistId = toGroup(artist);
   
   const data = await prisma.artists.findFirst({
     where: {
@@ -359,9 +336,152 @@ export async function fetchArtist (artist: number | string ) {
   return data;
 }
 
-//get projexts for sorter filter
-export async function fetchArtistsAlbums (artist: number | string ) {
-  const artistId = toString(artist);
+
+
+
+
+
+//get user's artist
+export async function fetchArtistByUser (user?: string) {
+  const data = await prisma.dates.findMany({
+    where: {
+      user_id: user,
+    },
+    include: {
+      rankings: {
+        include: {
+          songs: {
+            include: {
+              artists: true
+            }
+          }
+        },
+        take: 1,
+      }
+    }
+  })
+
+  return data.map( item => ({
+    date_id: item.id,
+    date: item.date,
+    artist_id: item.rankings[0]?.songs.artists.id,
+    artist_name: item.rankings[0]?.songs.artists.artist_name,
+  }));
+}
+ 
+//get user's unlog artist
+export async function fetchUnLogArtistByUser (user?: string) {
+  const data = await prisma.artists.findMany({
+    where: {
+      songs: {
+        every: {
+          rankings: {
+            none: {
+              user_id: user
+            }
+          }
+        }
+      },
+      id: {
+        not: { in: boys }
+      }
+    },
+    orderBy: {
+      artist_name: "asc"
+    }
+  });
+
+  return data.map( item => ({
+    artist_id: item.id,
+    artist_name: item.artist_name
+  }));
+}
+
+//fetch all songs
+export async function fetchAllSongs (user?: string) {
+  
+  const data = await prisma.songs.findMany({
+    where: {
+      rankings: {
+        some: {
+          user_id: userId,
+        }
+      },
+      /* album_id: {
+        not: null
+      } */
+    },
+    include: {
+      artists: {
+        include: {
+          songs: {
+            where: {
+              rankings: {
+                some: {
+                  user_id: user
+                }
+              }
+            }
+          }
+        }
+      },
+      albums: {
+        include: {
+          songs: {
+            where: {
+              rankings: {
+                some: {
+                  user_id: user
+                }
+              }
+            }
+          }
+        }
+      },
+    }
+  });
+
+  return data;
+}
+
+//fetch all dates
+export async function fetchAllDatesByUser (datesTake?: number, rankingsTake?: number, user?: string) {
+  const data = await prisma.dates.findMany({
+    where: {
+        user_id: userId,
+    },
+    include: {
+        rankings: {
+            include: {
+              songs: {
+                include: {
+                  albums: true,
+                  artists: true,
+                }
+              }
+            },
+            orderBy: {
+                ranking: "asc",
+            },
+            take: rankingsTake,
+        },
+    },
+    take: datesTake,
+    orderBy: {
+        date: "desc"
+    }
+})
+
+  return data
+}
+
+
+
+
+
+//get albums for sorter filter
+export async function fetchArtistsAlbums (artist: string ) {
+  const artistId = toGroup(artist);
 
   const albums = await prisma.albums.findMany({
     where: {
@@ -378,8 +498,9 @@ export async function fetchArtistsAlbums (artist: number | string ) {
   return albums
 }
 
-export async function fetchArtistsSingles (artist: number | string ) {
-  const artistId = toString(artist);
+//get singles for sorter filter
+export async function fetchArtistsSingles (artist: string ) {
+  const artistId = toGroup(artist);
 
   const singles = await prisma.songs.findMany({
     where: {
@@ -398,12 +519,14 @@ export async function fetchArtistsSingles (artist: number | string ) {
 }
 
 //get all songs for sorter
-export async function fetchSongsList (artist: number | string ) {
-  const artistId = toString(artist);
+export async function fetchSongsList (artist: string | null, album?: string | string[]) {
+  const artistId = artist ? toGroup(artist) : undefined;
+  //const albumId = album && typeof album === "string" ? album : {in: album}
   
   const data = await prisma.songs.findMany({
     where: {
       artist_id: artistId,
+      //album_id: albumId as string | {in: string[]},
     },
     include: {
       artists: true,

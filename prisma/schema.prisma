@@ -73,6 +73,9 @@ model users {
 }
 
 enum rankingType {
-  OVERALL
+  ARTIST
   ALBUM
+  FRIENDLY_MATCH
+  CHAMPIONSHIP
+  OVERALL
 }

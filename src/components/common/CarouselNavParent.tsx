@@ -25,7 +25,7 @@ export default function CarouselNavParent({ children, length }: {children: React
     return(
         <div>
             <div className={styles.carouselNavContainer}>
-                <h2>Some Random Words For Title</h2>
+                <h2>All Rankings</h2>
  
                 <div className={styles.carouselNav}>
                     <IconButtonRound onClick={handleCarouselPrev} variant="onBackground">
@@ -35,7 +35,7 @@ export default function CarouselNavParent({ children, length }: {children: React
                     <IconButtonRound onClick={handleCarouselNext} variant="onBackground">
                         <NavigateRightIcon size={20}/>
                     </IconButtonRound>
-                </div>
+                </div> 
             </div>
 
             <div className={styles.carouselContainer}>

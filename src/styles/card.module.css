@@ -68,15 +68,26 @@
     height: 60px;
 }
 
+.cardRankingRow > div {
+    overflow: hidden;
+    width: 100%;
+}
+
 .cardRankingRow .mainText {
     font-size: var(--small-text);
     font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .cardRankingRow .subText {
     font-size: var(--small-text);
     color: var(--secondary-text-color);
     font-weight: 300;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .showAll {
@@ -106,7 +117,7 @@
 
 
 /* #region carousel */
-
+ 
 .carouselTopContainer {
     max-width: 100%;
 }
@@ -117,10 +128,14 @@
 }
 
 .carouselChange {
+    transition: all 0.5s ease-in-out;
+}
+
+.carouselChange {
     display: flex;
+    flex-direction: row;
     align-items: center; 
     gap: 30px;
-    transition: all 0.5s ease-in-out;
 }
 
 .carouselChange > div {

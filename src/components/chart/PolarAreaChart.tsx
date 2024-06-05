@@ -9,11 +9,12 @@ import {
   Legend,
 } from 'chart.js';
 import { PolarArea } from 'react-chartjs-2';
+import { adjustSaturation, ensureBrightness } from '@/utils/colorHelper';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
  
 const options = {    
-  responsive: true,      
+  responsive: true,    
   plugins: {
       legend: {
         display: false,
@@ -56,10 +57,10 @@ function PolarAreaChart({ data: {labels, mainData, color} }: { data: DataType })
       {
         label: "label",
         data: mainData,
-        backgroundColor: color.map(item => item + "11"),
-        borderColor: color.map(item => item + "CC"),
-        hoverBackgroundColor: color.map(item => item + "66"),
-        hoverBorderColor: color.map(item => item + "99"),
+        backgroundColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "11"),
+        borderColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "CC"),
+        hoverBackgroundColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "66"),
+        hoverBorderColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "99"),
         borderWidth: 1.5
       },
     ],

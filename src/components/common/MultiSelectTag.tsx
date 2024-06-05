@@ -1,6 +1,6 @@
 import styles from "@/styles/tabs-dropdown.module.css"
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React from "react"; 
 
 export default function MultiSelectTag({ value, label, isFixed = false, color = null }: { value: number | string, label: string, isFixed?: boolean, color?: string | null }) {
     const searchParams = useSearchParams();

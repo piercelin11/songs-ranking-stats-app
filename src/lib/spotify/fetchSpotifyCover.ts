@@ -14,8 +14,8 @@ export default async function fetchSpotifyCover(artistName: string, albumName: s
   const result = await data.json();
 
   return !result.data.albums ? "/pic/placeholder.jpg" : 
-         result.data.albums.items[0] ? result.data.albums.items[imgIndex].images[0].url : 
-         result.data.tracks.items[0] ? result.data.tracks.items[imgIndex].images[0].url : 
+         result.data.albums.items[imgIndex] && result.data.albums.items[imgIndex].images?.[0] ? result.data.albums.items[imgIndex].images[0].url : 
+         result.data.tracks.items[imgIndex] && result.data.tracks.items[imgIndex].images?.[0] ? result.data.tracks.items[imgIndex].images[0].url : 
          "/pic/placeholder.jpg"
 };
 
@@ -34,11 +34,11 @@ export async function fetchSpotifyAlbumData(artistName: string, albumName: strin
 
 
   const imgUrl = !result.data.albums ? "/pic/placeholder.jpg" : 
-                 result.data.albums.items[0] ? result.data.albums.items[imgIndex].images[0].url : 
+                 result.data.albums.items[imgIndex] && result.data.albums.items[imgIndex].images?.[0] ? result.data.albums.items[imgIndex]?.images?.[0].url : 
                  "/pic/placeholder.jpg";
 
   const id = !result.data.albums ? "" :
-             result.data.albums.items[imgIndex].id;
+             result.data.albums.items[imgIndex]?.id;
 
   return ({imgUrl ,id})
 };

@@ -1,26 +1,8 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse, NextRequest } from "next/server"
+import { fetchToken } from "../spotify-cover/route";
 
-async function fetchToken() {
-  
-  const CLIENT_ID = process.env.CLIENT_ID;
-  const CLIENT_SECRET = process.env.CLIENT_SECRET;
-  const response = await axios.post("https://accounts.spotify.com/api/token", 
-      { "grant_type": "client_credentials" }, 
-      {
-          headers: {
-              "Authorization": "Basic " + Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
-              "content-type": "application/x-www-form-urlencoded",
-          }
-      }
-  );
-
-  const data = await response.data;
-  const token = data.access_token;
-
-  return token;
-}
 
 
 export async function GET( req: NextRequest ) {

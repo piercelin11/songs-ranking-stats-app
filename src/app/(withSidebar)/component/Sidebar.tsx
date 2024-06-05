@@ -1,41 +1,59 @@
+"use client"
 import styles from "@/styles/sidebar.module.css"
 import SidebarMenuItem from "@/app/(withSidebar)/component/SidebarMenuItem";
 import SidebarProfile from "./SidebarProfile";
 import FlexContainer from "@/components/common/FlexContainer";
 import RoundRecImg from "@/components/ui/RoundRecImg";
 import { SmallGap } from "@/components/common/Gap";
-import SidebarDisplay from "./SidebarLibrary";
+import Link from "next/link";
+import { IconButtonRec } from "@/components/ui/button/IconButton";
+import { ReactNode, useState } from "react";
 
 type Menu = {
     icon: "ClockIcon" | "StairIcon" | "VinylIcon" | "ArchiveIcon" | "LogoutIcon" | "SearchIcon" | "HomeIcon",
-    title: string
+    title: string,
+    url: string,
 }
 
 export const sidebarMenu : Menu[] = [
     {
         title: "Home",
-        icon: "HomeIcon"
+        icon: "HomeIcon",
+        url: "/home"
     },
     {
         title: "History",
-        icon: "SearchIcon"
+        icon: "SearchIcon",
+        url: "/home"
     }
 ] 
 
-export default function Sidebar() {
+
+export default function Sidebar({ children }: { children: ReactNode }) {
+    const [isOpen, setIsOpen] = useState(false);
+ 
+
     return (
-        <aside className={styles.sidebar}>
+        <div className={isOpen ? styles.open : ""}>
+            <button className={styles.hamburger} onClick={() => {setIsOpen(prev => !prev)}}>
+                <hr />
+                <hr />
+            </button>
+            <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`} onClick={() => {setIsOpen(prev => !prev)}}>
 
-            <div>
-                {
-                    sidebarMenu.map( item =>  
-                        <SidebarMenuItem key={item.title} title={item.title} icon={item.icon}/>
-                    )
-                }
-            </div>
+                <div className={styles.menuItemContainer}>
+                    {
+                        sidebarMenu.map( item =>
+                            <Link href={item.url} key={item.title}>
+                                <SidebarMenuItem title={item.title} icon={item.icon}/>
+                            </Link>
+                        )
+                    }
+                </div>
 
-            <SidebarDisplay />
+                { children }
 
-        </aside>
+            </aside>
+        </div>
     );
 } 

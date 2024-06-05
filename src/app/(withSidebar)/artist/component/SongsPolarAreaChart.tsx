@@ -41,7 +41,7 @@ export default function SongsPolarAreaChart({ data }: { data: AlbumsStats[] }) {
     }
 
     return (
-        <div className={styles.chartBox}>
+        <div>
             <div className={styles.header}>
                 <SwitchButton 
                     options={options}
@@ -50,9 +50,9 @@ export default function SongsPolarAreaChart({ data }: { data: AlbumsStats[] }) {
                 />
             </div> 
             
-            <SmallGap />
+            <SmallGap /> 
 
-            <div className={styles.graphicChart}>
+            <div className={styles.polarAreaBox}>
                 <PolarAreaChart data={chartData} />
             </div> 
 

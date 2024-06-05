@@ -19,7 +19,7 @@ export default function Banner({ children, artistName }: { children?: ReactNode,
                     backgroundSize: `${coverSize}%`
                 }}
                 ref={ref}
-            >   
+            >  
                 <div>
                     { children }
                 </div>

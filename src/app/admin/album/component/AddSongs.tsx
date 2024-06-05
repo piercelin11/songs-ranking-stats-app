@@ -37,7 +37,7 @@ export default function AddSongs({ data, albumInfo }: { data: SongsData[], album
 
     const closeModal = () => {
         setIsModalOpen(false);
-    };
+    }; 
 
     async function handleSubmit(formData: FormData) {
         const text = formData.get("song") as string;

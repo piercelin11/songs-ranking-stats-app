@@ -2,12 +2,13 @@ import Link from "next/link";
 import Card from "./Card";
 import CarouselNavParent from "./CarouselNavParent";
 import styles from "@/styles/card.module.css"
-
+import CarouselCardContainer from "./CarouselCardContainer";
+ 
 type Data = {
     date_id: string,
     date: Date,
     info: string | null,
-    type: "OVERALL" | "ALBUM",
+    type: "ARTIST" | "ALBUM",
     artist_id: string,
     artist_name: string,
     rankings: {
@@ -25,12 +26,7 @@ export default async function Carousel({ data }: { data: Data[] }) {
     return(
         <div>
             <CarouselNavParent length={cardsLength}>
-                {data.map( item => 
-                    <Card 
-                        data={item}
-                        key={item.date_id}
-                    /> 
-                )}
+                <CarouselCardContainer data={data}/>
             </CarouselNavParent>
         </div>  
     )

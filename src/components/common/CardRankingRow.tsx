@@ -19,7 +19,7 @@ export default async function CardRankingRow({ data }: { data: DataType }) {
         <div>
             <div className={styles.cardRankingRow}>
                 <p className={styles.cardRankingNumber}>{ranking.toString().padStart(2, "0")}</p>
-                <Image
+                <Image 
                     src={imgUrl}
                     width={60}
                     height={60}
@@ -27,7 +27,7 @@ export default async function CardRankingRow({ data }: { data: DataType }) {
                 />
                 <div>
                     <p className={styles.mainText}>{song_name}</p>
-                    <p className={styles.subText}>{album_name}</p>
+                    <p className={styles.subText}>{artist_name || "Non-album track"}</p>
                 </div>
             </div>
             <hr />

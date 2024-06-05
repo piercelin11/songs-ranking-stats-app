@@ -138,8 +138,8 @@
     color: var(--primary-color);
 }
 .secondaryButton:hover {
-    background-color: var(--primary-color);
-    color: var(--on-primary-color);
+    border: 1px solid var(--background-color-inverse);
+    color: var(--background-color-inverse);
 }
 
 .onBackgroundButton {

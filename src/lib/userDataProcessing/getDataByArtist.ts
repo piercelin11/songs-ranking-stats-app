@@ -1,7 +1,26 @@
 import { notFound } from "next/navigation";
 import { fetchAllDates, fetchPeakAndAvg, fetchPrevAvg, fetchSongs, fetchSong, fetchSongsList, fetchArtistsAlbums, fetchArtistsSingles } from "./prismaFetching"
 
-type AvgSongsData = {
+export function calculateAlbumPoints(ranking: number | null | undefined, countSongs: number | null | undefined , countAlbumsSongs: number | null | undefined) {
+    if (!ranking || !countSongs || !countAlbumsSongs) return ({score: null, adjustedScore: null});
+    
+    // 計算百分比排名
+    const percentileRank = (countSongs - ranking + 1) / countSongs;
+
+    // 計算分數
+    let score = percentileRank > 0.5 ? percentileRank * 1000 : percentileRank * 500;
+
+    // 引入平滑係數：若專輯數小於5首且平均排名在前百分之二十五，則引入平滑係數
+    const smoothingFactor = (percentileRank > 0.5 && countAlbumsSongs < 5) ? 0.7 : 1;
+    
+    // 調整分數
+    const adjustedScore =  Math.floor((score / countAlbumsSongs) * smoothingFactor);
+
+    return ({score, adjustedScore});
+}
+
+
+export type AvgSongsData = {
     song_id: string,
     song_name: string,
     artist_name: string,
@@ -23,7 +42,7 @@ type AvgSongsData = {
     difference: number | null
 }
  
-export async function getAvgSongsRanking(artistId: number | string, take?: number): Promise<AvgSongsData[]> {
+export async function getAvgSongsRanking(artistId: string, take?: number): Promise<AvgSongsData[]> {
 
     const songs = await fetchSongs(artistId, take);
     const peakAndAvg = await fetchPeakAndAvg(artistId);
@@ -45,7 +64,7 @@ export async function getAvgSongsRanking(artistId: number | string, take?: numbe
             previous_ranking:  prevRanking === -1 ? null : prevRanking + 1,
             average_ranking: findPeakAndAvg?.average_ranking ?? NaN,
             peak: findPeakAndAvg?.peak ?? NaN,
-            album_id: resultItem.album_id,
+            album_id: resultItem.album_id ?? null,
             album_name: resultItem.albums?.album_name ?? null,
             album_color: resultItem.albums?.album_color ?? null,
             track_number: resultItem.track_number,
@@ -71,9 +90,8 @@ export async function getAvgSongsRanking(artistId: number | string, take?: numbe
     return result.sort((a, b) => a.ranking - b.ranking);
 }
 
- 
 
-type AvgAlbumsData = {
+export type AvgAlbumsData = {
     album_id: number,
     album_name: string,
     album_color: string | null,
@@ -86,7 +104,7 @@ type AvgAlbumsData = {
     total_points: number, 
     total_points_raw: number
 }
-export async function getAvgAlbumsRanking(artistId: number | string): Promise<AvgAlbumsData[]> {
+export async function getAvgAlbumsRanking(artistId: string): Promise<AvgAlbumsData[]> {
     
     const avgSongsRanking = await getAvgSongsRanking(artistId);
     const countSongs = avgSongsRanking.length;
@@ -109,16 +127,10 @@ export async function getAvgAlbumsRanking(artistId: number | string): Promise<Av
     const avgAlbumsRanking = avgSongsRanking.filter(item => item.album_id !== null).reduce((acc: any[], cur) => {
         const existedAlbum = acc.find(item => item.album_name === cur.album_name);
         const countAlbumsSongs = countAlbumsSongsArray.find(item => item.album_name === cur.album_name)?.count_songs;
+        
+        const {score, adjustedScore} = calculateAlbumPoints(cur.ranking, countSongs, countAlbumsSongs);
 
-        // 計算百分比排名
-        const percentileRank = (countSongs - cur.ranking + 1) / countSongs;
-
-        // 計算分數
-        let score = percentileRank > 0.5 ? percentileRank * 1000 : 0;
-
-        // 調整分數
-        const adjustedScore = Math.floor(score / countAlbumsSongs);
-        const rawScore = Math.floor(score / (countSongs / countAlbumsSongsArray.length));
+        const rawScore = Math.floor(score! / (countSongs / countAlbumsSongsArray.length));
 
         if (existedAlbum) {
             existedAlbum.count_times_in_top_100 += cur.times_in_top_100;
@@ -156,20 +168,23 @@ export async function getAvgAlbumsRanking(artistId: number | string): Promise<Av
 
 
 
-type AllDatesData = {
+export type AllDatesData = {
     date_id: string,
     date: Date,
     info: string | null,
-    type: "OVERALL" | "ALBUM",
+    type: "ARTIST" | "ALBUM" | "FRIENDLY_MATCH" | "CHAMPIONSHIP" | "OVERALL",
     artist_name: string,
+    artist_id: string,
     rankings: {
         song_name: string,
+        artist_name: string,
         album_name: string | null,
         ranking: number,
+        release_date: Date | null,
     }[]
 }
 
-export async function getAllDates (artistId: number | string, take?: number): Promise<AllDatesData[]> {
+export async function getAllDates (artistId: string, take?: number): Promise<AllDatesData[]> {
       
     const allDates = await fetchAllDates(artistId, take);
 
@@ -177,11 +192,12 @@ export async function getAllDates (artistId: number | string, take?: number): Pr
         date_id: item.id,
         date: item.date,
         info: item.info,
-        type: item.type,
+        type: item.type, 
         artist_name: item.rankings[0].songs.artists.artist_name,
         artist_id: item.rankings[0].songs.artists.id,
         rankings: item.rankings.map( rankingsItem => ({
             song_name: rankingsItem.songs.song_name,
+            artist_name: rankingsItem.songs.artists.artist_name,
             album_name: rankingsItem.songs.albums?.album_name ?? null,
             release_date: rankingsItem.songs.albums?.release_date || rankingsItem.songs.release_date,
             ranking: rankingsItem.ranking,
@@ -193,7 +209,7 @@ export async function getAllDates (artistId: number | string, take?: number): Pr
 
 
 
-type AvgSongData = {
+export type AvgSongData = {
     song_id: string,
     song_name: string,
     artist_name: string,
@@ -215,7 +231,7 @@ type AvgSongData = {
     difference: number | null
 } 
 
-export async function getAvgSongRanking(songId: number | string): Promise<AvgSongData> {
+export async function getAvgSongRanking(songId: string): Promise<AvgSongData> {
 
     const song = await fetchSong(songId);
     if (!song) notFound();
@@ -230,7 +246,7 @@ export async function getAvgSongRanking(songId: number | string): Promise<AvgSon
 }
 
 
-type SongsList = {
+export type SongsList = {
     song_id: string,
     song_name: string,
     album_id: string | null,
@@ -241,7 +257,7 @@ type SongsList = {
     release_date: Date | null,
 }
 
-export async function getSongsList(artist: number | string): Promise<SongsList[]> {
+export async function getSongsList(artist: string | null): Promise<SongsList[]> {
     
     const songsList = await fetchSongsList(artist);
 
@@ -259,9 +275,18 @@ export async function getSongsList(artist: number | string): Promise<SongsList[]
     return result;
 }
 
+export type FilterList = {
+    song_id?: string,
+    song_name?: string,
+    album_id: string | null,
+    album_name: string | null,
+    track_numer: number | null,
+    artist_id: string,
+    artist_name: string,
+    release_date: Date | null,
+}
 
-
-export async function getFilterList(artist: number | string) {
+export async function getFilterList(artist: string) {
     const albums = await fetchArtistsAlbums(artist);
     const singles = await fetchArtistsSingles(artist);
 

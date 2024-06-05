@@ -1,9 +1,10 @@
 .main {
     margin-left: var(--sidebar-width);  
     max-width: var(--max-width); 
-    /* border: 1px solid var(--surface-color); */
     overflow: hidden;
+    min-height: 100dvh;
 }
+
 
 .main > div {
     position: relative;
@@ -11,7 +12,10 @@
 }
 
 .content {
+    position: relative;
     padding: 50px 60px;
+    height: 100%;
+    background-color: var(--background-color);
 }
 
 .bannerPageContent {
@@ -19,11 +23,38 @@
     background-size: 100% 600px;
     background-position: top;
     background-repeat: no-repeat;
+    min-height: 600px;
+    height: 100%;
 
     background-color: var(--background-color);
 }
 
+.loadingContainer {
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading {
+    border: 6px solid var(--surface-color); 
+    border-top: 6px solid var(--on-surface-color-light);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+  }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 /* #region banner */
+
 
 .banner {
     position: relative;
@@ -31,7 +62,6 @@
     flex-direction: column;
     justify-content: space-between;
     background-position: top center;
-    background-repeat: no-repeat;
     background-attachment: fixed;
     padding: var(--small-gap) var(--medium-gap);
     height: var(--banner-height);
@@ -62,7 +92,7 @@
 
 .blurBanner {
     display: flex;
-    align-items: center;
+    align-items: center; 
     justify-content: center;
     background-color: var(--surface);
     height: var(--banner-height);
@@ -205,14 +235,82 @@
     color: var(--secondary-text-color);
 }
 
+.artistRankingGallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    gap: 20px;
+    border-radius: var(--border-radius);
+}
+
+.artistRankingGallery img {
+    object-fit: contain;
+    position: relative !important;
+    height: unset !important;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    transition: var(--normal-transition);
+    opacity: 0.8;
+}
+
+.artistRankingGalleryItem {
+    position: relative;
+}
+
+
+.artistRankingGalleryItem:hover img {
+    opacity: 1;
+}
+
+.artistRankingGalleryItem > div:last-child {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    padding: 15px 10px;
+}
+
+.artistRankingGalleryItem > div:last-child > div {
+    background-color: #3333334a;
+    backdrop-filter: blur(10px);
+    border: 0.5px solid #ffffff33;
+    border-radius: 100px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.artistRankingGalleryItem > div:last-child > div > div:first-child {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ffffff33;
+}
+
+.rankingNumber{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding-right: 10px;
+    font-size: var(--medium-text);
+}
+
+.points {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    font-size: var(--small-text);
+}
+
 /* #endregion */
 
 
-/* #region Flex */
+/* #region Flex & Grid  */
 
 .flexContainer {
     display: flex;
-    gap: 20px;
+    gap: var(--small-gap);
 }
 
 .flexContainer.fullWidth {
@@ -223,5 +321,23 @@
     flex: 1;
 }
 
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 15px
+}
+
+.gridContainer img {
+    object-fit: contain;
+    position: relative !important;
+    height: unset !important;
+}
+
 /* #endregion */
 
+
+@media (max-width: 1200px) {
+    .main {
+        margin-left: 0px;  
+    }
+}

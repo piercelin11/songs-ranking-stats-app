@@ -1,27 +1,33 @@
-import Carousel from "@/components/common/Carousel";
-import { MediumGap } from "@/components/common/Gap";
-import TopSongs from "../component/TopSongs";
-import PointsBarChart from "../component/PointsBarChart";
-import { getAllDates, getAvgSongsRanking, getAvgAlbumsRanking } from "@/lib/userDataProcessing/getDataByArtist";
+
+import { MediumGap, SmallGap } from "@/components/common/Gap";
+import AverageTopSongs from "../component/AverageTopSongs";
+import { AveragePointsBarChart } from "../component/PointsBarChart";
+import DatesCarousel from "../component/DatesCarousel";
+import { Suspense } from "react";
+import Loading from "@/components/common/Loading";
+import NoData from "@/components/common/NoData";
 
 
 export default async function Artist({ params: { artistId } }: { params: { artistId: string } }) {
-
-  const avgSongsRanking = await getAvgSongsRanking(artistId);
-  const avgAlbumsRanking = await getAvgAlbumsRanking(artistId);
-  const data = await getAllDates(artistId, 4); 
-
-  return (
+  
+  return ( 
     <div>
-      <TopSongs data={avgSongsRanking} />
+      <AverageTopSongs artistId={artistId} />
 
       <MediumGap />
 
-      <PointsBarChart data={avgAlbumsRanking} />
+      <h2>Album Points Chart</h2>
+      <SmallGap />
+      <Suspense fallback={<Loading className="barChart" />}>
+        <AveragePointsBarChart artistId={artistId} />
+      </Suspense>
 
       <MediumGap /> 
 
-      <Carousel data={data} />
+      <Suspense fallback={<Loading className="carousel" />}>
+        <DatesCarousel artistId={artistId} />
+      </Suspense>
+
     </div>
   );
 }

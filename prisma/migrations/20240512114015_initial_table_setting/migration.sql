@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "rankingType" AS ENUM ('OVERALL', 'ALBUM');
+CREATE TYPE "rankingType" AS ENUM ('ARTIST', 'ALBUM');
 
 -- CreateTable
 CREATE TABLE "albums" (

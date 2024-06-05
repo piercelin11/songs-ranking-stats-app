@@ -1,0 +1,150 @@
+
+/* #region Anouncement Banner */
+
+.announcementBanner {
+    display: flex;
+    gap: 30px;
+    align-items: flex-end;
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.announcementBanner > img {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    min-width: 325px;
+}
+
+.announcementBanner .subText {
+    font-weight: 300;
+}
+
+.announcementBanner .mainText {
+    font-size: var(--huge-text);
+    font-weight: 700;
+}
+
+.announcementBanner .description {
+    color: var(--secondary-text-color);
+    font-size: var(--small-text);
+    line-height: 1.5rem;
+}
+
+/* #endregion */
+
+
+/* #region Grid Item */
+
+.artistsContainer {
+    margin: -10px;
+}
+
+.artistItem {
+    position: relative;
+    padding: 10px;
+    transition: var(--normal-transition);
+    border-radius: var(--border-radius);
+}
+
+.artistItem:hover {
+    background-color: var(--surface-color-dark);
+}
+
+.artistItem img {
+    margin-bottom: 7.5px;
+}
+
+.artistImg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.artistItem .subText {
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+}
+
+.artistItem .sorterBtn {
+    position: absolute;
+    width: 30%;
+    bottom: 30%;
+    right: 0;
+    opacity: 0;
+    z-index: 1;
+    transition: var(--fast-transition);
+}
+
+.artistItem:hover .sorterBtn {
+    position: absolute;
+    width: 30%;
+    bottom: 35%;
+    opacity: 100;
+    right: 0;
+    z-index: 1;
+}
+
+.artistItem .dot {
+    display: inline-block;
+    min-height: 3px;
+    min-width: 3px;
+    border-radius: 50%;
+    background-color: var(--secondary-text-color);
+}
+
+
+
+
+
+.topAlbumItem {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: var(--surface-color);
+    transition: var(--normal-transition);
+}
+
+.topAlbumItem:hover {
+    background-color: var(--surface-color-light);
+}
+
+.topAlbumImg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+}
+
+.topAlbumPoints {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    padding: 5px 10px;
+    border-radius: 100px;
+    z-index: 1;
+}
+
+.topAlbumPoints > p {
+    font-size: var(--small-text);
+}
+
+.topAlbumTitle {
+    padding: 15px 10px;
+}
+
+.topAlbumTitle p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topAlbumTitle .subText {
+    font-size: var(--small-text);
+    color: var(--secondary-text-color);
+}
+
+/* #endregion */
+
+

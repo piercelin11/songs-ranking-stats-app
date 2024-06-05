@@ -3,21 +3,13 @@ import InfoBox from "@/components/common/InfoBox";
 import { RoundArrowDownIcon, RoundArrowUpIcon } from "@/lib/icon";
 import { getPhotoshoot } from "@/utils/getPic";
 import styles from "@/styles/stats.module.css"
+import { getAlbumsByDates } from "@/lib/userDataProcessing/getDataByDate";
 
-type AlbumsStatsType = {
-    album_id: number,
-    album_name: string,
-    album_color: string | null,
-    artist_name: string,
-    count_songs_in_25perc: number,
-    count_songs_in_50perc: number,
-    total_points: number,
-    previous_total_points: number | null,
-    total_points_raw: number
-}
 
-export default function InfoBoxColContainer({ data } : { data: AlbumsStatsType[] }) {
-    const infoboxData = data.map( item => ({
+export default async function InfoBoxColContainer({ artistId, dateId }: { artistId: string, dateId: string }) {
+    const albumsRanking = await getAlbumsByDates(artistId, dateId);
+    
+    const infoboxData = albumsRanking.map( item => ({
         ...item,
         difference: item.previous_total_points ? item.total_points - item.previous_total_points : NaN,
     })).filter( item => !isNaN(item.difference) );

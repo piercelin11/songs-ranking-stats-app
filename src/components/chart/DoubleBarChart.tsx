@@ -11,6 +11,7 @@ import {
   Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { adjustSaturation, ensureBrightness } from '@/utils/colorHelper';
 
 ChartJS.register(
   CategoryScale,
@@ -76,8 +77,8 @@ export default function DoubleBarChart({ data: {labels, mainData, subData, color
                 borderWidth: 1.5,
                 borderColor: '#FEF27ABF',
                 backgroundColor: '#FEF27ABF',
-                hoverBackgroundColor: color.map(item => item + "99"),
-                hoverBorderColor: color.map(item => item + "CC"),
+                hoverBackgroundColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "99"),
+                hoverBorderColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "CC"),
             },
             {
                 label: 'raw points',
@@ -85,8 +86,8 @@ export default function DoubleBarChart({ data: {labels, mainData, subData, color
                 borderWidth: 1.5,
                 borderColor: '#464748BF',
                 backgroundColor: '#464748BF',
-                hoverBackgroundColor: color.map(item => item + "1A"),
-                hoverBorderColor: color.map(item => item + "CC"),
+                hoverBackgroundColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "1A"),
+                hoverBorderColor: color.map(item => adjustSaturation(ensureBrightness(item), 0.15) + "CC"),
             },
         ],
     };

@@ -96,9 +96,9 @@ export function sortSongsOrder(data: any[]) {
 
 
 export function createUniqueOptions(data: any[], id: number | string, name: number | string, order: "ASC" | "DESC", hasSelectAll: boolean) {
-    const dateList = findUnique(data, id);
-    const sortDateList = sortBy(dateList, id, order);
-    const uniqueOptions = createOptions(sortDateList, id, name, hasSelectAll);
+    const dataList = findUnique(data, id);
+    const sortDataList = sortBy(dataList, id, order);
+    const uniqueOptions = createOptions(sortDataList, id, name, hasSelectAll);
 
     return uniqueOptions;
 } 

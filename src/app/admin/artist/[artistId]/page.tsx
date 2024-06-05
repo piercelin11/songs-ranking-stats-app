@@ -16,6 +16,8 @@ export default async function AdminArtistPage({ params: { artistId } }: { params
 
   const coverFetchedAlbums = await fetchAllSpotifyCover(albums);
 
+
+
   return (
     <div>
 

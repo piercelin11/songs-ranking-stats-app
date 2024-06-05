@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 const userId = "c9485cbd-9d5a-4889-86b5-403db666b9d3"
 
-export async function submitSorterResult(result: any[], formData: FormData ) {
+export async function submitSorterResult(result: any[], formData: FormData, type?: "ARTIST" | "CHAMPIONSHIP" ) {
     const info = formData.get("info")! as string;
     const rankingsData = result.map( item => ({
         song_id: item.song_id,
@@ -20,7 +20,7 @@ export async function submitSorterResult(result: any[], formData: FormData ) {
             data: {
                 user_id: userId,
                 info: info,
-                type: "OVERALL",
+                type: type || "ARTIST",
                 rankings: {
                     createMany: {
                         data: rankingsData
@@ -37,5 +37,5 @@ export async function submitSorterResult(result: any[], formData: FormData ) {
     }
 
     revalidatePath("/artist");
-    redirect(`/artist/${result[0].artist_id}/${dateId}`);
+    redirect(type === "CHAMPIONSHIP" ? `/championship/${dateId}` : `/artist/${result[0].artist_id}/${dateId}`);
 }

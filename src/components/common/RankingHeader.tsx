@@ -3,9 +3,9 @@ import { ReactNode } from "react"
 
 export default function RankingHeader ({ children }: { children?: ReactNode }) {
 
-    return(  
+    return(   
         <div className={styles.rankingHeader}>
-            <div className={styles.row}>
+
 
                 <div className={styles.rankingTitle}>
                     { children }
@@ -20,7 +20,7 @@ export default function RankingHeader ({ children }: { children?: ReactNode }) {
                     </div>  
                 </div>
                 
-            </div>
+
         </div>
     )
 }

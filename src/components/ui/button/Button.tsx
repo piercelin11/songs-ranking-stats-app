@@ -1,5 +1,8 @@
+"use client"
+
 import styles from "@/styles/button.module.css"
 import { ReactNode } from "react";
+import { useFormStatus } from "react-dom";
 
 type ButtonType = {
     children: ReactNode,
@@ -29,7 +32,9 @@ function toPadding(padding: string | undefined): string | undefined {
     return resultString;
 }
 
+
 export function RecButton ({ children, value, padding, gap, onClick, variant = "primary", type } : ButtonType) {
+    const { pending } = useFormStatus();
 
     return (
         <button 
@@ -41,6 +46,7 @@ export function RecButton ({ children, value, padding, gap, onClick, variant = "
                 padding: toPadding(padding),
                 gap: `${gap}px`
             }}
+            disabled={type==="submit" && pending ? true : false}
         >
             { children }
         </button>
@@ -48,6 +54,7 @@ export function RecButton ({ children, value, padding, gap, onClick, variant = "
 }
 
 export function RoundButton ({ children, value, padding, gap, onClick, variant = "primary", type } : ButtonType) {
+    const { pending } = useFormStatus();
 
     return (
         <button 
@@ -59,6 +66,7 @@ export function RoundButton ({ children, value, padding, gap, onClick, variant =
                 padding: toPadding(padding),
                 gap: gap
             }}
+            disabled={type==="submit" && pending ? true : false}
         >
             { children }
         </button>

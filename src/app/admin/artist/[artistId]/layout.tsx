@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { fetchArtist, fetchLatestDates } from "@/lib/userDataProcessing/prismaFetching";
+import { fetchArtist  } from "@/lib/adminDataProcessing/prismaFetching";
 import styles from "@/styles/layout.module.css"
 import Banner from "../component/Banner";
 import GradientBackground from "../../../../components/common/GradientBackground";

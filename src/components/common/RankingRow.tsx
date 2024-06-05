@@ -58,7 +58,7 @@ export default async function RankingRow ({ data } : { data: any }) {
 
                         <div>
                             <p className={styles.mainText}>{song_name}</p>
-                            <p className={styles.subText}>{album_name}</p>
+                            <p className={styles.subText}>{album_name || "Non-album track"}</p>
                         </div>
                     </div>
 

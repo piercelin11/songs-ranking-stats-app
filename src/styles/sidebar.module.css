@@ -1,16 +1,24 @@
+.sidebarContainer {
+    position: relative;
+}
+
 .sidebar {
-    display: flex;
+    display: flex; 
     flex-direction: column;
     /* justify-content: space-between; */
     width: var(--sidebar-width);
     height: 100dvh;
-    padding: 15px 0px;
+    padding-top: 15px;
     background-color: var(--background-color);
     border-right: 1px solid var(--surface-color-light);
     position: fixed;
     top: 0;
     left: 0;
+    transition: var(--normal-transition);
+    overflow: visible;
+    z-index: 1;
 }
+
 
 .sidebar > div {
     padding: 15px;
@@ -20,6 +28,10 @@
 .sidebar > div:last-child {
     flex: 1;
     overflow-y: scroll;
+}
+
+.menuItemContainer {
+    transition: var(--normal-transition);
 }
 
 
@@ -78,4 +90,77 @@
 .libraryItem .subText {
     font-size: 14px;
     color: var(--secondary-text-color);
+}
+
+/* #region Hamburger */
+.hamburger {
+    all: unset;
+    position: fixed;
+    left: 13px;
+    top: 15px;
+    height: 26px;
+    width: 26px;
+    padding: 10px;
+    border-radius: var(--border-radius-small);
+    z-index: 100;
+    transition: var(--normal-transition);
+    display: none;
+}
+
+.hamburger hr {
+    border-color: var(--primary-text-color-variant);
+    transition: var(--normal-transition);
+    margin: 0px;
+    margin-bottom: -2px;
+    box-shadow: 0px 0px 50px black;
+}
+/* #endregion */
+
+
+@media (max-width: 1200px) {
+    .sidebar {
+        left: -350px /* - var(--sidebar-width) */;
+        z-index: 5;
+    }
+
+    .sidebar.open {
+        left: 0px /* - var(--sidebar-width) */;
+        z-index: 5;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hamburger:hover {
+        gap: 0px;
+    }
+
+    .open .hamburger {
+        gap: 0px;
+    }
+
+    .open .hamburger hr:first-child {
+        transform: rotate(45deg)
+    }
+
+    .open .hamburger hr:last-child {
+        transform: rotate(-45deg)
+    }
+
+    .open .hamburger hr {
+        border-color: var(--secondary-text-color);
+    }
+
+    .hamburger:hover hr {
+        border-color: var(--primary-text-color);
+    }
+
+    .menuItemContainer {
+        margin-top: 30px;
+    }
+
 }

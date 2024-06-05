@@ -7,8 +7,8 @@
   --background-color-inverse: #FFF;
 
   --surface-color: #151515;
-  --surface-color-light: #222222;
-  --surface-color-dark: #0f0f0f;
+  --surface-color-light: #202020;
+  --surface-color-dark: #101010;
 
   --on-primary-color: #000;
 
@@ -116,6 +116,8 @@ hr {
 
 canvas {
   padding: 20px;
+  width: 100%;
+  flex: 1;
 }
 
 input::selection {
@@ -134,19 +136,10 @@ form {
   gap: 20px;
 }
 
-/* img {
-  border-radius: 5px;
-  overflow: hidden;
-} */
+button:disabled {
+  opacity: 0.4;
+}
 
-/* button {
-  appearance: none;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  margin: 0;
-  padding: var(--mini-gap) var(--small-gap);
-  cursor: pointer;
-  color: var(--primary-text);
-} */
+
+
 

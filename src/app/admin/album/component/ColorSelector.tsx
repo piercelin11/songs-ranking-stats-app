@@ -1,5 +1,5 @@
 import styles from "@/styles/admin.module.css"
-import rgbToHex from "@/utils/rgbToHex"
+import { rgbToHex } from "@/utils/colorHelper"
 import { useEffect } from "react";
 
 type ColorSelectorProps = {

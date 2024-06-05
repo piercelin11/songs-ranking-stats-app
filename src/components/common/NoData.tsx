@@ -2,7 +2,7 @@ import styles from "@/styles/common.module.css"
 import { ReactNode } from "react"
 
 export default function NoData({ children, condition }: { children: ReactNode, condition: any }) { 
-
+    
     return(
         condition ? children :
         <div className={styles.noData}>

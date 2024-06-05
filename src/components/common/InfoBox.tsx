@@ -2,6 +2,8 @@ import { CrownIcon, ThreeDotsIcon } from "@/lib/icon";
 import styles from "@/styles/stats.module.css"
 import { gradientDarkOverlay } from "@/lib/gradient";
 import NoData from "./NoData";
+import { Suspense } from "react";
+import Loading from "./Loading";
 
 type PropsType = {
     title: string | undefined | null, 

@@ -1,17 +1,13 @@
-
-import AllSongsRanking from "../../component/AllSongsRanking";
 import { getSongsByDates } from "@/lib/userDataProcessing/getDataByDate";
+import RankingContainer from "../../component/RankingContainer";
 
-
-export default async function Ranking({ params: { artistId, dateId } }: { params: { artistId: string, dateId: string } }) {
+export default async function Ranking({ params: { artistId, dateId }, searchParams:{ id } }: { params: { artistId: string, dateId: string }, searchParams: { id: string } }) {
 
   const songsRanking = await getSongsByDates(artistId, dateId);
  
   return (
     <div>
-      
-
-      <AllSongsRanking data={songsRanking}/>
+        <RankingContainer data={songsRanking} searchId={id} />
     </div>
   );
 }

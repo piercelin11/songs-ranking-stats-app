@@ -71,7 +71,7 @@ export default function MultiSelect({ data, defaultData }: { data: SongsData[], 
     const paramsArray = compareId.map( item => ["compare", item] );
 
     function updateURL(id: string) {
-      if (!compareId.includes(id)) {
+      if (!compareId.includes(id) && id !== defaultData.song_id ) {
         const newParamsArray = [...paramsArray, ["compare", id]];
         const newParams = new URLSearchParams(newParamsArray);
 

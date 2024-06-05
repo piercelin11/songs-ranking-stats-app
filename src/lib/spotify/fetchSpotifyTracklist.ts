@@ -1,5 +1,3 @@
-import config from "./config";
-
 
 export default async function fetchSpotifyTracklist(id: string) {
 
@@ -12,7 +10,7 @@ export default async function fetchSpotifyTracklist(id: string) {
 
   const result = await data.json();
 
-  const trackList = (result.data.items as { name: string }[]).map( item => item.name );
+  const trackList = (result.data.items as { name: string }[])?.map( item => item.name );
 
   return trackList;
 

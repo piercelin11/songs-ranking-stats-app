@@ -3,7 +3,7 @@ type Config = {
 }
 
 const config: Config = {
-    "Born to Die": 2
+    "Born to Die": 2,
 }
 
 export default config;

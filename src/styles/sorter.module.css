@@ -1,26 +1,38 @@
-.sorterRootContainer {
+.sorterPage {
+    height: 100dvh;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-height: 100dvh;
-} 
+}
 
-.sorterRootContainer > * {
+.sorterPage > * {
     user-select: none;
 }
 
-.sorterRootContainer > div:last-child {
+.sorterPage > div:last-child {
     flex: 1;
+}
+
+.sorterContent {
+    margin-top: 130px;
 }
 
 /* #region Header */
 
 .sorterHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px var(--medium-gap);
+    padding: 0px var(--medium-gap);
+    height: 130px;
+    width: 100%;
     border-bottom: 1px solid var(--surface-color-light);
+    background-color: var(--background-color);
+    z-index: 1;
 }
 
 .sorterHeader > div:first-child {
@@ -69,21 +81,20 @@
 /* #endregion */
 
 
-
 /* #region FilterStage */
 
 .filterStageContainer {
+    position: relative;
     padding: 0px var(--medium-gap);
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 .titleContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 65px 0px;
+    padding: 55px 0px 65px 0px;
 }
 
 .titleContainer > h2 {
@@ -99,7 +110,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr)); 
     gap: 15px;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .projectBtn {
@@ -151,9 +162,41 @@
     color: var(--primary-text-color);
 }
 
+
+
+.artistBtn {
+    position: relative !important;
+    all: unset;
+    opacity: 0.6;
+    padding: 0px;
+    transition: var(--normal-transition);
+    cursor: pointer;
+}
+
+.artistBtn img {
+    object-fit: contain;
+    position: relative !important;
+    height: unset !important;
+    overflow: hidden;
+    transition: var(--normal-transition);
+}
+
+.artistBtn:hover {
+    opacity: 1;
+}
+
+.artistBtn.clicked {
+    opacity: 1;
+}
+
+.artistBtn.clicked img{
+    border-radius: 50%;
+}
+
 /* #endregion */
 
 
+/* #region SortingStage */
 
 .sortingStageContainer {
     padding: 0px var(--medium-gap);
@@ -273,9 +316,17 @@
     margin-bottom: 20px;
 }
 
+/* #endregion */
+
+
+/* #region ResultStage */
+
+.sorterResultContainer {
+    padding: 0px var(--medium-gap);
+}
 
 .resultFormContainer {
-    padding: 50px 0px;
+    padding: 50px 0px; 
     border-radius: 10px;
 }
 
@@ -309,3 +360,5 @@
     outline:none;
     border-color: var(--primary-color);
 }
+
+/* #endregion */

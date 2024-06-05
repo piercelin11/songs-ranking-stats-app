@@ -16,6 +16,14 @@ export function SmallGap() {
     )
 }
 
+export function MiniGap() {
+    return (
+        <div className={styles.miniGap}>
+
+        </div>
+    )
+}
+
 export function LargeGap() {
     return (
         <div className={styles.largeGap}>

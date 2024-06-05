@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Filler } from "chart.js";
+import { adjustSaturation, ensureBrightness } from '@/utils/colorHelper';
 
 
 ChartJS.register(
@@ -99,8 +100,8 @@ export function LineChart({ data: { date, dataset } }: { data: Data }) {
             label: item.song_name,
             data: item.rankings,
             borderWidth: 1.5,
-            borderColor: item.color || '#FEF27A',
-            backgroundColor: item.color ? `${item.color}1A` : '#FEF27A1A',
+            borderColor: item.color ? adjustSaturation(ensureBrightness(item.color), 0.15) : '#FEF27A',
+            backgroundColor: item.color ? `${adjustSaturation(ensureBrightness(item.color), 0.15)}1A` : '#FEF27A1A',
             fill: "start"
         }))
     }

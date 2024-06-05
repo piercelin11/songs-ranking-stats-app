@@ -200,6 +200,20 @@ export function CrownIcon({ size, color = "backgroundInverse" }: IconProps) {
     );
 }
 
+export function CrownRoundIcon({ size, color = "backgroundInverse" }: IconProps) {
+    return ( 
+        <svg 
+            className={styles[iconColor[color]]} 
+            width={`${size}px`}
+            viewBox="0 0 101 101" 
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path fill="#fff" d="M50.218.766c27.621 0 50.02 22.324 50.02 49.945s-22.399 50.324-50.02 50.324C22.634 101.035.234 78.332.234 50.71S22.634.766 50.218.766zM26.683 74.549h47.07V27.252L58.088 43.144l-7.87-15.892-7.833 15.892-15.702-15.892v47.297z"/>
+        </svg>
+    );
+}
+
+
 export function ThreeDotsIcon({ size, color = "backgroundInverse" }: IconProps) {
     return (
         <svg 

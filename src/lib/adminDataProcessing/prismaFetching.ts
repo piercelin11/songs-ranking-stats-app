@@ -1,11 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "../prisma";
 
-function toString(params: number | string) : string {
-    if (typeof params === "number") return params.toString() || ""
-    else return params
-}
-
 
 export async function fetchAllArtists () {
     const data = await prisma.artists.findMany({
@@ -20,8 +15,20 @@ export async function fetchAllArtists () {
     }));
 }
 
+export async function fetchArtist (artist: string ) {
+    const artistId = artist;
+    
+    const data = await prisma.artists.findFirst({
+      where: {
+        id: artistId
+      }
+    });
+  
+    return data;
+  }
+
 export async function fetchArtistsAlbums (artist: string, take?: number) {
-    const artistId = toString(artist);
+    const artistId = artist;
 
     const data = await prisma.albums.findMany({
         where: {
@@ -48,7 +55,7 @@ export async function fetchArtistsAlbums (artist: string, take?: number) {
 }
 
 export async function fetchArtistsSingles (artist: string, take?: number) {
-    const artistId = toString(artist);
+    const artistId = artist;
 
     const data = await prisma.songs.findMany({
         where: {
@@ -76,7 +83,7 @@ export async function fetchArtistsSingles (artist: string, take?: number) {
 }
 
 export async function fetchAlbumsInfo (album: string) {
-    const albumId = toString(album);
+    const albumId = album;
 
     const data = await prisma.albums.findFirst({
         where: {
@@ -101,7 +108,7 @@ export async function fetchAlbumsInfo (album: string) {
 }
 
 export async function fetchAlbumsSongs (album: string) {
-    const albumId = toString(album);
+    const albumId = album;
 
     const data = await prisma.songs.findMany({
         where: {

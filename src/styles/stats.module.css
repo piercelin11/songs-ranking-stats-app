@@ -1,28 +1,8 @@
-.chartBox {
-    display: flex;
-    flex-direction: column;
-    padding: var(--mini-gap);
-    border-radius: var(--border-radius);
-    background-color: var(--surface-color);
-    height: 100%;
-}
- 
-.chartBox h2 {
-    text-transform: uppercase;
-    font-size: var(--medium-text);
-    font-weight: 400;
-    letter-spacing: 2.5px;
-}
-
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-}
-
-.chartBox .header {
-    padding: 30px;
 }
 
 .divider {
@@ -63,6 +43,49 @@
 .viewAll:hover{
     color: var(--primary-text-color);
 }
+
+
+/* #region ChartBox */
+
+.chartBox {
+    display: flex;
+    flex-direction: column;
+    /* padding: var(--mini-gap); */
+    border-radius: var(--border-radius);
+    background-color: var(--surface-color);
+    height: 100%;
+}
+ 
+.chartBox h2 {
+    text-transform: uppercase;
+    font-size: var(--medium-text);
+    font-weight: 400;
+    letter-spacing: 2.5px;
+}
+
+.chartBox .header {
+    padding: 30px;
+}
+
+.polarAreaBox {
+    display: flex;
+    aspect-ratio: 1;
+    width: 100%;
+}
+
+.chartBoxFifty {
+    width: 50%;
+    display: flex;
+}
+
+.barChartBox {
+    display: flex;
+    aspect-ratio: 785/392;
+    width: 100%;
+}
+
+/* #endregion */
+
 
 /* #region infobox */
 
@@ -137,11 +160,16 @@
     flex: 1;
 }
 
+
 /* #endregion */
 
 
-
 /* #region ranking */
+
+.topSongsRowContainer{
+    position: relative;
+    height: 450px;
+}
 
 .rankingContainer {
     padding: var(--mini-gap);
@@ -155,7 +183,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 10px 30px 10px 20px;
     z-index: 1;
 }
@@ -228,7 +256,9 @@
 }
 
 .rankingHeader {
-    padding: var(--small-gap) 0px;
+    composes: row;
+    z-index: 2;
+    padding: 27px 30px 52px 20px;
 }
 
 .rankingHeader .description {
@@ -250,8 +280,7 @@
 /* #endregion */
 
 
-
-/* #region infobox */
+/* #region statsbox */
 
 .statsBoxContainer {
     display: flex;

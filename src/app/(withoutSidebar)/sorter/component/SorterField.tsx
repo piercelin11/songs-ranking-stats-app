@@ -6,6 +6,11 @@ import styles from "@/styles/sorter.module.css"
 import Image from "next/image";
 import { RecButton } from "@/components/ui/button/Button";
 import FlexContainer from "@/components/common/FlexContainer";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { setPercentage, setResult, clear } from "@/redux/features/sorterSlice";
 
 type SongsList = {
     song_id: string,
@@ -31,19 +36,22 @@ type HistoryState = {
     lstMember: number[][];
     parent: number[];
     totalSize: number;
+    percent: number;
 };
 
 type Props = { 
     data: SongsList[], 
-    setResult: (result: any) => void, 
-    setPercentage: (percentage: number) => void,
-    setIsStart: (isStart: boolean) => void,
+    type?: "CHAMPIONSHIP" | "ARTIST"
 }
 
-export default function SorterField({ data: songsList, setResult, setPercentage, setIsStart }: Props) {
+export default function SorterField({ data: songsList, type }: Props) {
     
     const artist = songsList[0]?.artist_name;
-
+    const artistId = songsList[0]?.artist_id;
+    
+    const dispatch = useDispatch<AppDispatch>();
+    const router = useRouter();
+    
     const namMember = useRef<string[]>(songsList.map( item => item.song_name ));
     
     const [leftField, setLeftField] = useState<any>("");
@@ -64,7 +72,8 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
     const totalSize = useRef(0);
     const finishSize = useRef(0);
     const finishFlag = useRef(0);
-    
+    const percent = useRef(0);
+
     //將歌曲分割成小單位
     function initList() {
         var n = 0;
@@ -198,15 +207,15 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
     
         if (cmp1.current < 0) {
             const percentage = Math.floor(finishSize.current * 100 / totalSize.current);
-            setPercentage(percentage);
+            dispatch(setPercentage(percentage));
+            percent.current = percentage;
     
             showResult();
             finishFlag.current = 1;
         } else {
+            saveHistory();
             showImage();
         }
-
-        saveHistory();
     }
     
     //將歌名顯示於比較兩首歌曲的表格中
@@ -219,43 +228,9 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
         const rightFieldData = songsList.find( item => item.song_name === rightField);
         setLeftField(leftFieldData);
         setRightField(rightFieldData);
-        setPercentage(percentage);
-    }
-    
-    //顯示最終排序結果
-    function showResult() {
-        var rankingNum = 1;
-        var sameRank = 1;
-        var str = "";
-        var i: number;
-        let resultArray = [];
-    
-        for (i = 0; i < namMember.current.length; i++) {            
-            resultArray.push({
-                ranking: rankingNum,
-                song_name: namMember.current[lstMember.current[0][i]],
-                song_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.song_id,
-                album_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.album_name,
-                artist_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.artist_name,
-                artist_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])?.artist_id,
-            })
-            
-            if (i < namMember.current.length - 1) {
-                if (equal.current[lstMember.current[0][i]] == lstMember.current[0][i + 1]) {
-                    sameRank++;
-                } else {
-                    rankingNum += sameRank;
-                    sameRank = 1;
-                }
-            }
-        }
-    
-        for (i = 0; i < namMember.current.length; i++) {
-            array.current[i] = namMember.current[lstMember.current[0][i]];
-        }
 
-        setResult(resultArray);
-
+        dispatch(setPercentage(percentage));
+        percent.current = percentage;
     }
     
     //將排序數字轉換成歌名
@@ -279,9 +254,10 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
             lstMember: lstMember.current.slice(), // Create a copy of lstMember array
             parent: parent.current.slice(), // Create a copy of parent array
             totalSize: totalSize.current,
+            percent: percent.current,
         };
         history.current.push(prevState);
-        localStorage.setItem(artist, JSON.stringify(prevState));
+        localStorage.setItem(type === "CHAMPIONSHIP" ? "CHAMPIONSHIP" : artist, JSON.stringify(prevState));
     }
 
     //每次sort變儲存記錄到本地存儲
@@ -300,8 +276,9 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
             parent: parent.current.slice(), // Create a copy of parent array
             totalSize: totalSize.current,
             namMember: namMember.current,
+            percent: percent.current,
         };
-        localStorage.setItem(artist, JSON.stringify(currentState));
+        localStorage.setItem(type === "CHAMPIONSHIP" ? "CHAMPIONSHIP" : artist, JSON.stringify(currentState));
     }
 
     //將所有變數與陣列資料重回上一步驟的資料
@@ -323,22 +300,59 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
             lstMember.current = prevState.lstMember.slice(); // Restore lstMember array
             parent.current = prevState.parent.slice(); // Restore parent array
             totalSize.current = prevState.totalSize;
+            percent.current = prevState.percent;
             showImage(); // Update the UI
         }
     }
 
     //刪除本地存儲資料
     function handleClear() {
-        localStorage.removeItem(artist);
-        setIsStart(false);
-        setPercentage(0);
+        localStorage.removeItem(type === "CHAMPIONSHIP" ? "CHAMPIONSHIP" : artist);
+        dispatch(clear());
+        percent.current = 0;
+    }
+
+    //顯示最終排序結果
+    function showResult() {
+        var rankingNum = 1;
+        var sameRank = 1;
+        var str = "";
+        var i: number;
+        let resultArray = [];
+    
+        for (i = 0; i < namMember.current.length; i++) {            
+            resultArray.push({
+                ranking: rankingNum,
+                song_name: namMember.current[lstMember.current[0][i]],
+                song_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])!.song_id,
+                album_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])!.album_name,
+                artist_name: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])!.artist_name,
+                artist_id: songsList.find( item => item.song_name === namMember.current[lstMember.current[0][i]])!.artist_id,
+            })
+            
+            if (i < namMember.current.length - 1) {
+                if (equal.current[lstMember.current[0][i]] == lstMember.current[0][i + 1]) {
+                    sameRank++;
+                } else {
+                    rankingNum += sameRank;
+                    sameRank = 1;
+                }
+            } 
+        }
+    
+        for (i = 0; i < namMember.current.length; i++) {
+            array.current[i] = namMember.current[lstMember.current[0][i]];
+        }
+
+        localStorage.removeItem(type === "CHAMPIONSHIP" ? "CHAMPIONSHIP" : artist);
+        dispatch(setResult(resultArray));
+        router.replace(type === "CHAMPIONSHIP" ? "/sorter/championship/result" : `/sorter/${artistId}/result`);
     }
 
 
     useEffect(() => {
-        const historyString = localStorage.getItem(artist);
+        const historyString = localStorage.getItem(type === "CHAMPIONSHIP" ? "CHAMPIONSHIP" : artist);
         const history = historyString ? JSON.parse(historyString) : null;
-
 
         if (!history) {
             initList();
@@ -361,9 +375,7 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
         }
 
     }, []);
-
-
-
+    
     //用鍵盤選擇歌曲
     const [pressedBtn, setPressedBtn] = useState<string>("");
 
@@ -410,7 +422,7 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
         };
     }, [handleKeyUp]);
 
-    return(
+    return( 
         <div className={styles.sorterField}>
             
             <div className={styles.sorterButtonContainer}>
@@ -477,13 +489,16 @@ export default function SorterField({ data: songsList, setResult, setPercentage,
                     Previous Step
                 </RecButton>
 
-                <RecButton 
-                    variant="onBackground"
-                    onClick={handleClear}
-                    padding="25 30"
-                >
-                    Clear and Restart
-                </RecButton>
+                <Link href={type === "CHAMPIONSHIP" ? "/sorter/championship/filter" : `/sorter/${artistId}/filter`} replace>
+                    <RecButton 
+                        variant="onBackground"
+                        onClick={handleClear}
+                        padding="25 30"
+                    >
+                        Clear and Restart
+                    </RecButton>
+                </Link>
+                
 
             </FlexContainer>
 

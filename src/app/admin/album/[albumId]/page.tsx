@@ -5,7 +5,7 @@ import AddSongs from "../component/AddSongs";
 import AlbumInfoBanner from "../component/AlbumInfoBanner";
 import { fetchAlbumsInfo, fetchAlbumsSongs } from "@/lib/adminDataProcessing/prismaFetching";
 import DraggableContainer from "../component/DraggableContainer";
-import fetchSpotifyCover, { fetchSpotifyAlbumData } from "@/lib/spotify/fetchSpotifyCover";
+import { fetchSpotifyAlbumData } from "@/lib/spotify/fetchSpotifyCover";
 import fetchSpotifyTracklist from "@/lib/spotify/fetchSpotifyTracklist";
 import AutoAddSongsBtn from "../component/AutoAddSongsBtn";
 import FlexContainer from "@/components/common/FlexContainer";
@@ -16,8 +16,8 @@ export default async function AddAlbumPage({ params: { albumId } }: { params: { 
 
     const albumInfo = await fetchAlbumsInfo(albumId);
     const songs = await fetchAlbumsSongs(albumId);
-    const {imgUrl, id: spotifyAlbumId} = await fetchSpotifyAlbumData(albumInfo.artist_name, albumInfo.album_name, albumInfo.release_date);
 
+    const {imgUrl, id: spotifyAlbumId} = await fetchSpotifyAlbumData(albumInfo.artist_name, albumInfo.album_name, albumInfo.release_date);
     if (songs.length === 0) 
         trackList = await fetchSpotifyTracklist(spotifyAlbumId);
     
@@ -26,7 +26,6 @@ export default async function AddAlbumPage({ params: { albumId } }: { params: { 
         <div>
             <AlbumInfoBanner data={albumInfo} imgUrl={imgUrl}/>
 
-            
 
             <ContentLayout>
                 <DraggableContainer data={songs} />

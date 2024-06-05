@@ -48,6 +48,10 @@
     height: var(--large-gap);
 }
 
+.miniGap {
+    height: 20px;
+}
+
 .mainText  {
     font-size: var(--medium-text);
     font-weight: 600;

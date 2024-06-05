@@ -1,37 +1,38 @@
 "use client"
-import { useState } from "react"
-import SorterField from "./SorterField"
-import styles from "@/styles/sorter.module.css"
-import CardRankingRow from "@/components/common/CardRankingRow"
-import SorterResult from "./SorterResult"
 
-type SongsList = {
-    song_id: string,
-    song_name: string,
-    album_id: string | null,
-    album_name: string | null,
-    track_numer: number | null,
-    artist_id: string,
-    artist_name: string,
+import styles from "@/styles/sorter.module.css"
+import React, { useEffect, useState } from "react"
+import { useAppSelector } from "@/redux/store"
+import { RootState, AppDispatch } from '@/redux/store';
+import { redirect } from "next/navigation"
+import SorterField from "./SorterField"
+import { SongsList } from "@/lib/userDataProcessing/getDataByArtist"
+
+type Img = {
     imgUrl: string,
 }
 
-type Props = { 
-    data: SongsList[], 
-    setPercentage: (percentage: number) => void,
-    setIsStart: (isStart: boolean) => void,
-}
+export default function SortingStage( { songsList }: { songsList: (SongsList & Img)[] } ) {
+    const artist = songsList[0]?.artist_name;
+    const artistId = songsList[0]?.artist_id;
 
-export default function SortingStage( { data, setPercentage, setIsStart }: Props ) {
-    const [result, setResult] = useState<null | any[]>(null);
+    const selectedSongs = useAppSelector((state) => state.sorterReducer.selectedSongs);
+    const isStart = useAppSelector((state) => state.sorterReducer.isStart);
+    const result = useAppSelector((state) => state.sorterReducer.result);
+    
+    const showedSongList = songsList.filter( item => selectedSongs.includes(item.album_id || "") || selectedSongs.includes(item.song_id) );
 
-    return (
+    useEffect(() => {
+        const history = localStorage.getItem(artist);
+        if (!history && !isStart) 
+            redirect(`/sorter/${artistId}/filter`);
+        if (result.length !== 0)
+            redirect(`/sorter/${artistId}/result`);
+    }, [])
+
+    return ( 
         <div className={styles.sortingStageContainer}>
-            {!result ? <SorterField data={data} setResult={setResult} setPercentage={setPercentage} setIsStart={setIsStart} /> : 
-             
-                <SorterResult data={result} />
-            }            
+            {showedSongList.length !== 0 && <SorterField data={showedSongList} />}      
         </div>
-
     )
 }

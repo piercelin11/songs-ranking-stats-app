@@ -1,16 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import DropButton from "../ui/DropButton";
 import styles from "@/styles/tabs-dropdown.module.css"
 import Link from "next/link";
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 
-export default function DropSelect({ options }: { options: { label: string, value: string | number }[] }) {
+export default function DropSelect({ options }: { options: { id: string | number, name: string }[] }) {
     const params = useParams(); 
 
    
-    const [selectedDate, setSelectedDate] = useState(options.find( item => item.value == params.dateId)?.label);
+    const selectedDate = options.find( item => item.id == params.dateId)?.name;
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
     function handleDropdown() {
       setDropdownIsOpen( prevValue => !prevValue);
@@ -29,11 +29,11 @@ export default function DropSelect({ options }: { options: { label: string, valu
 
               {options.map( item =>
                 <Link
-                  key={item.value}
-                  href={`/artist/${params.artistId}/${item.value}`}
+                  key={item.id}
+                  href={`/artist/${params.artistId}/${item.id}`}
                 >
                   <DropButton 
-                    label={item.label}
+                    label={item.name}
                   />
                 </Link>
               )}
@@ -43,4 +43,48 @@ export default function DropSelect({ options }: { options: { label: string, valu
           </div>
         </div>
     );
+}
+
+export function DropSelectSearchParams({ options }: { options: { id: string | number, name: string }[] }) {
+  const searchParams = useSearchParams(); 
+  const selectedId = searchParams.get("id");
+ 
+  const selected = options.find( item => item.id == selectedId)?.name;
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  function handleDropdown() {
+    setDropdownIsOpen( prevValue => !prevValue);
+  }
+
+  function handleSelect(e: React.MouseEvent<HTMLButtonElement>) {
+    const id = (e.currentTarget as HTMLButtonElement).value;
+    const newParams = new URLSearchParams({id});
+    window.history.pushState(null, "", `?${newParams.toString()}`);
+  }
+
+  return (
+      <div>
+        <div className={styles.dropdown}>
+
+          <div className={`${styles.select} ${dropdownIsOpen && styles.selectClicked}`} onClick={handleDropdown}>
+            <span className={styles.selected}>{selected || "Selecet..."}</span>
+            <div className={`${styles.caret} ${dropdownIsOpen && styles.caretRotate}`}></div>
+          </div>
+
+          <div className={`${styles.menu} ${dropdownIsOpen && styles.menuOpen}`} onClick={handleDropdown}>
+
+            {options.map( item =>
+              <Link key={item.id} href={`?id=${item.id}`} replace>
+                <DropButton 
+                  label={item.name}
+                  //id={item.id}
+                  //onClick={handleSelect}
+                />
+              </Link>
+            )}
+
+          </div>
+
+        </div>
+      </div>
+  );
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse, NextRequest } from "next/server"
 
-async function fetchToken() {
+export async function fetchToken() {
   
   const CLIENT_ID = process.env.CLIENT_ID;
   const CLIENT_SECRET = process.env.CLIENT_SECRET;
