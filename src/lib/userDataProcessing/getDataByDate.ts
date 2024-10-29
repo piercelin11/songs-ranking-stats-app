@@ -21,7 +21,7 @@ export type SongsRankingData = {
 export async function getSongsByDates (artistId: string, dateId: string): Promise<SongsRankingData[]>  {
     const songs = await fetchSongsByDate(artistId, dateId);
     const peak = await fetchPeakAndAvg(artistId);
-    const prevRanking = await fetchPrevRanking(artistId, dateId);
+    const prevRanking = await fetchPrevRanking(artistId, dateId); 
 
     const result = songs.map( resultItem => {
         const findPeak = peak.find( item => item.song_id === resultItem.song_id );

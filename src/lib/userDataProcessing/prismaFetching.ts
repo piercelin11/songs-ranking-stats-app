@@ -224,7 +224,7 @@ export async function fetchSongsByDate (artist: string | null, date: string, typ
 }
 
 //get previous dates from an artist
-export async function fetchPrevDates (artist: string | {in: string[]}, date: string, user?: string) {
+export async function fetchPrevDates (artist: string | {in: string[]}, date: string, type?: "ARTIST" | "CHAMPIONSHIP" , user?: string) {
   const artistId = toGroup(artist);
   const dateId = toGroup(date);
 
@@ -243,7 +243,8 @@ export async function fetchPrevDates (artist: string | {in: string[]}, date: str
       },
       date: {
         lt: timeStamp
-      }
+      },
+      type: type ? type : "ARTIST"
     },
     orderBy: {
       date: "desc"
@@ -255,7 +256,7 @@ export async function fetchPrevDates (artist: string | {in: string[]}, date: str
 
 //previous ranking from an artist
 export async function fetchPrevRanking (artist: string, date: string, user?: string) {
-  const artistId = toGroup(artist);
+  const artistId = toGroup(artist); 
   const dateId = toGroup(date);
 
   const prevDate = await fetchPrevDates(artistId, dateId as string);

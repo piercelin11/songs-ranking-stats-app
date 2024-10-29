@@ -24,7 +24,7 @@ export default function SortingStage( { songsList }: { songsList: (SongsList & I
 
     useEffect(() => {
         const history = localStorage.getItem(artist);
-        if (!history && !isStart) 
+        if (!history || !isStart) 
             redirect(`/sorter/${artistId}/filter`);
         if (result.length !== 0)
             redirect(`/sorter/${artistId}/result`);

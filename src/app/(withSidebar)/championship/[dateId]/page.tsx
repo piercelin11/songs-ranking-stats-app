@@ -10,6 +10,7 @@ export default async function ChampPage({ params: { dateId } }: { params: { date
 
     return (
         <div>
+            <p>HIHI</p>
             <h2>Artist Ranking</h2>
             <SmallGap />
             <ArtistRankingGallery dateId={dateId} />
