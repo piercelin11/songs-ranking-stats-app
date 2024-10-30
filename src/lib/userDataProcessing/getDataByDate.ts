@@ -1,5 +1,6 @@
+import { fetchAlbumsInfo } from "../adminDataProcessing/prismaFetching";
 import { calculateAlbumPoints } from "./getDataByArtist";
-import { fetchPeakAndAvg, fetchPrevDates, fetchPrevRanking, fetchSongsByDate } from "./prismaFetching";
+import { fetchArtistsAlbums, fetchPeakAndAvg, fetchPrevDates, fetchPrevRanking, fetchSongsByDate } from "./prismaFetching";
 
 export type SongsRankingData = {
     song_id: string,
@@ -64,13 +65,16 @@ export type AlbumsRankingData = {
     count_songs_in_50perc: number,
     total_points: number, 
     previous_total_points: number | null,
-    total_points_raw: number
+    total_points_raw: number,
+    release_date: Date | null
 }
 
 export async function getAlbumsByDates(artistId: string, dateId: string): Promise<AlbumsRankingData[]> {
     const songsRanking = await getSongsByDates(artistId, dateId);
     const prevDate = await fetchPrevDates(artistId, dateId);
     const prevSongsRanking = await getSongsByDates(artistId, prevDate?.id);
+    const albumsInfo = await fetchArtistsAlbums(artistId);
+
 
     const countSongs = songsRanking.length;
     const countPrevSongs = prevSongsRanking.length;
@@ -127,6 +131,7 @@ export async function getAlbumsByDates(artistId: string, dateId: string): Promis
             existedAlbum.total_points_raw += rawScore;
             existedAlbum.total_points += adjustedScore;
         } else {
+            
             acc.push({
                 album_id: cur.album_id,
                 album_name: cur.album_name,
@@ -138,6 +143,7 @@ export async function getAlbumsByDates(artistId: string, dateId: string): Promis
                 total_points: adjustedScore,
                 previous_total_points: cur.previous_ranking ? prevAdjustedScore : 0,
                 total_points_raw: rawScore,
+                release_date: albumsInfo.find(item => item.album_name === cur.album_name)?.release_date || null
             });
         }
 

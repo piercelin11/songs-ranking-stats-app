@@ -11,7 +11,7 @@ export default function SorterForm( { result, type }: { result: any[], type?: "C
 
     function handleSubmit() {
         console.log(result)
-        dispatch(clear());
+        //dispatch(clear());
     }
     
     return(

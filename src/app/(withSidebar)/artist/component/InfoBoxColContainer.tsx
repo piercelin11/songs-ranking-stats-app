@@ -4,7 +4,7 @@ import { getPhotoshoot } from "@/utils/getPic";
 import styles from "@/styles/stats.module.css";
 import { getAlbumsByDates } from "@/lib/userDataProcessing/getDataByDate";
 import { fetchSpotifyAlbumData } from "@/lib/spotify/fetchSpotifyCover";
-import { fetchAlbumsInfo } from "@/lib/adminDataProcessing/prismaFetching";
+import { AlbumsRankingData } from "@/lib/userDataProcessing/getDataByDate";
 
 export default async function InfoBoxColContainer({
   artistId,
@@ -31,45 +31,39 @@ export default async function InfoBoxColContainer({
   const biggestLoser =
     min < 0 ? infoboxData.find((item) => item.difference === min) : null;
 
-  let gainerImg: string;
-  let loserImg: string;
-/* 
-  if (biggestGainer) {
-    if (biggestGainer.artist_name === "Taylor Swift") {
-      gainerImg = getPhotoshoot(
-        biggestGainer.artist_name,
-        biggestGainer.album_name
-      );
+  async function getImgUrl(albumData: AlbumsRankingData | null | undefined) {
+    if (albumData) {
+      if (albumData.artist_name === "Taylor Swift") {
+        return getPhotoshoot(albumData.artist_name, albumData.album_name);
+      } else {
+        const { imgUrl, id: spotifyAlbumId } = await fetchSpotifyAlbumData(
+          albumData.artist_name,
+          albumData.album_name,
+          albumData.release_date
+        );
+        return imgUrl;
+      }
     } else {
-      const { imgUrl, id: spotifyAlbumId } = await fetchSpotifyAlbumData(
-        biggestGainer.artist_name,
-        biggestGainer.album_name,
-        biggestGainer.release_date
-      );
+      return "";
     }
   }
- */
+
+  const gainerImg = await getImgUrl(biggestGainer);
+  const loserImg = await getImgUrl(biggestLoser);
+
   return (
     <div className={styles.infoBoxColContainer}>
       <InfoBox
         title={biggestGainer?.album_name}
         description="is the biggest gainer in points"
-        img={
-          biggestGainer
-            ? getPhotoshoot(biggestGainer.artist_name, biggestGainer.album_name)
-            : ""
-        }
+        img={gainerImg}
         icon={<RoundArrowUpIcon size={45} />}
         stats={biggestGainer?.difference}
       />
       <InfoBox
         title={biggestLoser?.album_name}
         description="is biggest loser in points"
-        img={
-          biggestLoser
-            ? getPhotoshoot(biggestLoser.artist_name, biggestLoser.album_name)
-            : ""
-        }
+        img={loserImg}
         icon={<RoundArrowDownIcon size={45} />}
         stats={biggestLoser?.difference}
       />

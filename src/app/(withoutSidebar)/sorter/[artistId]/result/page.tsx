@@ -8,8 +8,10 @@ import SorterResultRow from "../../component/SorterRow"
  
 export default function ResultPage({ params: { artistId } }: { params: { artistId: string } }) {
     const result = useAppSelector((state) => state.sorterReducer.result);
+    
 
     useEffect(() => {
+        console.log(result)
         if (result.length === 0)
             redirect(`/sorter/${artistId}/filter`)
     }, []);
